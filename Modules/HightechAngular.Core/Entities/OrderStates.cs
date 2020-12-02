@@ -21,7 +21,7 @@ namespace HightechAngular.Orders.Entities
 
             public override OrderStatus EligibleStatus => OrderStatus.New;
 
-            internal Paid BecomePaid()
+            public Paid BecomePaid()
             {
                 return Entity.To<Paid>(OrderStatus.Paid);
             }
@@ -33,7 +33,7 @@ namespace HightechAngular.Orders.Entities
             {
             }
 
-            internal Shipped BecomeShipped()
+            public Shipped BecomeShipped()
             {
                 return Entity.To<Shipped>(OrderStatus.Shipped);
             }
@@ -47,12 +47,12 @@ namespace HightechAngular.Orders.Entities
             {
             }
 
-            internal Dispute BecomeDispute()
+            public Dispute BecomeDispute()
             {
                 return Entity.To<Dispute>(OrderStatus.Dispute);
             }
 
-            internal Complete BecomeComplete()
+            public Complete BecomeComplete()
             {
                 return Entity.To<Complete>(OrderStatus.Complete);
             }
@@ -75,7 +75,7 @@ namespace HightechAngular.Orders.Entities
             {
             }
 
-            internal Complete BecomeComplete()
+            public Complete BecomeComplete()
             {
                 return Entity.To<Complete>(OrderStatus.Complete);
             }
