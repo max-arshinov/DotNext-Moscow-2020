@@ -18,9 +18,8 @@ namespace HightechAngular.Admin.Features.OrderManagement
 
         [HttpPut("PayOrder")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> PayOrder([FromBody] PayOrder command,
-            [FromServices] Func<PayOrder, PayOrderContext> factory) =>
-            await this.ProcessAsync(factory(command));        
+        public async Task<IActionResult> PayOrder([FromBody] PayOrder command) =>
+            await this.ProcessAsync(command);        
 
         [HttpGet("GetOrders")]
         [ProducesResponseType(typeof(AllOrdersItem), StatusCodes.Status200OK)]

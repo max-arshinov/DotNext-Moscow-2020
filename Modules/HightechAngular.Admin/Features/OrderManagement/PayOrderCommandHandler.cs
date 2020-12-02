@@ -7,7 +7,7 @@ using Infrastructure.Cqrs;
 
 namespace HightechAngular.Admin.Features.OrderManagement
 {
-    public class PayOrderCommandHandler : ICommandHandler<PayOrderContext, Task<HandlerResult<OrderStatus>>>
+    public class PayOrderCommandHandler : ICommandHandler<PayOrder, Task<HandlerResult<OrderStatus>>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IQueryable<Order> _orders;
@@ -20,10 +20,11 @@ namespace HightechAngular.Admin.Features.OrderManagement
             _orders = orders;
         }
 
-        public async Task<HandlerResult<OrderStatus>> Handle(PayOrderContext input)
+        public async Task<HandlerResult<OrderStatus>> Handle(PayOrder input)
         {
             await Task.Delay(1000);
-            var result = input.Order.BecomePaid();
+            var order = _orders.First(x => x.Id == input.OrderId);
+            var result = order.BecomePaid();
             _unitOfWork.Commit();
             return new HandlerResult<OrderStatus>(result);
         }

@@ -31,9 +31,6 @@
       <Compile Update="Features\OrderManagement\CreateOrderDropdownProvider.cs">
         <DependentUpon>AllOrderController.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\OrderManagement\PayOrderContext.cs">
-        <DependentUpon>PayOrder.cs</DependentUpon>
-      </Compile>
       <Compile Update="Features\OrderManagement\PayOrderCommandHandler.cs">
         <DependentUpon>PayOrder.cs</DependentUpon>
       </Compile>
