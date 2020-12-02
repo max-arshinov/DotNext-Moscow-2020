@@ -4,7 +4,7 @@ using HightechAngular.Orders.Entities;
 
 namespace HightechAngular.Orders.Services
 {
-    internal class CartDto
+    public class CartDto
     {
         public Guid Id { get; set; }
 

@@ -22,7 +22,7 @@ namespace HightechAngular.Orders.Entities
 
         public static readonly ProductSpecs Specs = new ProductSpecs();
 
-        protected Product()
+        public Product()
         {
         }
 
@@ -37,15 +37,15 @@ namespace HightechAngular.Orders.Entities
             this.EnsureInvariant();
         }
 
-        [Required] public string Name { get; protected set; }
+        [Required] public string Name { get; set; }
 
-        public double Price { get; protected set; }
+        public double Price { get; set; }
 
-        public int DiscountPercent { get; protected set; }
+        public int DiscountPercent { get; set; }
 
-        public DateTime DateCreated { get; protected set; }
+        public DateTime DateCreated { get; set; }
 
-        public virtual Category Category { get; protected set; }
+        public virtual Category Category { get; set; }
 
         public int PurchaseCount { get; set; }
 

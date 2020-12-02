@@ -13,6 +13,6 @@ namespace HightechAngular.Orders.Entities
         }
 
         [Required, StringLength(255)]
-        public string Name { get; protected set; }
+        public string Name { get; set; }
     }
 }

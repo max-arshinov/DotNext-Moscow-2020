@@ -4,7 +4,7 @@ namespace HightechAngular.Orders.Entities
 {
     public class ProductSpecs
     {
-        internal ProductSpecs()
+        public ProductSpecs()
         {
             IsBestseller = IsForSale && new Spec<Product>(x => x.PurchaseCount > 10);
         }

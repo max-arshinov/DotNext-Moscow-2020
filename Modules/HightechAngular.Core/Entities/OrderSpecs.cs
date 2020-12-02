@@ -5,7 +5,7 @@ namespace HightechAngular.Orders.Entities
 {
     public class OrderSpecs
     {
-        internal OrderSpecs()
+        public OrderSpecs()
         {
         }
         

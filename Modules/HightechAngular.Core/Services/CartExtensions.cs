@@ -6,13 +6,13 @@ namespace HightechAngular.Orders.Services
 {
     public static class CartExtensions
     {
-        internal static CartDto ToDto(this Cart cart) => new CartDto
+        public static CartDto ToDto(this Cart cart) => new CartDto
         {
             Id = cart.Id,
             CartItems = cart.CartItems.ToList()
         };
 
-        internal static Cart FromDto(this CartDto dto, User user)
+        public static Cart FromDto(this CartDto dto, User user)
         {
             if (dto == null) return null;
             return new Cart(dto.Id, dto.CartItems, user);

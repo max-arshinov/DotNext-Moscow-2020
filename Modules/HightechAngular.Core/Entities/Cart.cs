@@ -6,16 +6,16 @@ using Infrastructure.Ddd;
 
 namespace HightechAngular.Orders.Entities
 {
-    public sealed class Cart: EntityBase<Guid>
+    public class Cart: EntityBase<Guid>
     {
-        internal Cart(User user)
+        public Cart(User user)
         {
             User = user;
             Id = Guid.NewGuid();
             _cartItems = new List<CartItem>();
         }
 
-        internal Cart(Guid id, IEnumerable<CartItem> cartItems, User user)
+        public Cart(Guid id, IEnumerable<CartItem> cartItems, User user)
         {
             User = user;
             Id = id;
