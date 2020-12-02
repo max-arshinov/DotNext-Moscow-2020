@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="admin">
+    <!--<button type="submit" mat-flat-button color="primary" (click)="createProduct()">
+      Create product
+    </button>-->
+    <div *ngFor="let category of categories">
+      <div class="category"
+           [ngClass]="{'selected' : category === selectedCategory, 'unselected': category !== selectedCategory}"
+           (click)="changeCategory(category)">
+        {{category}}
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <app-grid-builder
+      #grid
+      path="{{basePath + categoriesApiRoute[selectedCategory]}}"
+      schemaName="{{categoriesSchemaNames[selectedCategory]}}"
+      [additionalColumns]="orderAdditionalColumns"
+      [additionalFrameWorkComponents]="orderFrameWorkComponents"
+    ></app-grid-builder>
+  </div>
+
+</div>

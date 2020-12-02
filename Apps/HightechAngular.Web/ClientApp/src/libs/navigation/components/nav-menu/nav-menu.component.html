@@ -1,0 +1,24 @@
+<header>
+  <nav>
+    <mat-toolbar>
+        <div class="container nav-container">
+          <a class="navbar-brand navbar-title" [routerLink]="['/']">HightechAngular.Web</a>
+          <span class="spacer"></span>
+          <div *ngIf="isAuthenticated | async" style="display: flex">
+            <a class="nav-link text-dark" [routerLink]='["/admin"]'>Admin</a>
+          </div>
+          <div style="display: flex">
+            <a class="nav-link text-dark" [routerLink]='["/catalog"]'>Catalog</a>
+          </div>
+          <span class="spacer"></span>
+          <div *ngIf="isAuthenticated | async" style="display: flex">
+            <a class="nav-link text-dark" [routerLink]='["/myOrders"]'>My Orders</a>
+          </div>
+          <div style="display: flex">
+            <a class="nav-link text-dark" [routerLink]='["/cart"]'>Cart</a>
+          </div>
+          <app-login-menu></app-login-menu>
+        </div>
+    </mat-toolbar>
+  </nav>
+</header>

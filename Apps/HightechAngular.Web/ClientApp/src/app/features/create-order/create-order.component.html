@@ -1,0 +1,24 @@
+<div *ngIf="data.products.length">
+  <h1 class="header">Order</h1>
+  <table class="table">
+    <tr>
+      <td class="cell">Name</td>
+      <td class="cell">Price</td>
+      <td class="cell">Count</td>
+    </tr>
+    <tr *ngFor="let product of data.products">
+      <td>{{product.productName}}</td>
+      <td>{{product.price}}</td>
+      <td>{{product.count}}</td>
+    </tr>
+  </table>
+  <h2>Total: ${{data.total}}</h2>
+  <button type="submit" mat-flat-button color="primary"
+          (click)="order()">Pay</button>
+</div>
+
+<div *ngIf="!data.products.length">
+  <h1>Cart is empty</h1>
+</div>
+
+

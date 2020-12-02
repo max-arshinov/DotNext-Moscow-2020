@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="catalog">
+    <h1>Categories</h1>
+    <div *ngFor="let category of categories">
+      <div class="category"
+           [ngClass]="{'selected' : category.id === selectedCategory, 'unselected' : category.id !== selectedCategory}"
+        (click)="changeCategory(category.id)">
+        {{category.name}}</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <app-grid-builder
+      #grid
+      path="/api/Catalog"
+      schemaName="ProductListItem"
+      [additionalFrameWorkComponents]="frameWorkComponents"
+      [additionalColumns]="additionalColumns"
+      (doubleClicked)="clickRow($event)"
+    ></app-grid-builder>
+  </div>
+</div>

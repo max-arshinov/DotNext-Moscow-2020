@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <UserSecretsId>aspnet-Infrastructure.Web-DCE751DC-F5F0-4AD3-BFF4-85511A6F324A</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Infrastructure.Examples\Infrastructure.Examples.csproj" />
+      <ProjectReference Include="..\SwaggerSchema\SwaggerSchema.csproj" />
+    </ItemGroup>
+
+</Project>

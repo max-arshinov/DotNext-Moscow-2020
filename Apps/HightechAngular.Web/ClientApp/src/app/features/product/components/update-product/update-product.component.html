@@ -1,0 +1,12 @@
+<app-form-builder [form]="form"
+                  formSchemaName="ProductListItem"
+                  (modelChange)="modelChange($event)"
+                  (submitted)="submitted($event)"
+                  [model]="model"
+                  [multipleEnums]="multipleEnums"
+                  [isForUpdate]="true"
+>
+  <button type="submit" mat-flat-button color="primary" [disabled]="!this.form.valid">
+    Update
+  </button>
+</app-form-builder>

@@ -1,0 +1,10 @@
+<app-form-builder [form]="form"
+                  formSchemaName="CreateProductDto"
+                  (modelChange)="modelChange($event)"
+                  [multipleEnums]="multipleEnums"
+                  (submitted)="submitted($event)"
+                  [isForUpdate]="false">
+  <button  mat-flat-button color="primary"  (click)="create(this)">
+    Create
+  </button>
+</app-form-builder>

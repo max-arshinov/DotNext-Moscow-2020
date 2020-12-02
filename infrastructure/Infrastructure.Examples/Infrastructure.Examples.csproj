@@ -1,0 +1,141 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <LangVersion>latest</LangVersion>        
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Force" Version="3.1.0-netstandard2.0-alpha1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.5" />
+        <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+        <PackageReference Include="EFCore.BulkExtensions" Version="3.1.5" />        
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Features\Example\ExampleListItem.cs">
+            <DependentUpon>GetExamples.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\GetExampleAsync.cs">
+            <DependentUpon>ExampleController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\GetExampleAsyncContext.cs">
+            <DependentUpon>GetExampleAsync.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\GetExamples.cs">
+            <DependentUpon>ExampleController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\GetExamplesQueryHandler.cs">
+            <DependentUpon>GetExamples.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\UpdateExample.cs">
+            <DependentUpon>ExampleController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\UpdateExampleAsyncContext.cs">
+            <DependentUpon>UpdateExampleExampleAsync.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\UpdateExampleContext.cs">
+            <DependentUpon>UpdateExample.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\UpdateExampleExampleAsync.cs">
+            <DependentUpon>ExampleController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\UpdateExampleHandler.cs">
+            <DependentUpon>UpdateExample.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\UpdateExampleHandlerAsync.cs">
+            <DependentUpon>UpdateExampleExampleAsync.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\UpdateExampleValidator.cs">
+            <DependentUpon>UpdateExample.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\CreateExample.cs">
+          <DependentUpon>ExampleController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Features\Example\CreateExampleHandler.cs">
+          <DependentUpon>CreateExample.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Entities\Product.Specs.cs">
+          <DependentUpon>Product.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\UpdateProduct.cs">
+          <DependentUpon>ProductController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\UpdateProductHandler.cs">
+          <DependentUpon>UpdateProduct.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\CreateProduct.cs">
+          <DependentUpon>ProductController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\CreateExampleHandler.cs">
+          <DependentUpon>CreateProduct.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Entities\Product.BatchUpdates.cs">
+          <DependentUpon>Product.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\DeleteProduct.cs">
+          <DependentUpon>ProductController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\DeleteProductHandler.cs">
+          <DependentUpon>DeleteProduct.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\GetProductDetailsById.cs">
+          <DependentUpon>ProductController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\ProductDetails.cs">
+          <DependentUpon>GetProductDetailsById.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\ProductListItem.cs">
+          <DependentUpon>GetProductList.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\GetProductList.cs">
+          <DependentUpon>ProductController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\GetProductDetailsQueryHandler.cs">
+          <DependentUpon>GetProductDetailsById.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\GetProductListItemsQueryHandler.cs">
+          <DependentUpon>GetProductList.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\ProductListFilter.cs">
+          <DependentUpon>ProductListItem.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\MassIncreasePrice.cs">
+          <DependentUpon>ProductController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\MassIncreasePriceHandler.cs">
+          <DependentUpon>MassIncreasePrice.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\CreateProductAsync.cs">
+          <DependentUpon>ProductController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\UpdateProductAsync.cs">
+          <DependentUpon>ProductController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\GetProductListAsync.cs">
+          <DependentUpon>ProductController.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\GetProductListAsyncQuryHandler.cs">
+          <DependentUpon>GetProductListAsync.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\UpdateProductAsyncContext.cs">
+          <DependentUpon>UpdateProductAsync.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\UpdateProductValidator.cs">
+          <DependentUpon>UpdateProductAsync.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\UpdateProductAsyncContextFactory.cs">
+          <DependentUpon>UpdateProductAsyncContext.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\UpdateProductAsyncHandler.cs">
+          <DependentUpon>UpdateProductAsync.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Domain\Features\CreateExampleAsyncHandler.cs">
+          <DependentUpon>CreateProductAsync.cs</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    </ItemGroup>
+</Project>

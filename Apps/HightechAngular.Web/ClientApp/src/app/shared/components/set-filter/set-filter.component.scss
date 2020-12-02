@@ -1,0 +1,39 @@
+.container{
+  width: 250px;
+}
+
+.filter-icon{
+  padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid #3f51b5;
+}
+
+.search{
+  padding: 5px 15px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #dde2eb;
+}
+
+.filter-list-container{
+  padding: 10px 15px;
+  border-bottom: 1px solid #dde2eb;
+}
+
+.filter-list{
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  overflow-y: auto;
+}
+
+.filter-buttons{
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.reset-btn{
+  margin-right: 10px;
+}

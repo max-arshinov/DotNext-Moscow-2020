@@ -1,0 +1,20 @@
+<div class="grid">
+  <app-grid-builder
+    #grid
+    path="/api/Cart"
+    schemaName="CartItem"
+    height="400"
+    [additionalFrameWorkComponents]="frameWorkComponents"
+    [additionalColumns]="additionalColumns">
+
+  </app-grid-builder>
+</div>
+
+<div class="sumCount">
+  <h1>Total: {{sumPrice}}</h1>
+</div>
+
+<button type="submit" mat-flat-button color="primary"
+  class="orderButton" (click)="order()">
+  Create order
+</button>

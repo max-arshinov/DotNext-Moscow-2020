@@ -1,0 +1,11 @@
+.add{
+  margin-right: 20px;
+}
+
+.add:hover{
+  color: #A5C24A;
+}
+
+.remove:hover{
+  color: #A5C24A;
+}

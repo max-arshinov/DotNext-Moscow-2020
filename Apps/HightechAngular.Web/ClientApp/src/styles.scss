@@ -1,0 +1,25 @@
+@import '~bootstrap/scss/bootstrap.scss';
+@import "../node_modules/ag-grid-community/src/styles/ag-grid.scss";
+@import "../node_modules/ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material-mixin.scss";
+
+
+.ag-theme-material {
+  @include ag-theme-material();
+}
+
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+html, body { height: 100%; background-color: #fafafa}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

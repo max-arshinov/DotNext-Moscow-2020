@@ -1,0 +1,17 @@
+<div>
+  <ag-grid-angular
+    *ngIf="isSchemaLoaded"
+    style="{{getHeight}}"
+    class="ag-theme-material"
+    [rowData]="rowData"
+    [defaultColDef]="defaultColDef"
+    [columnDefs]="columnDefs"
+    [frameworkComponents]="frameworkComponents"
+    (filterChanged)="onFilterChanged($event)"
+    (sortChanged)="OnSortChanged()"
+    (gridReady)="onGridReady($event)"
+    (cellDoubleClicked)="onCellDoubleClicked($event)"
+    animateRows="true"
+  >
+  </ag-grid-angular>
+</div>

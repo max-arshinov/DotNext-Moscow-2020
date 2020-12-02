@@ -1,0 +1,29 @@
+<div *ngIf="currentState === 'Shipped'">
+  <button type="submit"
+          mat-button color="accent"
+          class="dispute"
+          (click)="dispute()">
+    Dispute
+  </button>
+  <button (click)="complete()"
+          [disabled]="isNoAnyActionForState"
+          type="submit"
+          mat-button color="primary"
+          class="complete">
+    Complete
+  </button>
+</div>
+<div *ngIf="currentState === 'New'">
+  <button type="submit"
+    mat-button color="primary"
+    (click)="paid()">
+    Paid
+  </button>
+</div>
+<div *ngIf="isNoAnyActionForState">
+  <button type="submit"
+          mat-button color="accent"
+          [disabled]="true">
+    No action
+  </button>
+</div>

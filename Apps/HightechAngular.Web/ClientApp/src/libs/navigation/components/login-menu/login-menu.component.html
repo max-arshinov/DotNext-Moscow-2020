@@ -1,0 +1,16 @@
+<div style="display: flex">
+  <ng-container *ngIf="isAuthenticated | async else anonymous">
+    <a mat-icon-button class="example-icon favorite-icon navbar-icon" [routerLink]='["/authentication/profile"]'>
+      <mat-icon>account_box</mat-icon>
+    </a>
+    <a mat-icon-button class="example-icon favorite-icon navbar-icon" [routerLink]='["/authentication/logout"]' [state]='{ local: true }'>
+      <mat-icon>exit_to_app</mat-icon>
+    </a>
+  </ng-container>
+  <ng-template #anonymous>
+    <ng-container>
+      <a class="nav-link text-dark" [routerLink]='["/authentication/register"]'>Register</a>
+      <a class="nav-link text-dark" [routerLink]='["/authentication/login"]'>Login</a>
+    </ng-container>
+  </ng-template>
+</div>

@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Force" Version="2.0.0-alpha1" />
+        <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
+        <PackageReference Include="Mapster" Version="7.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Ddd\IntEntityBase.cs">
+        <DependentUpon>EntityBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="OperationContext\QueryByIntIdOperationContextBase.cs">
+        <DependentUpon>QueryByIdOperationContextBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="OperationContext\QueryByLongIdOperationContextBase.cs">
+        <DependentUpon>QueryByIdOperationContextBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="OperationContext\QueryByGuidIdOperationContextBase.cs">
+        <DependentUpon>QueryByIdOperationContextBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="OperationContext\QueryByStringIdOperationContextBase.cs">
+        <DependentUpon>QueryByIdOperationContextBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="OperationContext\ByIntIdOperationContextBase.cs">
+        <DependentUpon>ByIdOperationContextBase.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+</Project>

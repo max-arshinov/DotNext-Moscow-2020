@@ -1,0 +1,13 @@
+.table{
+  border: 5px;
+  width: 400px;
+}
+
+.header{
+  color: gray;
+  text-align: center;
+}
+
+.cell{
+  font-size: 12px;
+}

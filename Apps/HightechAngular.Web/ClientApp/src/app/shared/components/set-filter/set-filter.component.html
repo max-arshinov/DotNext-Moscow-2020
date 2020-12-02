@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="filter-icon">
+    <mat-icon aria-hidden="false" aria-label="Filter icon">filter_list</mat-icon>
+  </div>
+  <div class="search">
+    <mat-form-field class="example-form-field">
+      <mat-label>Поиск</mat-label>
+      <input matInput type="text" [formControl]="filter" (input)="filterDropdowns()">
+    </mat-form-field>
+    <mat-checkbox class="example-margin" [(ngModel)]="selectedAll" (change)="selectAll();" [(indeterminate)]="indeterminate" [disabled]="filtered.length == 0">Выбрать всё</mat-checkbox>
+  </div>
+  <div class="filter-list-container">
+    <div class="filter-list" >
+      <div *ngFor="let checkbox of filtered">
+        <mat-checkbox [(ngModel)]="checkbox.checked" (change)="checkIfAllSelected();" >{{checkbox.label}}</mat-checkbox>
+      </div>
+    </div>
+  </div>
+  <div class="filter-buttons">
+    <button mat-stroked-button color="primary" class="reset-btn" (click)="reset()">Сбросить</button>
+  </div>
+</div>

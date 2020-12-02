@@ -1,0 +1,41 @@
+.container{
+  display: flex;
+}
+
+.grid{
+  margin-bottom: 30px;
+  margin-top: 30px;
+  width: 80%;
+}
+
+.catalog{
+  margin-top: 30px;
+  width: 19%;
+}
+
+.category{
+  cursor: pointer;
+  color: black;
+  font-size: 14px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 5px;
+  background-color: white;
+  margin-bottom: 10px;
+  margin-right: 15px;
+  border-radius: 5px;
+}
+
+.unselected{
+  color: black;
+  background-color: white;
+}
+
+.selected{
+  background-color: gray;
+  color: white;
+}
+
+
+
+

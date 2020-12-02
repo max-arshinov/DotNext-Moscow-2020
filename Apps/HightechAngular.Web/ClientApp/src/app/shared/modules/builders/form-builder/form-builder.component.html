@@ -1,0 +1,14 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+>
+  <formly-form [model]="model"
+               (modelChange)="change($event)"
+               [fields]="fields"
+               [options]="options"
+               [form]="form"
+               
+  >
+    <ng-content></ng-content>
+  </formly-form>
+</form>
