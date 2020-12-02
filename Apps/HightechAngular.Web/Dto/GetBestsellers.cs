@@ -1,4 +1,4 @@
-﻿using Force.Cqrs;
+﻿﻿using Force.Cqrs;
 
 namespace HightechAngular.Shop.Features.Index
 {

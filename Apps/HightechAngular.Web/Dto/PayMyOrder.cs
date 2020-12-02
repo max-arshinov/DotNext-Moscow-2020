@@ -1,7 +1,5 @@
-using System;
 using System.Threading.Tasks;
 using Force.Cqrs;
-using HightechAngular.Orders.Base;
 using HightechAngular.Orders.Entities;
 using Infrastructure.Cqrs;
 
