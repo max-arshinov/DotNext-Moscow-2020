@@ -8,20 +8,23 @@ using JetBrains.Annotations;
 namespace HightechAngular.Shop.Features.Cart
 {
     [UsedImplicitly]
-    public class RemoveCartItemHandler : ICommandHandler<RemoveCartItemContext, bool>
+    public class UpdateCartHandler : ICommandHandler<UpdateCart>
     {
         private readonly ICartStorage _cartStorage;
+        private readonly IQueryable<Product> _products;
 
-        public RemoveCartItemHandler(ICartStorage cartStorage)
+        public UpdateCartHandler(ICartStorage cartStorage, 
+            IQueryable<Product> products)
         {
             _cartStorage = cartStorage;
+            _products = products;
         }
 
-        public bool Handle(RemoveCartItemContext input)
+        public void Handle(UpdateCart input)
         {
-            var res = _cartStorage.Cart.TryRemoveProduct(input.Product.Id);
+            var product = _products.First(x => x.Id == input.ProductId);
+            _cartStorage.Cart.AddProduct(product);
             _cartStorage.SaveChanges();
-            return res;
         }
     }
 }

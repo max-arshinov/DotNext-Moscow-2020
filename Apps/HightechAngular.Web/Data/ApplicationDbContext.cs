@@ -6,8 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Options;
-using SQLitePCL;
-using ILoggerFactory = Castle.Core.Logging.ILoggerFactory;
+
 
 namespace HightechAngular.Data
 {
