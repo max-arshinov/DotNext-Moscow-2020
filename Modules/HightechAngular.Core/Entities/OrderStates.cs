@@ -23,11 +23,6 @@ namespace HightechAngular.Orders.Entities
 
             internal Paid BecomePaid()
             {
-                foreach (var orderItem in Entity.OrderItems)
-                {
-                    _domainEvents.Raise(new ProductPurchased(orderItem.ProductId, orderItem.Count));
-                }
-
                 return Entity.To<Paid>(OrderStatus.Paid);
             }
         }

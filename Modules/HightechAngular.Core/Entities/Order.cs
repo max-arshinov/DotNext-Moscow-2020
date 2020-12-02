@@ -10,8 +10,7 @@ namespace HightechAngular.Orders.Entities
 {
     // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
     public partial class Order: 
-        HasStateBase<OrderStatus, Order.OrderStateBase>,
-        IHasDomainEvents
+        HasStateBase<OrderStatus, Order.OrderStateBase>
     {
         public static readonly OrderSpecs Specs = new OrderSpecs();
 
@@ -65,12 +64,5 @@ namespace HightechAngular.Orders.Entities
         public double Total { get; protected set; }
         
         public Guid? TrackingCode { get; protected set; }
-        private static DomainEventStore _domainEvents = new DomainEventStore();
-        public IEnumerable<IDomainEvent> GetDomainEvents()
-        {
-            var domainEvents = _domainEvents;
-            _domainEvents = new DomainEventStore();
-            return domainEvents;
-        }
     }
 }

@@ -18,8 +18,6 @@ namespace HightechAngular.Orders
             services.AddScoped<IHandler<Order.Shipped, Task<Order.Dispute>>, DisputeOrderHandler>();
             services.AddScoped<IHandler<Order.Shipped, Task<Order.Complete>>, CompleteFromShippedOrderHandler>();
             services.AddScoped<IHandler<Order.Dispute, Task<Order.Complete>>, CompleteFromDisputeOrderHandler>();
-            
-            services.AddScoped<IHandler<IEnumerable<ProductPurchased>>, OrderDomainEventHandler>();
         }
     }
 }
