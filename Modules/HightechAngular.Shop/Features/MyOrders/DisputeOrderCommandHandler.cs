@@ -19,8 +19,8 @@ namespace HightechAngular.Shop.Features.MyOrders
         {
             var order = _orders.First(x => x.Id == input.OrderId);
             await Task.Delay(1000);
-            var result =  order.With((Order.Shipped shippedOrder) => shippedOrder.BecomeDispute());
-            return new HandlerResult<OrderStatus>(result.EligibleStatus);
+            var result = order.BecomeDispute();
+            return new HandlerResult<OrderStatus>(result);
         }
     }
 }

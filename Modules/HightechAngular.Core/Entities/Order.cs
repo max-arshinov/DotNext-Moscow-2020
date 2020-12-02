@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Force.Ddd;
 using Force.Ddd.DomainEvents;
 using HightechAngular.Identity.Entities;
 using Infrastructure.Ddd.Domain.State;
@@ -9,8 +10,7 @@ using Infrastructure.Ddd.Domain.State;
 namespace HightechAngular.Orders.Entities
 {
     // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
-    public partial class Order: 
-        HasStateBase<OrderStatus, Order.OrderStateBase>
+    public class Order : HasIdBase
     {
         public static readonly OrderSpecs Specs = new OrderSpecs();
 
@@ -36,19 +36,28 @@ namespace HightechAngular.Orders.Entities
             Total = _orderItems.Select(x => x.Price).Sum();
             Status = OrderStatus.New;
         }
+        public OrderStatus BecomePaid()
+        {
+            Status = OrderStatus.Paid;
+            return Status;
+        }
+        public OrderStatus BecomeShipped()
+        {
+            Status = OrderStatus.Shipped;
+            return Status;
+        }
         
-        public override Order.OrderStateBase GetState(OrderStatus status) =>
-            status switch
-            {
-                OrderStatus.New => new Order.New(this),
-                OrderStatus.Paid => new Order.Paid(this),
-                OrderStatus.Shipped => new Order.Shipped(this),
-                OrderStatus.Dispute => new Order.Dispute(this),
-                OrderStatus.Complete => new Order.Complete(this),
-                //https://github.com/dotnet/csharplang/issues/2266
-                //see also https://github.com/ardalis/SmartEnum
-                _ => throw new NotSupportedException($"Status \"{status}\" is not supported")
-            };
+        public OrderStatus BecomeDispute()
+        {
+            Status = OrderStatus.Dispute;
+            return Status;
+        }
+        
+        public OrderStatus BecomeComplete()
+        {
+            Status = OrderStatus.Complete;
+            return Status;
+        }
 
         [Required]
         public virtual User User { get; protected set; }
@@ -64,5 +73,7 @@ namespace HightechAngular.Orders.Entities
         public double Total { get; protected set; }
         
         public Guid? TrackingCode { get; protected set; }
+        
+        public OrderStatus Status { get; protected set; }
     }
 }

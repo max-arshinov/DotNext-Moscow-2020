@@ -20,9 +20,6 @@
       <Compile Update="Entities\OrderSpecs.cs">
         <DependentUpon>Order.cs</DependentUpon>
       </Compile>
-      <Compile Update="Entities\OrderStates.cs">
-        <DependentUpon>Order.cs</DependentUpon>
-      </Compile>
       <Compile Update="Entities\CartItem.cs">
         <DependentUpon>Cart.cs</DependentUpon>
       </Compile>

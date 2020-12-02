@@ -19,8 +19,8 @@ namespace HightechAngular.Admin.Features.OrderManagement
         {
             var order = _orders.First(x => x.Id == input.OrderId);
             await Task.Delay(1000);
-            var result = order.With((Order.Dispute disputeOrder) => disputeOrder.BecomeComplete());
-            return new HandlerResult<OrderStatus>(result.EligibleStatus);
+            var result = order.BecomeComplete();
+            return new HandlerResult<OrderStatus>(result);;
         }
     }
 }
