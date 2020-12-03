@@ -190,6 +190,7 @@
 ## Ссылки
 - [Domain events: design and implementation](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/domain-events-design-implementation)
 - [Better domain event pattern](https://lostechies.com/jimmybogard/2014/05/13/a-better-domain-events-pattern/)
+- [Multiple dispatch в C#](https://habr.com/ru/post/283522/)
 - [Event storming](https://www.eventstorming.com/) 
 
 ## Плюсы
@@ -207,7 +208,7 @@
 
 ## Задача
 - Реализовать массовую операцию
-- Подписаться на событие одного и обработать его в другом
+- Подписаться на событие одного модуля и обработать его в другом
 
 ## Ссылки
 - [Bulk Extensions](https://github.com/borisdj/EFCore.BulkExtensions)
