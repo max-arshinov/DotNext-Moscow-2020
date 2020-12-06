@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Transactions;
 using Force.Ccc;
 using Force.Cqrs;
 using Force.Ddd.DomainEvents;
@@ -36,21 +35,11 @@ namespace Infrastructure.Ddd
             _dbContext.Remove(entity);
         }
 
-        public override void Rollback()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public override TEntity Find<TEntity>(params object[] id) 
         {
             return (TEntity)_dbContext.Find(typeof(TEntity), id);
         }
-
-        public override Transaction BeginTransaction()
-        {
-            throw new NotImplementedException();
-        }
-
+        
         protected override void DoCommit()
         {
             _dbContext.SaveChanges();
@@ -60,6 +49,11 @@ namespace Infrastructure.Ddd
             _dbContext.ChangeTracker
                 .Entries<IHasDomainEvents>()
                 .SelectMany(x => x.Entity.GetDomainEvents());
+
+        public override IUnitOfWorkTransaction BeginTransaction()
+        {
+            return new EfCoreUnitOfWorkTransaction(_dbContext.Database.BeginTransaction());
+        }
 
         public override void Update<TEntity>(TEntity entity)
         {

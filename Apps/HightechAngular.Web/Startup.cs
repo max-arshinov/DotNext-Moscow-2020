@@ -5,6 +5,7 @@ using HightechAngular.Data;
 using HightechAngular.Identity.Entities;
 using HightechAngular.Identity.Services;
 using HightechAngular.Orders;
+using HightechAngular.Orders.Entities;
 using HightechAngular.Shop;
 using HightechAngular.Shop.Features.Catalog;
 using HightechAngular.Web.Filters;
@@ -23,6 +24,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace HightechAngular.Web
@@ -65,13 +67,13 @@ namespace HightechAngular.Web
                 .AddControllersWithViews(options => options.Filters.Add(typeof(ExceptionsFilterAttribute)))
                 .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); })
                 .AddModulesWithDbContext<ApplicationDbContext>(
+                    typeof(Order).Assembly,
                     typeof(CatalogController).Assembly,
                     typeof(OrderController).Assembly);
 
             services.RegisterShop();
             services.RegisterAdmin();
-            services.RegisterOrder();
-
+            
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.RegisterSwagger();
             services.AddHttpContextAccessor();

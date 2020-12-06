@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Workflow
@@ -10,6 +11,9 @@ namespace Infrastructure.Workflow
             Type = type;
             Message = message;
         }
+        
+        public static FailureInfo Exception(Exception e, string message = null) => 
+            new ExceptionFailureInfo(e, message);
 
         public static FailureInfo Invalid(string message) => 
             new FailureInfo(FailureType.Invalid, message);

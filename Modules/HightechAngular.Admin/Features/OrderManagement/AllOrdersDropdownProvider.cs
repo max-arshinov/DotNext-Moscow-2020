@@ -5,11 +5,11 @@ using Infrastructure.SwaggerSchema.Dropdowns.Providers;
 
 namespace HightechAngular.Admin.Features.OrderManagement
 {
-    public class CreateOrderDropdownProvider : IDropdownProvider<AllOrdersItem>
+    public class AllOrdersDropdownProvider : IDropdownProvider<AllOrdersItem>
     {
         private readonly IServiceProvider _serviceProvider;
 
-        public CreateOrderDropdownProvider(IServiceProvider serviceProvider)
+        public AllOrdersDropdownProvider(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }

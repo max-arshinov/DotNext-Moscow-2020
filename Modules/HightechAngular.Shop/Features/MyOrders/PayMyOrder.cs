@@ -7,8 +7,8 @@ using Infrastructure.Cqrs;
 
 namespace HightechAngular.Shop.Features.MyOrders
 {
-    public class PayMyOrder: ICommand<Task<HandlerResult<OrderStatus>>>
+    public class PayMyOrder : ICommand<Task<CommandResult<OrderStatus>>>
     {
-        public int   OrderId { get; set; }
+        public int OrderId { get; set; }
     }
 }

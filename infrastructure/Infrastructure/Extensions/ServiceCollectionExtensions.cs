@@ -6,6 +6,7 @@ using Force.Ccc;
 using Force.Cqrs;
 using Force.Ddd.DomainEvents;
 using Force.Reflection;
+using Infrastructure.Cqrs;
 using Infrastructure.Ddd;
 using Infrastructure.OperationContext;
 using Infrastructure.Validation;
@@ -22,10 +23,11 @@ namespace Infrastructure.Extensions
     {
         private static readonly Type[] TargetInterfaces =
         {
+            typeof(IHandler<>),
             typeof(IHandler<,>),
-            
             typeof(ICommandHandler<>),
             typeof(ICommandHandler<,>),
+            typeof(IDomainEventHandler<>),
             typeof(IFilter<,>),
             typeof(ISorter<,>),
             typeof(IQueryHandler<,>),
@@ -209,15 +211,36 @@ namespace Infrastructure.Extensions
                     continue;
                 }
 
-                foreach (var inf in type
+                var interfaces = type
                     .GetInterfaces()
-                    .Where(x => x.IsGenericType))
+                    .Where(x => x.IsGenericType)
+                    .ToArray();
+                
+                foreach (var inf in interfaces)
                 {
                     var gtd = inf.GetGenericTypeDefinition();
 
                     if (TargetInterfaces.Contains(gtd))
                     {
-                        impls[inf] = type;
+                        if (gtd == typeof(IHandler<,>))
+                        {
+                            if (!interfaces.Contains(typeof(ICommandHandler<,>))
+                                && !interfaces.Contains(typeof(IQueryHandler<,>)))
+                            {
+                                impls[inf] = type;
+                            }
+                        }
+                        else if (gtd == typeof(IHandler<>))
+                        {
+                            if (interfaces.Contains(typeof(IDomainEventHandler<>)))
+                            {
+                                impls[inf] = type;
+                            }
+                        }
+                        else
+                        {
+                            impls[inf] = type;
+                        }
                     }
 
                     if (typeof(IOperationContext<>) == gtd)

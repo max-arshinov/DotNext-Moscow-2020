@@ -4,6 +4,7 @@
     {
         Unauthorized,
         Invalid,
+        Exception,
         ConfigurationError,
         Other,
         NotImplemented

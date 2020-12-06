@@ -1,5 +1,6 @@
 using System;
 using Infrastructure.Ddd.Domain.State;
+using JetBrains.Annotations;
 
 namespace HightechAngular.Orders.Entities
 {
@@ -24,9 +25,7 @@ namespace HightechAngular.Orders.Entities
             internal Paid BecomePaid()
             {
                 foreach (var orderItem in Entity.OrderItems)
-                {
                     _domainEvents.Raise(new ProductPurchased(orderItem.ProductId, orderItem.Count));
-                }
 
                 return Entity.To<Paid>(OrderStatus.Paid);
             }
@@ -38,12 +37,12 @@ namespace HightechAngular.Orders.Entities
             {
             }
 
+            public override OrderStatus EligibleStatus => OrderStatus.Paid;
+
             internal Shipped BecomeShipped()
             {
                 return Entity.To<Shipped>(OrderStatus.Shipped);
             }
-
-            public override OrderStatus EligibleStatus => OrderStatus.Paid;
         }
 
         public class Shipped : OrderStateBase
@@ -52,17 +51,19 @@ namespace HightechAngular.Orders.Entities
             {
             }
 
-            internal Dispute BecomeDispute()
+            public override OrderStatus EligibleStatus => OrderStatus.Shipped;
+
+            internal Disputed BecomeDisputed([NotNull] string complain)
             {
-                return Entity.To<Dispute>(OrderStatus.Dispute);
+                if (string.IsNullOrEmpty(complain)) throw new ArgumentNullException(nameof(complain));
+                Entity.Complaint = complain;
+                return Entity.To<Disputed>(OrderStatus.Dispute);
             }
 
             internal Complete BecomeComplete()
             {
                 return Entity.To<Complete>(OrderStatus.Complete);
             }
-
-            public override OrderStatus EligibleStatus => OrderStatus.Shipped;
         }
 
         public class Complete : OrderStateBase
@@ -74,18 +75,19 @@ namespace HightechAngular.Orders.Entities
             public override OrderStatus EligibleStatus => OrderStatus.Complete;
         }
 
-        public class Dispute : OrderStateBase
+        public class Disputed : OrderStateBase
         {
-            public Dispute(Order entity) : base(entity)
+            public Disputed(Order entity) : base(entity)
             {
-            }
-
-            internal Complete BecomeComplete()
-            {
-                return Entity.To<Complete>(OrderStatus.Complete);
             }
 
             public override OrderStatus EligibleStatus => OrderStatus.Dispute;
+
+            internal Complete Resolve(string resolutionComment)
+            {
+                if (string.IsNullOrEmpty(resolutionComment)) throw new ArgumentNullException(nameof(resolutionComment));
+                return Entity.To<Complete>(OrderStatus.Complete);
+            }
         }
     }
 }

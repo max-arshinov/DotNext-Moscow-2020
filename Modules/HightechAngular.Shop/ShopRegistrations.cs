@@ -1,8 +1,11 @@
+using HightechAngular.Orders;
 using HightechAngular.Orders.Entities;
+using HightechAngular.Orders.Handlers;
 using HightechAngular.Orders.Services;
 using HightechAngular.Shop.Features.Cart;
 using HightechAngular.Shop.Features.Catalog;
 using HightechAngular.Shop.Features.Index;
+using HightechAngular.Shop.Features.MyOrders;
 using Infrastructure.SwaggerSchema.Dropdowns.Providers;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +21,10 @@ namespace HightechAngular.Shop
             services.AddScoped<IDropdownProvider<NewArrivalsListItem>, NewArrivalsDropdownProvider>();
             services.AddScoped<IDropdownProvider<SaleListItem>, SaleListDropdownProvider>();
             services.AddScoped<IDropdownProvider<CartItem>, CartDropdownProvider>();
+
+            services
+                .AddOrderStateTransition<DisputeOrder, Order.Shipped, Order.Disputed>()
+                .AddOrderStateTransition<CompleteOrder, Order.Shipped, Order.Complete>();
         }
     }
 }

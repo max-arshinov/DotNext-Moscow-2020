@@ -5,7 +5,7 @@
         <OutputType>Library</OutputType>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Force" Version="2.0.0-alpha1" />
+        <PackageReference Include="Force" Version="2.0.0-alpha3" />
         <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
         <PackageReference Include="Mapster" Version="7.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
@@ -28,6 +28,12 @@
       </Compile>
       <Compile Update="OperationContext\ByIntIdOperationContextBase.cs">
         <DependentUpon>ByIdOperationContextBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Workflow\ValidationFailureInfo.cs">
+        <DependentUpon>FailureInfo.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Workflow\ExceptionFailureInfo.cs">
+        <DependentUpon>FailureInfo.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>
