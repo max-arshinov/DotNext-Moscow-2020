@@ -2,23 +2,22 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using HightechAngular.Identity.Entities;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using HightechAngular.Identity;
-using HightechAngular.Identity.Entities;
 
 namespace HightechAngular.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
         public LoginModel(SignInManager<User> signInManager,
             ILogger<LoginModel> logger,
@@ -38,18 +37,6 @@ namespace HightechAngular.Web.Areas.Identity.Pages.Account
 
         [TempData]
         public string ErrorMessage { get; set; }
-
-        public class InputModel
-        {
-            [Required(ErrorMessage = "Введите никнейм или электронную почту")]
-            [Display(Name = "Никнейм/электронная почта")]
-            public string Login { get; set; }
-
-            [Required(ErrorMessage = "Введите пароль")]
-            [DataType(DataType.Password)]
-            [Display(Name = "Пароль")]
-            public string Password { get; set; }
-        }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -72,9 +59,13 @@ namespace HightechAngular.Web.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
 
-            if (!ModelState.IsValid) return Page();
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
-            var user = await _userManager.FindByEmailAsync(Input.Login) ?? await _userManager.FindByNameAsync(Input.Login);
+            var user = await _userManager.FindByEmailAsync(Input.Login)
+                       ?? await _userManager.FindByNameAsync(Input.Login);
 
             if (user != null)
             {
@@ -89,6 +80,18 @@ namespace HightechAngular.Web.Areas.Identity.Pages.Account
 
             ModelState.AddModelError(string.Empty, "Неверный логин или пароль");
             return Page();
+        }
+
+        public class InputModel
+        {
+            [Required(ErrorMessage = "Введите никнейм или электронную почту")]
+            [Display(Name = "Никнейм/электронная почта")]
+            public string Login { get; set; }
+
+            [Required(ErrorMessage = "Введите пароль")]
+            [DataType(DataType.Password)]
+            [Display(Name = "Пароль")]
+            public string Password { get; set; }
         }
     }
 }

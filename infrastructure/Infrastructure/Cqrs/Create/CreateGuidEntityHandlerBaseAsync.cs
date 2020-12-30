@@ -8,7 +8,5 @@ namespace Infrastructure.Cqrs.Create
     public abstract class CreateGuidEntityHandlerBaseAsync<TCommand, TEntity> :
         CreateEntityHandlerBaseAsync<Guid, TCommand, TEntity>
         where TEntity : class, IHasId<Guid>
-        where TCommand : ICommand<Task<Guid>>
-    {
-    }
+        where TCommand : ICommand<Task<Guid>> { }
 }

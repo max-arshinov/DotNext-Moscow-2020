@@ -10,13 +10,11 @@ namespace HightechAngular.Orders.Handlers
 {
     [UsedImplicitly]
     public class PayOrderHandler : ChangeOrderStateHandlerBase<
-        PayOrder, 
+        PayOrder,
         Order.New,
         Order.Paid>
     {
-        public PayOrderHandler(IUnitOfWork unitOfWork, ILogger<PayOrder> logger) : base(unitOfWork, logger)
-        {
-        }
+        public PayOrderHandler(IUnitOfWork unitOfWork, ILogger<PayOrder> logger) : base(unitOfWork, logger) { }
 
         protected override Order.Paid ChangeState(ChangeOrderStateConext<PayOrder, Order.New> input)
         {
@@ -28,7 +26,8 @@ namespace HightechAngular.Orders.Handlers
             await Task.Delay(300); // Imitate API Request
         }
 
-        protected override async Task RollbackRemoteSystem(ChangeOrderStateConext<PayOrder, Order.New> input, DbException e)
+        protected override async Task RollbackRemoteSystem(ChangeOrderStateConext<PayOrder, Order.New> input,
+            DbException e)
         {
             await Task.Delay(300); // Imitate API Request
         }

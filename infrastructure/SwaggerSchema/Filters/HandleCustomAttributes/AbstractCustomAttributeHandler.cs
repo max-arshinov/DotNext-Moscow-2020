@@ -8,7 +8,7 @@ namespace Infrastructure.SwaggerSchema.Filters.HandleCustomAttributes
     public abstract class AbstractCustomAttributeHandler
     {
         protected Dictionary<string, IOpenApiAny> Properties { get; set; }
-        
+
         protected abstract string Key { get; set; }
 
         public abstract void FillProperties(PropertyInfo property);

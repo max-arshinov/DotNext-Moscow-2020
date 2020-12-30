@@ -13,7 +13,7 @@ namespace HightechAngular.Shop.Features.MyOrders
         private readonly IUnitOfWork _unitOfWork;
 
         public CreateOrderCommandHandler(
-            ICartStorage cartStorage, 
+            ICartStorage cartStorage,
             IUnitOfWork unitOfWork)
         {
             _cartStorage = cartStorage;

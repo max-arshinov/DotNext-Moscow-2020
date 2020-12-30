@@ -6,7 +6,7 @@ using Infrastructure.Validation;
 
 namespace Infrastructure.Workflow
 {
-    public class ValidateWorkflowStep<TRequest, TReturn>: IWorkflowStep<TRequest, TReturn>
+    public class ValidateWorkflowStep<TRequest, TReturn> : IWorkflowStep<TRequest, TReturn>
     {
         private readonly IValidator<TRequest> _validator;
 
@@ -14,20 +14,20 @@ namespace Infrastructure.Workflow
         {
             _validator = validator;
         }
-        
+
         public Result<TReturn, FailureInfo> Process(TRequest request, Func<TRequest, Result<TReturn, FailureInfo>> next)
         {
             var errors = _validator
                 .Validate(request)
                 .ToList();
-            
-            return errors.IsValid() 
-                ? next(request) 
+
+            return errors.IsValid()
+                ? next(request)
                 : FailureInfo.Invalid(errors);
         }
     }
-    
-    public class ValidateWorkflowAsyncStep<TRequest, TReturn>: IAsyncWorkflowStep<TRequest, TReturn>
+
+    public class ValidateWorkflowAsyncStep<TRequest, TReturn> : IAsyncWorkflowStep<TRequest, TReturn>
     {
         private readonly IAsyncValidator<TRequest> _asyncValidator;
 
@@ -37,7 +37,7 @@ namespace Infrastructure.Workflow
         }
 
         public async Task<Result<TReturn, FailureInfo>> ProcessAsync(
-            TRequest request, 
+            TRequest request,
             Func<TRequest, Task<Result<TReturn, FailureInfo>>> next)
         {
             var errors = await _asyncValidator.ValidateAsync(request);

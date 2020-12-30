@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Force.Ccc;
 using Force.Cqrs;
 using Force.Ddd;
-using Infrastructure.Ddd;
 using Infrastructure.Workflow;
 
 namespace Infrastructure.Cqrs.Delete
@@ -17,6 +16,13 @@ namespace Infrastructure.Cqrs.Delete
     {
         private IUnitOfWork _uow;
 
+        public Task Handle(TCommand input)
+        {
+            Delete(input);
+            _uow.Commit();
+            return Task.CompletedTask;
+        }
+
         IUnitOfWork IHasUnitOfWork.UnitOfWork
         {
             get => _uow;
@@ -26,13 +32,6 @@ namespace Infrastructure.Cqrs.Delete
         private TEntity GetEntity(TKey id)
         {
             return _uow.Find<TEntity>(id);
-        }
-
-        public Task Handle(TCommand input)
-        {
-            Delete(input);
-            _uow.Commit();
-            return Task.CompletedTask;
         }
 
         protected virtual void Delete(TCommand input)

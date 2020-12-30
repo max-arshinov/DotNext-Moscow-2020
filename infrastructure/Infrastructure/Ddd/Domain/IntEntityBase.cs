@@ -1,7 +1,4 @@
 namespace Infrastructure.Ddd.Domain
 {
-    public abstract class IntEntityBase : EntityBase<int>
-    {
-        
-    }
+    public abstract class IntEntityBase : EntityBase<int> { }
 }

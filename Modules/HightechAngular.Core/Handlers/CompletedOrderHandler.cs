@@ -7,12 +7,10 @@ using Microsoft.Extensions.Logging;
 namespace HightechAngular.Orders.Handlers
 {
     [UsedImplicitly]
-    public class CompletedOrderHandler :
-        CompleteOrderHandlerBase<CompleteOrder, Order.Shipped, Order.Complete>
+    public class CompletedOrderHandler : CompleteOrderHandlerBase<CompleteOrder, Order.Shipped, Order.Complete>
     {
-        public CompletedOrderHandler(IUnitOfWork unitOfWork, ILogger<CompleteOrder> logger) : base(unitOfWork, logger)
-        {
-        }
+        public CompletedOrderHandler(IUnitOfWork unitOfWork, ILogger<CompleteOrder> logger) :
+            base(unitOfWork, logger) { }
 
 
         protected override Order.Complete ChangeState(ChangeOrderStateConext<CompleteOrder, Order.Shipped> input)

@@ -10,7 +10,7 @@ namespace HightechAngular.Orders.Entities
         }
 
         public Spec<Product> IsForSale { get; } = new Spec<Product>(x => x.Price > 0);
-        
-        public Spec<Product> IsBestseller { get;  }
+
+        public Spec<Product> IsBestseller { get; }
     }
 }

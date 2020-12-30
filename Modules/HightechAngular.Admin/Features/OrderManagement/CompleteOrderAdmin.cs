@@ -2,7 +2,5 @@ using HightechAngular.Orders.Base;
 
 namespace HightechAngular.Admin.Features.OrderManagement
 {
-    public class CompleteOrderAdmin : ChangeOrderStateCommandBase
-    {
-    }
+    public class CompleteOrderAdmin : ChangeOrderStateCommandBase { }
 }

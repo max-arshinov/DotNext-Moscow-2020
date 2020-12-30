@@ -116,11 +116,8 @@
       <Compile Update="Features\Cart\RemoveCartItemContext.cs">
         <DependentUpon>RemoveCartItem.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\MyOrders\PayMyOrder.cs">
+      <Compile Update="Features\MyOrders\PayOrderCommandHandler.cs">
         <DependentUpon>MyOrdersController.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Features\MyOrders\PayMyOrderCommandHandler.cs">
-        <DependentUpon>PayMyOrder.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\MyOrders\CreateOrderCommandHandler.cs">
         <DependentUpon>CreateOrder.cs</DependentUpon>
@@ -132,7 +129,7 @@
         <DependentUpon>MyOrdersController.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\MyOrders\PayOrderDropdownProvider.cs">
-        <DependentUpon>PayMyOrder.cs</DependentUpon>
+        <DependentUpon>PayOrderCommandHandler.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>

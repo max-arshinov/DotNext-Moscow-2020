@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Force.Ccc;
 using Force.Cqrs;
 using Force.Ddd;
-using Infrastructure.Ddd;
 using Infrastructure.Workflow;
 
 namespace Infrastructure.Cqrs.Update
@@ -20,14 +19,6 @@ namespace Infrastructure.Cqrs.Update
     {
         private IUnitOfWork _uow;
 
-        IUnitOfWork IHasUnitOfWork.UnitOfWork
-        {
-            get => _uow;
-            set => _uow = value;
-        }
-
-        protected abstract void UpdateEntity(TEntity entity, TCommand command);
-
         public Task Handle(TCommand input)
         {
             var entity = _uow.Find<TEntity>(input.Id);
@@ -36,9 +27,17 @@ namespace Infrastructure.Cqrs.Update
             return Task.CompletedTask;
         }
 
+        IUnitOfWork IHasUnitOfWork.UnitOfWork
+        {
+            get => _uow;
+            set => _uow = value;
+        }
+
         public IEnumerable<ValidationResult> Validate(TCommand obj)
         {
             yield return ValidationResult.Success;
         }
+
+        protected abstract void UpdateEntity(TEntity entity, TCommand command);
     }
 }

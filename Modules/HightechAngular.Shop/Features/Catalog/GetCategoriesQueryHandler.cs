@@ -4,10 +4,8 @@ using Infrastructure.Cqrs.Read;
 
 namespace HightechAngular.Shop.Features.Catalog
 {
-    public class GetCategoriesQueryHandler: GetIntEnumerableQueryHandlerBase<GetCategories, Category, CategoryListItem>
+    public class GetCategoriesQueryHandler : GetIntEnumerableQueryHandlerBase<GetCategories, Category, CategoryListItem>
     {
-        public GetCategoriesQueryHandler(IQueryable<Category> queryable) : base(queryable)
-        {
-        }
+        public GetCategoriesQueryHandler(IQueryable<Category> queryable) : base(queryable) { }
     }
 }

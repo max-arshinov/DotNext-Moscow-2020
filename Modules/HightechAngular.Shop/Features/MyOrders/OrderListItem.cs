@@ -8,7 +8,9 @@ namespace HightechAngular.Shop.Features.MyOrders
 {
     public class OrderListItem : HasIdBase
     {
-        public static readonly Expression<Func<Order, OrderListItem>> Map = x => new OrderListItem()
+        private const string Comment = "To do comments";
+
+        public static readonly Expression<Func<Order, OrderListItem>> Map = x => new OrderListItem
         {
             Id = x.Id,
             Total = x.Total,
@@ -23,19 +25,17 @@ namespace HightechAngular.Shop.Features.MyOrders
 
         [Display(Name = "Total")]
         public double Total { get; set; }
-        
+
         [Display(Name = "Status")]
         public string Status { get; set; }
-        
+
         [Display(Name = "Created")]
         public string Created { get; set; }
-        
+
         [Display(Name = "UserName")]
         public string UserName { get; set; }
 
-        [Display(Name = "Comment")] 
+        [Display(Name = "Comment")]
         public string DisputeComment { get; set; }
-
-        private const string Comment = "To do comments";
     }
 }

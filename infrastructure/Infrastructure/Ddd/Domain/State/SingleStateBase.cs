@@ -7,9 +7,7 @@ namespace Infrastructure.Ddd.Domain.State
         where TEntity : class, IHasStatus<TStatus>
         where TStatus : Enum
     {
-        protected SingleStateBase(TEntity entity) : base(entity)
-        {
-        }
+        protected SingleStateBase(TEntity entity) : base(entity) { }
 
         public abstract TStatus EligibleStatus { get; }
 

@@ -15,7 +15,7 @@ namespace HightechAngular.Admin
             services.AddScoped<IDropdownProvider<PayOrder>, PayOrderDropdownProvider>();
             services.AddScoped<IDropdownProvider<OrderListItem>, OrderListItemDropdownProvider>();
             services.AddScoped<IDropdownProvider<AllOrdersItem>, AllOrdersDropdownProvider>();
-            
+
             services
                 .AddOrderStateTransition<ShipOrder, Order.Paid, Order.Shipped>()
                 .AddOrderStateTransition<ResolveDisputedOrder, Order.Disputed, Order.Complete>();

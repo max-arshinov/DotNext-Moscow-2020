@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 namespace HightechAngular.Shop.Features.MyOrders
 {
     [UsedImplicitly]
-    public class GetMyOrdersFilter : IFilter<Order, GetMyOrders> 
+    public class GetMyOrdersFilter : IFilter<Order, GetMyOrders>
     {
         private readonly IUserContext _userContext;
 
@@ -16,7 +16,9 @@ namespace HightechAngular.Shop.Features.MyOrders
             _userContext = userContext;
         }
 
-        public IQueryable<Order> Filter(IQueryable<Order> queryable, GetMyOrders predicate) =>
-            queryable.Where(Order.Specs.ByUserName(_userContext.User?.UserName));
+        public IQueryable<Order> Filter(IQueryable<Order> queryable, GetMyOrders predicate)
+        {
+            return queryable.Where(Order.Specs.ByUserName(_userContext.User?.UserName));
+        }
     }
 }

@@ -3,7 +3,7 @@ using Force.Cqrs;
 
 namespace HightechAngular.Shop.Features.Index
 {
-    public class GetNewArrivals: FilterQuery<NewArrivalsListItem>
+    public class GetNewArrivals : FilterQuery<NewArrivalsListItem>
     {
         public override IOrderedQueryable<NewArrivalsListItem> Sort(IQueryable<NewArrivalsListItem> queryable)
         {
@@ -11,6 +11,7 @@ namespace HightechAngular.Shop.Features.Index
             {
                 return Asc ? queryable.OrderByDescending(x => x.DateCreated) : queryable.OrderBy(x => x.DateCreated);
             }
+
             return base.Sort(queryable);
         }
     }

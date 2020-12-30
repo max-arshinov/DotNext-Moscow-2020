@@ -4,10 +4,8 @@ using Infrastructure.Cqrs.Read;
 
 namespace HightechAngular.Shop.Features.Index
 {
-    public class GetSaleQueryHandler: GetIntEnumerableQueryHandlerBase<GetSale, Product, SaleListItem>
+    public class GetSaleQueryHandler : GetIntEnumerableQueryHandlerBase<GetSale, Product, SaleListItem>
     {
-        public GetSaleQueryHandler(IQueryable<Product> queryable) : base(queryable)
-        {
-        }
+        public GetSaleQueryHandler(IQueryable<Product> queryable) : base(queryable) { }
     }
 }

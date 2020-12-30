@@ -26,12 +26,12 @@ namespace HightechAngular.Web.Controllers
                 var c = new Category("Name");
                 dbContext.Add(c);
                 dbContext.SaveChanges();
-                
-                
+
+
                 return Ok(dbContext.Set<Category>().ToList());
             }
         }
-        
+
         public IActionResult Index()
         {
             return Ok();

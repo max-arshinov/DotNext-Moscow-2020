@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using Force.Extensions;
 using HightechAngular.Identity.Services;
 using HightechAngular.Orders.Entities;
@@ -9,17 +7,17 @@ namespace HightechAngular.Orders.Services
 {
     public class CartStorage : ICartStorage
     {
+        private static readonly string _cartKey = "Cart";
         private readonly IHttpContextAccessor _accessor;
         private readonly IUserContext _userContext;
+
+        private Cart _cart;
 
         public CartStorage(IHttpContextAccessor accessor, IUserContext userContext)
         {
             _accessor = accessor;
             _userContext = userContext;
         }
-
-        private Cart _cart;
-        private static string _cartKey = "Cart";
 
         public Cart Cart =>
             _cart ??= _accessor

@@ -1,16 +1,14 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Infrastructure.Ddd.Domain;
 using JetBrains.Annotations;
-using IntEntityBase = Infrastructure.Ddd.Domain.IntEntityBase;
 
 namespace HightechAngular.Orders.Entities
 {
-    public class OrderItem: IntEntityBase
+    public class OrderItem : IntEntityBase
     {
         [UsedImplicitly]
-        protected OrderItem()
-        {
-        }
+        protected OrderItem() { }
 
         internal OrderItem(Order order, CartItem cartItem)
         {
@@ -21,19 +19,19 @@ namespace HightechAngular.Orders.Entities
             Price = cartItem.Price;
             ProductId = cartItem.ProductId;
         }
-        
+
         [Required]
         public string Name { get; set; }
-        
+
         public virtual Order Order { get; set; }
-        
+
         public double Price { get; set; }
-        
+
         [Obsolete]
         public int DiscountPercent { get; set; }
-        
+
         public int Count { get; set; }
-        
+
         public int ProductId { get; set; }
     }
 }

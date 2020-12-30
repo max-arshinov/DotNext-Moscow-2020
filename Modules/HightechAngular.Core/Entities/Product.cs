@@ -4,8 +4,6 @@ using System.Linq.Expressions;
 using Force.Expressions;
 using Force.Extensions;
 using Infrastructure.Ddd;
-using JetBrains.Annotations;
-using Microsoft.AspNetCore.Mvc;
 
 namespace HightechAngular.Orders.Entities
 {
@@ -14,17 +12,9 @@ namespace HightechAngular.Orders.Entities
         public static readonly Expression<Func<Product, double>> DiscountedPriceExpression =
             x => x.Price - x.Price / 100 * x.DiscountPercent;
 
-        public static Expression<Func<Product, Product>> UpdatePurchaseCountExpression(int count) =>
-            product => new Product()
-            {
-                PurchaseCount = product.PurchaseCount + count
-            };
-
         public static readonly ProductSpecs Specs = new ProductSpecs();
 
-        protected Product()
-        {
-        }
+        protected Product() { }
 
         public Product(Category category, string name, double price, int discountPercent)
         {
@@ -37,7 +27,8 @@ namespace HightechAngular.Orders.Entities
             this.EnsureInvariant();
         }
 
-        [Required] public string Name { get; protected set; }
+        [Required]
+        public string Name { get; protected set; }
 
         public double Price { get; protected set; }
 
@@ -48,6 +39,14 @@ namespace HightechAngular.Orders.Entities
         public virtual Category Category { get; protected set; }
 
         public int PurchaseCount { get; set; }
+
+        public static Expression<Func<Product, Product>> UpdatePurchaseCountExpression(int count)
+        {
+            return product => new Product
+            {
+                PurchaseCount = product.PurchaseCount + count
+            };
+        }
 
         public double GetDiscountedPrice()
         {

@@ -19,21 +19,27 @@ namespace HightechAngular.Data
             _context = context;
         }
 
+        public async Task InitializeAsync()
+        {
+            await _context.Database.MigrateAsync();
+            await SeedEverything();
+        }
+
         private async Task SeedEverything()
         {
-            var categories = new []
+            var categories = new[]
             {
                 new Category("C1"),
                 new Category("C2"),
                 new Category("C3")
             };
-            
+
             if (!_context.Categories.Any())
             {
                 _context.Categories.AddRange(categories);
             }
-            
-            
+
+
             if (!_context.Products.Any())
             {
                 _context.Products.Add(new Product(categories[1], "Product1", 100, 0));
@@ -45,12 +51,6 @@ namespace HightechAngular.Data
                 _context.Products.Add(new Product(categories[1], "Sale2", 500, 20));
                 await _context.SaveChangesAsync();
             }
-        }
-
-        public async Task InitializeAsync()
-        {
-            await _context.Database.MigrateAsync();
-            await SeedEverything();
         }
     }
 }

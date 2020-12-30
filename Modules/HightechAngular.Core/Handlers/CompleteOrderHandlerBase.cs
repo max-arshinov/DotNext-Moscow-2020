@@ -8,16 +8,14 @@ using Microsoft.Extensions.Logging;
 namespace HightechAngular.Orders.Handlers
 {
     public abstract class CompleteOrderHandlerBase<TCommand, TFrom, TTo> : ChangeOrderStateHandlerBase<
-        TCommand, 
+        TCommand,
         TFrom,
         TTo>
-        where TFrom: Order.OrderStateBase
-        where TTo: Order.OrderStateBase
+        where TFrom : Order.OrderStateBase
+        where TTo : Order.OrderStateBase
         where TCommand : class, IHasOrderId
     {
-        public CompleteOrderHandlerBase(IUnitOfWork unitOfWork, ILogger<TCommand> logger) : base(unitOfWork, logger)
-        {
-        }
+        public CompleteOrderHandlerBase(IUnitOfWork unitOfWork, ILogger<TCommand> logger) : base(unitOfWork, logger) { }
 
         protected override async Task ChangeStateInRemoteSystem(
             ChangeOrderStateConext<TCommand, TFrom> input)

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace HightechAngular.Web.Filters
 {
-    public class ExceptionsFilterAttribute: ExceptionFilterAttribute
+    public class ExceptionsFilterAttribute : ExceptionFilterAttribute
     {
         public override void OnException(ExceptionContext context)
         {
@@ -14,7 +14,7 @@ namespace HightechAngular.Web.Filters
             {
                 code = HttpStatusCode.UnprocessableEntity;
             }
-            
+
             context.HttpContext.Response.ContentType = "application/json";
             context.HttpContext.Response.StatusCode = (int) code;
             context.Result = new JsonResult(new

@@ -10,12 +10,11 @@ namespace HightechAngular.Orders.Handlers
     public class ResolveDisputedOrderHandler :
         CompleteOrderHandlerBase<ResolveDisputedOrder, Order.Disputed, Order.Complete>
     {
-        public ResolveDisputedOrderHandler(IUnitOfWork unitOfWork, ILogger<ResolveDisputedOrder> logger) : 
-            base(unitOfWork, logger)
-        {
-        }
-        
-        protected override Order.Complete ChangeState(ChangeOrderStateConext<ResolveDisputedOrder, Order.Disputed> input)
+        public ResolveDisputedOrderHandler(IUnitOfWork unitOfWork, ILogger<ResolveDisputedOrder> logger) :
+            base(unitOfWork, logger) { }
+
+        protected override Order.Complete ChangeState(
+            ChangeOrderStateConext<ResolveDisputedOrder, Order.Disputed> input)
         {
             return input.State.Resolve(input.Request.ResolutionComment);
         }

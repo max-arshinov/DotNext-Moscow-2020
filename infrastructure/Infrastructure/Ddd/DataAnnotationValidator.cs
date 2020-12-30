@@ -9,7 +9,7 @@ using Infrastructure.Validation;
 
 namespace Infrastructure.Ddd
 {
-    public class DataAnnotationValidator<T>: IValidator<T>, IAsyncValidator<T>
+    public class DataAnnotationValidator<T> : IValidator<T>, IAsyncValidator<T>
     {
         private static readonly string[] EntityPropertyNames = Type<T>
             .PublicProperties
@@ -19,21 +19,24 @@ namespace Infrastructure.Ddd
             )
             .Select(x => x.Key)
             .ToArray();
-            
+
+        public virtual Task<IEnumerable<ValidationResult>> ValidateAsync(T obj)
+        {
+            return Task.FromResult(Validate(obj));
+        }
+
         public virtual IEnumerable<ValidationResult> Validate(T obj)
         {
             var results = new List<ValidationResult>();
             Validator.TryValidateObject(obj, new ValidationContext(obj), results, true);
-            var notFoundResults  = new List<string>();
-            
+            var notFoundResults = new List<string>();
+
             foreach (var result in results)
+            foreach (var mn in result.MemberNames)
             {
-                foreach (var mn in result.MemberNames)
+                if (EntityPropertyNames.Contains(mn))
                 {
-                    if (EntityPropertyNames.Contains(mn))
-                    {
-                        notFoundResults.Add(mn);
-                    }
+                    notFoundResults.Add(mn);
                 }
             }
 
@@ -41,11 +44,8 @@ namespace Infrastructure.Ddd
             {
                 results.Add(new NotFoundValidationResult("One or more entities are not found", notFoundResults));
             }
-            
+
             return results;
         }
-
-        public virtual Task<IEnumerable<ValidationResult>> ValidateAsync(T obj) =>
-            Task.FromResult(Validate(obj));
     }
 }

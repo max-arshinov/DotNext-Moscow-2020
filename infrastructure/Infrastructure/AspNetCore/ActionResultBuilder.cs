@@ -14,8 +14,8 @@ namespace Infrastructure.AspNetCore
 {
     public class ActionResultBuilder<T> : IStatusCodeActionResult
     {
-        private readonly Result<T, FailureInfo> _result;
         private readonly HttpContext _httpContext;
+        private readonly Result<T, FailureInfo> _result;
 
         private ActionResult _objectResult;
 
@@ -25,18 +25,24 @@ namespace Infrastructure.AspNetCore
             _httpContext = httpContext;
         }
 
-
-        public static implicit operator ActionResult<T>(ActionResultBuilder<T> resultBuilder) =>
-            resultBuilder.GetActionResult(resultBuilder._result);
-
         Task IActionResult.ExecuteResultAsync(ActionContext context)
         {
             var res = GetActionResult(_result);
             return res.ExecuteResultAsync(context);
         }
 
-        private ActionResult GetActionResult(Result<T, FailureInfo> result) =>
-            _objectResult ??= Match(result);
+        int? IStatusCodeActionResult.StatusCode => (GetActionResult(_result) as IStatusCodeActionResult)?.StatusCode;
+
+
+        public static implicit operator ActionResult<T>(ActionResultBuilder<T> resultBuilder)
+        {
+            return resultBuilder.GetActionResult(resultBuilder._result);
+        }
+
+        private ActionResult GetActionResult(Result<T, FailureInfo> result)
+        {
+            return _objectResult ??= Match(result);
+        }
 
         protected virtual Dictionary<string, IEnumerable<string>> GetErrors(FailureInfo failureInfo)
         {
@@ -91,6 +97,20 @@ namespace Infrastructure.AspNetCore
             ((List<string>) dictionary[key]).Add(fi.ErrorMessage);
         }
 
+        protected virtual ActionResult Match(Result<T, FailureInfo> result)
+        {
+            return result.Match(SuccessMatch, FailureMatch);
+        }
+
+
+        public static string GetErrorDetails(FailureInfo failureInfo)
+        {
+            return string.Join(",\n",
+                GetErrorsStatic(failureInfo)
+                    .Select(kv => kv.Key + ": " + kv.Value)
+                    .ToArray());
+        }
+
         #region Public API for overriding the response handling
 
         public IActionResult Match(Func<Result<T, FailureInfo>, HttpContext, IActionResult> matchFunc)
@@ -138,15 +158,11 @@ namespace Infrastructure.AspNetCore
 
         #endregion
 
-        protected virtual ActionResult Match(Result<T, FailureInfo> result)
-        {
-            return result.Match(SuccessMatch, FailureMatch);
-        }
-
         #region Default response handling (to use in Match)
 
-        public static ObjectResult SuccessMatch(T success) =>
-            success switch
+        public static ObjectResult SuccessMatch(T success)
+        {
+            return success switch
             {
                 null when typeof(T) == typeof(object) => new ObjectResult(null)
                 {
@@ -155,27 +171,31 @@ namespace Infrastructure.AspNetCore
                 null => new ObjectResult(null) {StatusCode = StatusCodes.Status404NotFound},
                 _ => new OkObjectResult(success)
             };
+        }
 
         public static ObjectResult FailureMatch(FailureInfo failureInfo)
         {
             var statusCode = failureInfo.Type switch
             {
                 FailureType.Invalid => (failureInfo as ValidationFailureInfo)
-                    ?.Results.Any(y => y is NotFoundValidationResult) == true
-                        ? StatusCodes.Status404NotFound
-                        : StatusCodes.Status422UnprocessableEntity,
+                                       ?.Results.Any(y => y is NotFoundValidationResult)
+                                       == true
+                    ? StatusCodes.Status404NotFound
+                    : StatusCodes.Status422UnprocessableEntity,
                 FailureType.Unauthorized => StatusCodes.Status401Unauthorized,
                 FailureType.ConfigurationError => StatusCodes.Status501NotImplemented,
                 _ => StatusCodes.Status500InternalServerError
             };
 
             if (statusCode >= 500 && statusCode <= 599)
+            {
                 return new ObjectResult(new ProblemDetails
                 {
                     Detail = GetErrorDetails(failureInfo),
                     Title = failureInfo.Message,
                     Status = statusCode
                 });
+            }
 
             var descriptor = GetErrorsStatic(failureInfo)
                 .ToDictionary(pair => pair.Key,
@@ -188,14 +208,5 @@ namespace Infrastructure.AspNetCore
         }
 
         #endregion
-
-
-        public static string GetErrorDetails(FailureInfo failureInfo) =>
-            string.Join(",\n",
-                GetErrorsStatic(failureInfo)
-                    .Select(kv => kv.Key + ": " + kv.Value)
-                    .ToArray());
-
-        int? IStatusCodeActionResult.StatusCode => (GetActionResult(_result) as IStatusCodeActionResult)?.StatusCode;
     }
 }

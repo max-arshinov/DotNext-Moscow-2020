@@ -63,7 +63,7 @@ export class GridBuilderComponent implements OnInit {
     }
   }
 
-  OnSortChanged(){
+  onSortChanged(){
     const sortModel = this.gridApi.getSortModel()[0];
     if (sortModel) {
       this.filterParams.asc = sortModel.sort === 'asc';
@@ -121,7 +121,9 @@ export class GridBuilderComponent implements OnInit {
 
   getData(): void{
     if (!this.hasEmptyFilters()) {
-      this.http.get(`${environment.httpDomain}${this.path}`, {params: new HttpParams({fromObject: this.filterParams as any})})
+      this.http.get(
+          `${environment.httpDomain}${this.path}`,
+          {params: new HttpParams({fromObject: this.filterParams as any})})
         .subscribe(res => {
           this.rowData = res as any[];
           this.isLoaded.next(true);

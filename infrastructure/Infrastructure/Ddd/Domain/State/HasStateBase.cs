@@ -4,9 +4,7 @@ namespace Infrastructure.Ddd.Domain.State
 {
     public abstract class HasStateBase<TStatus, TState> :
         HasStateBase<int, TStatus, TState>
-        where TStatus : Enum
-    {
-    }
+        where TStatus : Enum { }
 
     public abstract class HasStateBase<TKey, TStatus, TState> :
         EntityBase<TKey>,
@@ -35,22 +33,30 @@ namespace Infrastructure.Ddd.Domain.State
         public void With<T>(Action<T> action)
             where T : class, TState
         {
-            if (State is T state) action(state);
+            if (State is T state)
+            {
+                action(state);
+            }
         }
 
         public TResult With<T, TResult>(Func<T, TResult> func, TResult ifFalse = default)
             where T : class, TState
         {
-            if (State is T state) return func(state);
+            if (State is T state)
+            {
+                return func(state);
+            }
 
             return ifFalse;
         }
 
         public TCurrentState As<TCurrentState>()
-            where TCurrentState : TState =>
-            State is TCurrentState currentState 
-                ? currentState 
+            where TCurrentState : TState
+        {
+            return State is TCurrentState currentState
+                ? currentState
                 : default;
+        }
 
         protected T To<T>(TStatus status)
             where T : TState

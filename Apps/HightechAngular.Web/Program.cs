@@ -14,8 +14,9 @@ namespace HightechAngular.Web
             await host.RunAsync();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host
                 .CreateDefaultBuilder(args)
                 .ConfigureLogging(logging =>
                 {
@@ -23,5 +24,6 @@ namespace HightechAngular.Web
                     logging.AddConsole();
                 })
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+        }
     }
 }

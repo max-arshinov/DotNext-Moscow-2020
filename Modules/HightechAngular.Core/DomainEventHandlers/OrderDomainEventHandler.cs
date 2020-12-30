@@ -11,13 +11,13 @@ namespace HightechAngular.Orders.DomainEventHandlers
     public class OrderDomainEventHandler : IGroupDomainEventHandler<IEnumerable<ProductPurchased>>
     {
         private readonly IQueryable<Product> _products;
-        
+
         public OrderDomainEventHandler(IQueryable<Product> products)
         {
             _products = products;
         }
 
-        public void Handle(IEnumerable<ProductPurchased> input) 
+        public void Handle(IEnumerable<ProductPurchased> input)
         {
             var dict = input.ToDictionary(x => x.ProductId, x => x.Count);
 

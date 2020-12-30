@@ -16,14 +16,6 @@ namespace Infrastructure.Cqrs.Create
     {
         private IUnitOfWork _uow;
 
-        IUnitOfWork IHasUnitOfWork.UnitOfWork
-        {
-            get => _uow;
-            set => _uow = value;
-        }
-
-        protected abstract Task<TEntity> CreateNewEntityAsync(TCommand input);
-
         public async Task<TKey> Handle(TCommand input)
         {
             var entity = await CreateNewEntityAsync(input);
@@ -31,5 +23,13 @@ namespace Infrastructure.Cqrs.Create
             _uow.Commit();
             return entity.Id;
         }
+
+        IUnitOfWork IHasUnitOfWork.UnitOfWork
+        {
+            get => _uow;
+            set => _uow = value;
+        }
+
+        protected abstract Task<TEntity> CreateNewEntityAsync(TCommand input);
     }
 }

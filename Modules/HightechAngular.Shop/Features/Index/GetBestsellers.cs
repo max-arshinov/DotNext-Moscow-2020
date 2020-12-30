@@ -2,7 +2,5 @@
 
 namespace HightechAngular.Shop.Features.Index
 {
-    public class GetBestsellers : FilterQuery<BestsellersListItem>
-    {
-    }
+    public class GetBestsellers : FilterQuery<BestsellersListItem> { }
 }

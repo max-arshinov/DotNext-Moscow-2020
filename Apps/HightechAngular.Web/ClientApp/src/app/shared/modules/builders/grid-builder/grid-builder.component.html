@@ -8,10 +8,13 @@
     [columnDefs]="columnDefs"
     [frameworkComponents]="frameworkComponents"
     (filterChanged)="onFilterChanged($event)"
-    (sortChanged)="OnSortChanged()"
+    (sortChanged)="onSortChanged()"
     (gridReady)="onGridReady($event)"
     (cellDoubleClicked)="onCellDoubleClicked($event)"
     animateRows="true"
   >
   </ag-grid-angular>
+  <div *ngFor="let r of rowData">
+    {{r}}
+  </div>
 </div>

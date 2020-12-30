@@ -33,13 +33,13 @@
         <DependentUpon>Product.cs</DependentUpon>
       </Compile>
       <Compile Update="Base\ChangeOrderStateCommandConext.cs">
-        <DependentUpon>ChangeOrderStateBase.cs</DependentUpon>
+        <DependentUpon>ChangeOrderStateCommandBase.cs</DependentUpon>
       </Compile>
       <Compile Update="Base\ChangeOrderStateCommandCommandHandler.cs">
-        <DependentUpon>ChangeOrderStateBase.cs</DependentUpon>
+        <DependentUpon>ChangeOrderStateCommandBase.cs</DependentUpon>
       </Compile>
       <Compile Update="Base\ChangeOrderStateCommandHandlerBase.cs">
-        <DependentUpon>ChangeOrderStateBase.cs</DependentUpon>
+        <DependentUpon>ChangeOrderStateCommandBase.cs</DependentUpon>
       </Compile>
       <Compile Update="Base\IHasOrderState.cs">
         <DependentUpon>ChangeOrderStateCommandBase.cs</DependentUpon>
@@ -52,9 +52,6 @@
       </Compile>
       <Compile Update="Handlers\DisputeOrderHandler.cs">
         <DependentUpon>DisputeOrder.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Handlers\PayOrderHandler.cs">
-        <DependentUpon>PayOrder.cs</DependentUpon>
       </Compile>
       <Compile Update="Handlers\ResolveDisputedOrderHandler.cs">
         <DependentUpon>ResolveDisputedOrder.cs</DependentUpon>

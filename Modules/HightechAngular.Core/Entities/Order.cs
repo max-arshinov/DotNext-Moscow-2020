@@ -19,9 +19,7 @@ namespace HightechAngular.Orders.Entities
 
         private readonly List<OrderItem> _orderItems = new List<OrderItem>();
 
-        protected Order()
-        {
-        }
+        protected Order() { }
 
         public Order(Cart cart)
         {
@@ -46,7 +44,7 @@ namespace HightechAngular.Orders.Entities
         public virtual User User { get; protected set; }
 
         public DateTime Created { get; protected set; } = DateTime.UtcNow;
-        
+
 
         public DateTime Updated { get; protected set; }
 
@@ -55,7 +53,7 @@ namespace HightechAngular.Orders.Entities
         public double Total { get; protected set; }
 
         public Guid? TrackingCode { get; protected set; }
-        
+
         public string Complaint { get; protected set; }
 
         public IEnumerable<IDomainEvent> GetDomainEvents()
@@ -74,6 +72,7 @@ namespace HightechAngular.Orders.Entities
                 OrderStatus.Shipped => new Shipped(this),
                 OrderStatus.Dispute => new Disputed(this),
                 OrderStatus.Complete => new Complete(this),
+
                 //https://github.com/dotnet/csharplang/issues/2266
                 //see also https://github.com/ardalis/SmartEnum
                 _ => throw new NotSupportedException($"Status \"{status}\" is not supported")

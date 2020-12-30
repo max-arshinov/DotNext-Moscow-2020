@@ -35,5 +35,62 @@
       <Compile Update="Workflow\ExceptionFailureInfo.cs">
         <DependentUpon>FailureInfo.cs</DependentUpon>
       </Compile>
+      <Compile Update="Cqrs\Read\GetGuidEnumerableQueryHandlerBase.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetGuidEnumerableQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetIntEnumerableQueryHandlerBase.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetIntEnumerableQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetLongEnumerableQueryHandlerBase.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetLongEnumerableQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByGuidIdQueryHandlerBase .cs">
+        <DependentUpon>GetEnumerableQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByGuidIdQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByIntIdQueryHandlerBase.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByIntIdQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByLongIdQueryHandlerBase.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByLongIdQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByStringIdQueryHandlerBase.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByStringIdQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetStringEnumerableQueryHandlerBase.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetStringEnumerableQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByIdQueryHandlerBase.cs">
+        <DependentUpon>GetOneByIdQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByIdQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetOneByIdQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByIdMapBase.cs">
+        <DependentUpon>GetOneByIdQuery.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

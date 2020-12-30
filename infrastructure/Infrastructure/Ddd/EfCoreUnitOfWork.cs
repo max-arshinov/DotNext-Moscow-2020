@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Force.Ccc;
 using Force.Cqrs;
@@ -8,13 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Ddd
 {
-    public class EfCoreUnitOfWork: UnitOfWorkBase
+    public class EfCoreUnitOfWork : UnitOfWorkBase
     {
         private readonly DbContext _dbContext;
 
         public EfCoreUnitOfWork(
-            IHandler<IEnumerable<IDomainEvent>> domainEventDispatcher, 
-            DbContext dbContext): 
+            IHandler<IEnumerable<IDomainEvent>> domainEventDispatcher,
+            DbContext dbContext) :
             base(domainEventDispatcher)
         {
             _dbContext = dbContext;
@@ -35,20 +34,22 @@ namespace Infrastructure.Ddd
             _dbContext.Remove(entity);
         }
 
-        public override TEntity Find<TEntity>(params object[] id) 
+        public override TEntity Find<TEntity>(params object[] id)
         {
-            return (TEntity)_dbContext.Find(typeof(TEntity), id);
+            return (TEntity) _dbContext.Find(typeof(TEntity), id);
         }
-        
+
         protected override void DoCommit()
         {
             _dbContext.SaveChanges();
         }
 
-        protected override IEnumerable<IDomainEvent> GetDomainEvents() =>
-            _dbContext.ChangeTracker
+        protected override IEnumerable<IDomainEvent> GetDomainEvents()
+        {
+            return _dbContext.ChangeTracker
                 .Entries<IHasDomainEvents>()
                 .SelectMany(x => x.Entity.GetDomainEvents());
+        }
 
         public override IUnitOfWorkTransaction BeginTransaction()
         {

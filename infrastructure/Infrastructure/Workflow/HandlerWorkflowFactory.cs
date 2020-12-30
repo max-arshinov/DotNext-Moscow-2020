@@ -5,7 +5,7 @@ using Infrastructure.Extensions;
 
 namespace Infrastructure.Workflow
 {
-    public class HandlerWorkflowFactory<TRequest, TResult>: IWorkflow<TRequest, TResult>
+    public class HandlerWorkflowFactory<TRequest, TResult> : IWorkflow<TRequest, TResult>
     {
         public Result<TResult, FailureInfo> Process(TRequest request, IServiceProvider sp)
         {
@@ -13,8 +13,8 @@ namespace Infrastructure.Workflow
             return wf.Process(request, sp);
         }
     }
-    
-    public class HandlerAsyncWorkflowFactory<TRequest, TResult>: IAsyncWorkflow<TRequest, TResult>
+
+    public class HandlerAsyncWorkflowFactory<TRequest, TResult> : IAsyncWorkflow<TRequest, TResult>
     {
         public Task<Result<TResult, FailureInfo>> ProcessAsync(TRequest request, IServiceProvider sp)
         {

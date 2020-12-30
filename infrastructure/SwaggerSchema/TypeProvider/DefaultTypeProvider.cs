@@ -9,6 +9,8 @@ namespace Infrastructure.SwaggerSchema.TypeProvider
     {
         private readonly Func<string, bool> _predicate;
 
+        private readonly IDictionary<string, Type> Assemblies;
+
         public DefaultTypeProvider(Func<string, bool> predicate)
         {
             _predicate = predicate ?? throw new ArgumentNullException(nameof(predicate));
@@ -19,15 +21,13 @@ namespace Infrastructure.SwaggerSchema.TypeProvider
                     .Where(y => y.IsClass && !y.IsAbstract && y.IsPublic && _predicate(x.FullName)))
                 .ToDictionary(x => x.Name, x => x);
         }
-        
+
         public Type GetType(string type)
         {
             Assemblies.TryGetValue(type, out var t);
             return t;
         }
 
-        private readonly IDictionary<string, Type> Assemblies;
-        
         public IDictionary<string, Type> GetTypes(IEnumerable<Assembly> assemblies)
         {
             return Assemblies;

@@ -1,7 +1,4 @@
 namespace Infrastructure.AspNetCore
 {
-    public class ExceptionExtensions
-    {
-        
-    }
+    public class ExceptionExtensions { }
 }

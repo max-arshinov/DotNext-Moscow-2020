@@ -2,7 +2,5 @@
 
 namespace HightechAngular.Shop.Features.MyOrders
 {
-    public class GetMyOrders : FilterQuery<OrderListItem>
-    {
-    }
+    public class GetMyOrders : FilterQuery<OrderListItem> { }
 }

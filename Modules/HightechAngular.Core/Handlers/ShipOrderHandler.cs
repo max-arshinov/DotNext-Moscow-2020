@@ -1,7 +1,6 @@
 using System.Data.Common;
 using System.Threading.Tasks;
 using Force.Ccc;
-using Force.Cqrs;
 using HightechAngular.Orders.Base;
 using HightechAngular.Orders.Entities;
 using JetBrains.Annotations;
@@ -11,13 +10,11 @@ namespace HightechAngular.Orders.Handlers
 {
     [UsedImplicitly]
     public class ShipOrderHandler : ChangeOrderStateHandlerBase<
-        ShipOrder, 
+        ShipOrder,
         Order.Paid,
         Order.Shipped>
     {
-        public ShipOrderHandler(IUnitOfWork unitOfWork, ILogger<ShipOrder> logger) : base(unitOfWork, logger)
-        {
-        }
+        public ShipOrderHandler(IUnitOfWork unitOfWork, ILogger<ShipOrder> logger) : base(unitOfWork, logger) { }
 
         protected override Order.Shipped ChangeState(ChangeOrderStateConext<ShipOrder, Order.Paid> input)
         {
@@ -29,7 +26,8 @@ namespace HightechAngular.Orders.Handlers
             await Task.Delay(300); // Imitate API Request
         }
 
-        protected override async Task RollbackRemoteSystem(ChangeOrderStateConext<ShipOrder, Order.Paid> input, DbException e)
+        protected override async Task RollbackRemoteSystem(ChangeOrderStateConext<ShipOrder, Order.Paid> input,
+            DbException e)
         {
             await Task.Delay(300); // Imitate API Request
         }

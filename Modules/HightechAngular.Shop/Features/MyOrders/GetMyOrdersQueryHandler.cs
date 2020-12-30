@@ -8,11 +8,11 @@ namespace HightechAngular.Shop.Features.MyOrders
     [UsedImplicitly]
     public class GetMyOrdersQueryHandler : GetIntEnumerableQueryHandlerBase<GetMyOrders, Order, OrderListItem>
     {
-        public GetMyOrdersQueryHandler(IQueryable<Order> queryable) : base(queryable)
+        public GetMyOrdersQueryHandler(IQueryable<Order> queryable) : base(queryable) { }
+
+        protected override IQueryable<OrderListItem> Map(IQueryable<Order> queryable, GetMyOrders query)
         {
+            return queryable.Select(OrderListItem.Map);
         }
-        
-        protected override IQueryable<OrderListItem> Map(IQueryable<Order> queryable, GetMyOrders query) =>
-            queryable.Select(OrderListItem.Map);
     }
 }

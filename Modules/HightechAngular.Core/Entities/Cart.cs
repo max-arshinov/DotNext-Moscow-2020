@@ -6,8 +6,10 @@ using Infrastructure.Ddd;
 
 namespace HightechAngular.Orders.Entities
 {
-    public sealed class Cart: EntityBase<Guid>
+    public sealed class Cart : EntityBase<Guid>
     {
+        private readonly List<CartItem> _cartItems;
+
         internal Cart(User user)
         {
             User = user;
@@ -24,8 +26,6 @@ namespace HightechAngular.Orders.Entities
 
         public User User { get; }
 
-        private readonly List<CartItem> _cartItems;
-
         public IEnumerable<CartItem> CartItems => _cartItems;
 
 
@@ -37,7 +37,7 @@ namespace HightechAngular.Orders.Entities
             {
                 return false;
             }
-            
+
             if (ci.Count > 1)
             {
                 ci.Count--;
@@ -49,7 +49,7 @@ namespace HightechAngular.Orders.Entities
 
             return true;
         }
-        
+
         public void AddProduct(Product product)
         {
             var ci = _cartItems
@@ -65,7 +65,7 @@ namespace HightechAngular.Orders.Entities
                     CategoryName = product.Category.Name,
                     Count = 1
                 };
-                
+
                 _cartItems.Add(ci);
             }
             else
@@ -74,6 +74,9 @@ namespace HightechAngular.Orders.Entities
             }
         }
 
-        public bool IsEmpty() => !_cartItems.Any();
+        public bool IsEmpty()
+        {
+            return !_cartItems.Any();
+        }
     }
 }

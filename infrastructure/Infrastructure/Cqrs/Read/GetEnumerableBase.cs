@@ -16,25 +16,29 @@ namespace Infrastructure.Cqrs.Read
 
         private IServiceProvider _serviceProvider;
 
+        protected GetEnumerableBase(IQueryable<TEntity> queryable)
+        {
+            _queryable = queryable;
+        }
+
         IServiceProvider IHasServiceProvider.ServiceProvider
         {
             get => _serviceProvider;
             set => _serviceProvider = value;
         }
 
-        protected GetEnumerableBase(IQueryable<TEntity> queryable)
+        protected IOrderedQueryable<TListItem> MapFilterAndSort(TQuery query)
         {
-            _queryable = queryable;
-        }
-
-        protected IOrderedQueryable<TListItem> MapFilterAndSort(TQuery query) =>
-            EntityFilter(query)
+            return EntityFilter(query)
                 .PipeTo(q => Map(_queryable, query))
                 .PipeTo(q => Filter(q, query))
                 .PipeTo(q => Sort(q, query));
+        }
 
         protected virtual IQueryable<TListItem> Map(IQueryable<TEntity> queryable, TQuery query)
-            => queryable.ProjectToType<TListItem>();
+        {
+            return queryable.ProjectToType<TListItem>();
+        }
 
         private IQueryable<TListItem> Filter(IQueryable<TListItem> listItems, TQuery query)
         {
@@ -45,7 +49,10 @@ namespace Infrastructure.Cqrs.Read
             };
 
             var predicateFilter = _serviceProvider?.GetService<IFilter<TListItem, TQuery>>();
-            if (predicateFilter != null) listItems = predicateFilter.Filter(listItems, query);
+            if (predicateFilter != null)
+            {
+                listItems = predicateFilter.Filter(listItems, query);
+            }
 
             return listItems;
         }
@@ -59,7 +66,10 @@ namespace Infrastructure.Cqrs.Read
             };
 
             var sort = _serviceProvider?.GetService<ISorter<TListItem, TQuery>>();
-            if (sort != null) listItems = sort.Sort(listItems, query);
+            if (sort != null)
+            {
+                listItems = sort.Sort(listItems, query);
+            }
 
             return (IOrderedQueryable<TListItem>) listItems;
         }
@@ -67,10 +77,16 @@ namespace Infrastructure.Cqrs.Read
         private TQuery EntityFilter(TQuery query)
         {
             var filter = _serviceProvider?.GetService<IFilter<TEntity>>();
-            if (filter != null) _queryable = filter.Filter(_queryable);
+            if (filter != null)
+            {
+                _queryable = filter.Filter(_queryable);
+            }
 
             var queryFilter = _serviceProvider?.GetService<IFilter<TEntity, TQuery>>();
-            if (queryFilter != null) _queryable = queryFilter.Filter(_queryable, query);
+            if (queryFilter != null)
+            {
+                _queryable = queryFilter.Filter(_queryable, query);
+            }
 
             return query;
         }

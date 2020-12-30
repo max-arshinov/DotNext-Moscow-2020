@@ -8,10 +8,10 @@ using JetBrains.Annotations;
 namespace HightechAngular.Shop.Features.MyOrders
 {
     [UsedImplicitly]
-    public class CreateOrderValidator: IValidator<CreateOrder>
+    public class CreateOrderValidator : IValidator<CreateOrder>
     {
-        private readonly ICartStorage _cartStorage;
         private static readonly ValidationResult CartIsEmpty = new ValidationResult("Cart is empty");
+        private readonly ICartStorage _cartStorage;
 
         public CreateOrderValidator(ICartStorage cartStorage)
         {

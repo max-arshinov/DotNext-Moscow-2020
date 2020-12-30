@@ -7,7 +7,5 @@ namespace Infrastructure.Cqrs.Create
     public abstract class CreateStringEntityHandlerBaseAsync<TCommand, TEntity> :
         CreateEntityHandlerBaseAsync<string, TCommand, TEntity>
         where TEntity : class, IHasId<string>
-        where TCommand : ICommand<Task<string>>
-    {
-    }
+        where TCommand : ICommand<Task<string>> { }
 }

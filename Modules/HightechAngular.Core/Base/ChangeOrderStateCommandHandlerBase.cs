@@ -10,21 +10,21 @@ using Microsoft.Extensions.Logging;
 
 namespace HightechAngular.Orders.Base
 {
-    public abstract class ChangeOrderStateHandlerBase<TCommand, TFrom, TTo>: 
-        IHandler<ChangeOrderStateConext<TCommand,TFrom>, Task<CommandResult<TTo>>>
+    public abstract class ChangeOrderStateHandlerBase<TCommand, TFrom, TTo> :
+        IHandler<ChangeOrderStateConext<TCommand, TFrom>, Task<CommandResult<TTo>>>
         where TCommand : class, IHasOrderId
-        where TFrom: Order.OrderStateBase
-        where TTo: Order.OrderStateBase
+        where TFrom : Order.OrderStateBase
+        where TTo : Order.OrderStateBase
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<TCommand> _logger;
+        private readonly IUnitOfWork _unitOfWork;
 
         public ChangeOrderStateHandlerBase(IUnitOfWork unitOfWork, ILogger<TCommand> logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
         }
-        
+
         public async Task<CommandResult<TTo>> Handle(ChangeOrderStateConext<TCommand, TFrom> input)
         {
             using var tr = _unitOfWork.BeginTransaction();
@@ -51,7 +51,8 @@ namespace HightechAngular.Orders.Base
             }
         }
 
-        private async Task<Exception> DoRollbackRemoteSystem(ChangeOrderStateConext<TCommand, TFrom> input, DbException originalException)
+        private async Task<Exception> DoRollbackRemoteSystem(ChangeOrderStateConext<TCommand, TFrom> input,
+            DbException originalException)
         {
             try
             {
@@ -60,16 +61,16 @@ namespace HightechAngular.Orders.Base
             }
             catch (Exception e)
             {
-                _logger.LogError(e, 
+                _logger.LogError(e,
                     $"Problem with order state rollback in the remote system. Order id is {input.Order.Id}");
                 return e;
             }
         }
 
         protected abstract TTo ChangeState(ChangeOrderStateConext<TCommand, TFrom> input);
-        
+
         protected abstract Task ChangeStateInRemoteSystem(ChangeOrderStateConext<TCommand, TFrom> input);
-        
+
         protected abstract Task RollbackRemoteSystem(ChangeOrderStateConext<TCommand, TFrom> input, DbException e);
     }
 }

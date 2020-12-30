@@ -15,4 +15,5 @@ namespace Infrastructure.Extensions
             var value = session.GetString(key);
             return value == null ? default : JsonSerializer.Deserialize<T>(value);
         }
-    }}
+    }
+}

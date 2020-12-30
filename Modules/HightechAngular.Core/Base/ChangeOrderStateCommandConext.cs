@@ -10,7 +10,7 @@ namespace HightechAngular.Orders.Base
     public class ChangeOrderStateConext<TCommand, TState> :
         OperationContextBase<TCommand>,
         IHasOrderState<TState>,
-        ICommand<Task<CommandResult<OrderStatus>>> 
+        ICommand<Task<CommandResult<OrderStatus>>>
         where TCommand : class, IHasOrderId
         where TState : Order.OrderStateBase
     {

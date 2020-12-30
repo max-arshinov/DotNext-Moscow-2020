@@ -8,16 +8,16 @@ namespace HightechAngular.Identity.Services
     public class UserContext : IUserContext
     {
         private User _user;
-        
-        private IHttpContextAccessor HttpContextAccessor { get; }
-        
-        private DbContext DbContext { get; }
-        
+
         public UserContext(IHttpContextAccessor httpContextAccessor, DbContext context)
         {
             HttpContextAccessor = httpContextAccessor;
             DbContext = context;
         }
+
+        private IHttpContextAccessor HttpContextAccessor { get; }
+
+        private DbContext DbContext { get; }
 
         public User User => _user ??= GetUser();
 
