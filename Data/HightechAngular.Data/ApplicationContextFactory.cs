@@ -7,7 +7,7 @@ namespace HightechAngular.Data
 {
     public class ApplicationContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
-        public static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder =>
+        private static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder =>
         {
             builder.AddProvider(new MyLoggerProvider());
         });

@@ -18,20 +18,6 @@ namespace HightechAngular.Web.Controllers
             _logger = logger;
         }
 
-        [HttpGet("test")]
-        public IActionResult Test([FromServices] DbContext dbContext)
-        {
-            using (var tr = new TransactionScope())
-            {
-                var c = new Category("Name");
-                dbContext.Add(c);
-                dbContext.SaveChanges();
-
-
-                return Ok(dbContext.Set<Category>().ToList());
-            }
-        }
-
         public IActionResult Index()
         {
             return Ok();
