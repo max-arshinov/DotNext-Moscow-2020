@@ -25,8 +25,8 @@ namespace HightechAngular.Shop.Features.MyOrders
             var order = new Order(_cartStorage.Cart);
 
             _unitOfWork.Add(order);
-            _cartStorage.EmptyCart();
             _unitOfWork.Commit();
+            _cartStorage.EmptyCart();
 
             return order.Id;
         }

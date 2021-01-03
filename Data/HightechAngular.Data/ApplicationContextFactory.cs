@@ -22,8 +22,8 @@ namespace HightechAngular.Data
             optionBuilder
                 .UseLoggerFactory(MyLoggerFactory)
                 .UseLazyLoadingProxies()
-                .UseSqlite("Data Source=Application.db;Cache=Shared");
-
+                .UseSqlite("Data Source=Application.db;Cache=Shared")
+                .EnableSensitiveDataLogging();
             //.UseSqlServer(@"Server=.;Initial Catalog=Application;Persist Security Info=False;Integrated Security=True;MultipleActiveResultSets=False;Connection Timeout=180;");
         }
 

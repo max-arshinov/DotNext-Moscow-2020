@@ -26,8 +26,11 @@ namespace HightechAngular.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
+            _env = env;
             Configuration = configuration;
         }
 
@@ -55,12 +58,18 @@ namespace HightechAngular.Web
             services.AddAsyncInitializer<ApplicationDbContextInitializer>();
         }
 
-        private static void ConfigureWeb(IServiceCollection services)
+        private void ConfigureWeb(IServiceCollection services)
         {
             services.AddRazorPages();
             services
                 .AddOpenGenericTypeDefinition(typeof(IDropdownProvider<>))
-                .AddControllersWithViews(options => options.Filters.Add(typeof(ExceptionsFilterAttribute)))
+                .AddControllersWithViews(options =>
+                {
+                    if (!_env.IsDevelopment())
+                    {
+                        options.Filters.Add(typeof(ExceptionsFilterAttribute));
+                    }
+                })
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
@@ -68,17 +77,6 @@ namespace HightechAngular.Web
                 .AddModulesWithDbContext<ApplicationDbContext>(
                     CoreRegistrations.RegisterCore,
                     ShopRegistrations.RegisterShop);
-
-            //AdminRegistrations.RegisterAdmin);
-
-            //Force.Cqrs.IHandler`2[HightechAngular.Orders.Base.ChangeOrderStateConext`2[
-            //HightechAngular.Orders.Handlers.PayOrder,
-            //HightechAngular.Orders.Entities.Order+New],
-            //System.Threading.Tasks.Task`1[Infrastructure.Cqrs.CommandResult`1[HightechAngular.Orders.Entities.Order+Paid]]]
-
-            //Force.Cqrs.IHandler`2[HightechAngular.Orders.Base.ChangeOrderStateConext`2[
-            //HightechAngular.Shop.Features.MyOrders.PayMyOrder,HightechAngular.Orders.Entities.Order+New],System.Threading.Tasks.Task`1[Infrastructure.Cqrs.CommandResult`1[HightechAngular.Orders.Entities.Order+Paid]]]'
-
 
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.RegisterSwagger();
@@ -114,7 +112,7 @@ namespace HightechAngular.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                //app.UseDatabaseErrorPage();
             }
             else
             {

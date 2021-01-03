@@ -11,10 +11,10 @@ namespace HightechAngular.Shop.Features.Index
     {
         static BestsellersListItem()
         {
-            TypeAdapterConfig<Product, SaleListItem>
+            TypeAdapterConfig<Product, BestsellersListItem>
                 .NewConfig()
                 .Map(dest => dest.Price, Product.DiscountedPriceExpression)
-                .Map(dest => dest.DateCreatedName, src => src.DateCreated.ToString("d"));
+                .Map(dest => dest.DateCreatedString, src => src.DateCreated.ToString("d"));
         }
 
         [Display(Name = "Id")]
@@ -33,7 +33,7 @@ namespace HightechAngular.Shop.Features.Index
         public int DiscountPercent { get; set; }
 
         [Display(Name = "Date Created")]
-        public string DateCreatedName { get; set; }
+        public string DateCreatedString { get; set; }
 
         [HiddenInput]
         public DateTime DateCreated { get; set; }

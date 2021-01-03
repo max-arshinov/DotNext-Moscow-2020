@@ -1,8 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HightechAngular.Orders.Base;
+using HightechAngular.Orders.Entities;
 using HightechAngular.Orders.Handlers;
 using Infrastructure.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HightechAngular.Shop.Features.MyOrders
@@ -34,10 +38,19 @@ namespace HightechAngular.Shop.Features.MyOrders
             return await this.ProcessAsync(command);
         }
 
+        // [HttpPut("PayOrder")]
+        // public async Task<IActionResult> PayOrder([FromBody] PayOrder command)
+        // {
+        //     return await this.ProcessAsync(command);
+        // }
+        
         [HttpPut("PayOrder")]
-        public async Task<IActionResult> PayOrder([FromBody] PayOrder command)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> PayOrder(
+            [FromBody] PayOrder command,
+            [FromServices] Func<PayOrder, ChangeOrderStateConext<PayOrder, Order.New>> factory)
         {
-            return await this.ProcessAsync(command);
+            return await this.ProcessAsync(factory(command));
         }
     }
 }

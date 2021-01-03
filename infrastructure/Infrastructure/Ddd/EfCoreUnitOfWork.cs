@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Force.Ccc;
 using Force.Cqrs;
@@ -41,7 +42,15 @@ namespace Infrastructure.Ddd
 
         protected override void DoCommit()
         {
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         protected override IEnumerable<IDomainEvent> GetDomainEvents()

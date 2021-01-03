@@ -33,6 +33,7 @@ namespace HightechAngular.Orders.Base
                 await ChangeStateInRemoteSystem(input);
                 var result = ChangeState(input);
                 _unitOfWork.Commit();
+                await tr.CommitAsync();
                 return result;
             }
             catch (HttpRequestException e)

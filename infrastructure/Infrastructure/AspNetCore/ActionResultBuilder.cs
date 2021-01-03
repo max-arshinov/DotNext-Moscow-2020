@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Force.Ccc;
+using Infrastructure.Cqrs;
 using Infrastructure.Validation;
 using Infrastructure.Workflow;
 using Microsoft.AspNetCore.Http;
@@ -169,9 +170,16 @@ namespace Infrastructure.AspNetCore
                     StatusCode = StatusCodes.Status204NoContent
                 },
                 null => new ObjectResult(null) {StatusCode = StatusCodes.Status404NotFound},
-                _ => new OkObjectResult(success)
+                _ => MatchNotNull(success)
             };
         }
+
+        private static ObjectResult DispatchResult<TResult>(CommandResult<TResult> commandResult) =>
+            commandResult.Match(s => new OkObjectResult(s), FailureMatch);
+        
+        private static ObjectResult DispatchResult(object result) => new OkObjectResult(result);
+
+        private static ObjectResult MatchNotNull(T success) => DispatchResult((dynamic) success);
 
         public static ObjectResult FailureMatch(FailureInfo failureInfo)
         {
@@ -194,7 +202,10 @@ namespace Infrastructure.AspNetCore
                     Detail = GetErrorDetails(failureInfo),
                     Title = failureInfo.Message,
                     Status = statusCode
-                });
+                })
+                {
+                    StatusCode = statusCode
+                };
             }
 
             var descriptor = GetErrorsStatic(failureInfo)
