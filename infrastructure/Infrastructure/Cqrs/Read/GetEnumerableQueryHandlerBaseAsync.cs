@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.Cqrs.Read
 {
     /// <summary>
-    /// Base handler for Async IEnumerable data
+    ///     Base handler for Async IEnumerable data
     /// </summary>
     /// <typeparam name="TKey">Id type</typeparam>
     /// <typeparam name="TQuery">Input query</typeparam>
@@ -24,18 +24,20 @@ namespace Infrastructure.Cqrs.Read
         where TListItem : IHasId<TKey>
         where TKey : IEquatable<TKey>
     {
-        protected GetEnumerableQueryHandlerBaseAsync(IQueryable<TEntity> queryable) : base(queryable)
+        protected GetEnumerableQueryHandlerBaseAsync(IQueryable<TEntity> queryable) : base(queryable) { }
+
+        public async Task<IEnumerable<TListItem>> Handle(TQuery input)
         {
+            return await MapFilterAndSort(input).PipeTo(p => Fetch(p, input));
         }
 
-        public async Task<IEnumerable<TListItem>> Handle(TQuery input) =>
-            await MapFilterAndSort(input).PipeTo(p => Fetch(p, input));
-
-        protected virtual async Task<IEnumerable<TListItem>> Fetch(IOrderedQueryable<TListItem> sorted, TQuery query) =>
-            query switch
+        protected virtual async Task<IEnumerable<TListItem>> Fetch(IOrderedQueryable<TListItem> sorted, TQuery query)
+        {
+            return query switch
             {
                 IPaging paging => await Task.FromResult(sorted.ToPagedEnumerable(paging)),
                 _ => await sorted.ToListAsync()
             };
+        }
     }
 }

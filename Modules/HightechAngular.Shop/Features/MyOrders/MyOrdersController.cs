@@ -1,7 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HightechAngular.Orders.Base;
+using HightechAngular.Orders.Entities;
+using HightechAngular.Orders.Handlers;
 using Infrastructure.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HightechAngular.Shop.Features.MyOrders
@@ -11,22 +16,39 @@ namespace HightechAngular.Shop.Features.MyOrders
         [HttpPost("CreateNew")]
         [Authorize]
         public ActionResult<int> CreateNew([FromBody] CreateOrder query)
-            => this.Process(query);
+        {
+            return this.Process(query);
+        }
         
-        [HttpGet("GetMyOrders")]
-        public ActionResult<IEnumerable<OrderListItem>> GetMyOrders([FromQuery] GetMyOrders query) =>
-            this.Process(query);
+        [HttpPut("PayOrder")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> PayOrder(
+            [FromBody] PayOrder command,
+            [FromServices] Func<PayOrder, ChangeOrderStateConext<PayOrder, Order.New>> factory)
+        {
+            return await this.ProcessAsync(factory(command));
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<MyOrdersListItem>> Get([FromQuery] GetMyOrders query)
+        {
+            return this.Process(query);
+        }
 
         [HttpPut("Dispute")]
-        public async Task<IActionResult> Dispute([FromBody] DisputeOrder command) =>
-            await this.ProcessAsync(command);
- 
-        [HttpPut("Complete")]
-        public async Task<IActionResult> Complete([FromBody] CompleteOrder command) =>
-            await this.ProcessAsync(command);
+        public async Task<IActionResult> Dispute(
+            [FromBody] DisputeOrder command,
+            [FromServices] Func<DisputeOrder, ChangeOrderStateConext<DisputeOrder, Order.Shipped>> factory)
+        {
+            return await this.ProcessAsync(factory(command));
+        }
 
-        [HttpPut("PayOrder")]
-        public async Task<IActionResult> PayOrder([FromBody] PayMyOrder command) =>
-            await this.ProcessAsync(command);
+        [HttpPut("Complete")]
+        public async Task<IActionResult> Complete(
+            [FromBody] CompleteOrder command,
+            [FromServices] Func<CompleteOrder, ChangeOrderStateConext<CompleteOrder, Order.Shipped>> factory)
+        {
+            return await this.ProcessAsync(factory(command));
+        }
     }
 }

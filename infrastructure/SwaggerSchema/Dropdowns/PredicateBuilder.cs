@@ -8,38 +8,49 @@ namespace Infrastructure.SwaggerSchema.Dropdowns
     internal static class PredicateBuilder
     {
         /// <summary>
-        /// Creates a predicate that evaluates to true.
+        ///     Creates a predicate that evaluates to true.
         /// </summary>
-        public static Expression<Func<T, bool>> True<T>() { return param => true; }
+        public static Expression<Func<T, bool>> True<T>()
+        {
+            return param => true;
+        }
 
         /// <summary>
-        /// Creates a predicate that evaluates to false.
+        ///     Creates a predicate that evaluates to false.
         /// </summary>
-        public static Expression<Func<T, bool>> False<T>() { return param => false; }
+        public static Expression<Func<T, bool>> False<T>()
+        {
+            return param => false;
+        }
 
         /// <summary>
-        /// Creates a predicate expression from the specified lambda expression.
+        ///     Creates a predicate expression from the specified lambda expression.
         /// </summary>
-        public static Expression<Func<T, bool>> Create<T>(Expression<Func<T, bool>> predicate) { return predicate; }
+        public static Expression<Func<T, bool>> Create<T>(Expression<Func<T, bool>> predicate)
+        {
+            return predicate;
+        }
 
         /// <summary>
-        /// Combines the first predicate with the second using the logical "and".
+        ///     Combines the first predicate with the second using the logical "and".
         /// </summary>
-        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
+        public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first,
+            Expression<Func<T, bool>> second)
         {
             return first.Compose(second, Expression.AndAlso);
         }
 
         /// <summary>
-        /// Combines the first predicate with the second using the logical "or".
+        ///     Combines the first predicate with the second using the logical "or".
         /// </summary>
-        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first, Expression<Func<T, bool>> second)
+        public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first,
+            Expression<Func<T, bool>> second)
         {
             return first.Compose(second, Expression.OrElse);
         }
 
         /// <summary>
-        /// Negates the predicate.
+        ///     Negates the predicate.
         /// </summary>
         public static Expression<Func<T, bool>> Not<T>(this Expression<Func<T, bool>> expression)
         {
@@ -48,14 +59,14 @@ namespace Infrastructure.SwaggerSchema.Dropdowns
         }
 
         /// <summary>
-        /// Combines the first expression with the second using the specified merge function.
+        ///     Combines the first expression with the second using the specified merge function.
         /// </summary>
         public static Expression<T> Compose<T>(this Expression<T> first, Expression<T> second,
             Func<Expression, Expression, Expression> merge)
         {
             // zip parameters (map from parameters of second to parameters of first)
             var map = first.Parameters
-                .Select((f, i) => new { f, s = second.Parameters[i] })
+                .Select((f, i) => new {f, s = second.Parameters[i]})
                 .ToDictionary(p => p.s, p => p.f);
 
             // replace parameters in the second lambda expression with the parameters in the first
@@ -67,14 +78,15 @@ namespace Infrastructure.SwaggerSchema.Dropdowns
 
         public class ParameterRebinder : ExpressionVisitor
         {
-            readonly Dictionary<ParameterExpression, ParameterExpression> _map;
+            private readonly Dictionary<ParameterExpression, ParameterExpression> _map;
 
             private ParameterRebinder(Dictionary<ParameterExpression, ParameterExpression> map)
             {
                 _map = map ?? new Dictionary<ParameterExpression, ParameterExpression>();
             }
 
-            public static Expression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map, Expression exp)
+            public static Expression ReplaceParameters(Dictionary<ParameterExpression, ParameterExpression> map,
+                Expression exp)
             {
                 return new ParameterRebinder(map).Visit(exp);
             }

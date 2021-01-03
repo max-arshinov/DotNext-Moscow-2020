@@ -12,7 +12,8 @@ namespace HightechAngular.Orders.Entities
             this.EnsureInvariant();
         }
 
-        [Required, StringLength(255)]
+        [Required]
+        [StringLength(255)]
         public string Name { get; protected set; }
     }
 }

@@ -1,17 +1,21 @@
+using System.Collections.Generic;
 using Infrastructure.AspNetCore;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HightechAngular.Shop.Features.Catalog
 {
-    public class CatalogController: ApiControllerBase
+    public class CatalogController : ApiControllerBase
     {
         [HttpGet]
-        [ProducesResponseType(typeof(ProductListItem), StatusCodes.Status200OK)]
-        public IActionResult Get([FromQuery] GetProducts query) => 
-            this.Process(query);
+        public ActionResult<IEnumerable<ProductListItem>> Get([FromQuery] GetProducts query)
+        {
+            return this.Process(query);
+        }
 
         [HttpGet("GetCategories")]
-        public IActionResult GetCategories() => this.Process(new GetCategories());
+        public ActionResult<IEnumerable<CategoryListItem>> GetCategories()
+        {
+            return this.Process(new GetCategories());
+        }
     }
 }

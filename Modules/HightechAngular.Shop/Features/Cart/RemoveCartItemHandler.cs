@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Force.Cqrs;
-using HightechAngular.Orders.Entities;
+﻿using Force.Cqrs;
 using HightechAngular.Orders.Services;
 using JetBrains.Annotations;
 

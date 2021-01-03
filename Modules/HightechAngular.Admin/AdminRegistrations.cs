@@ -1,6 +1,6 @@
-using HightechAngular.Admin.Features.OrderManagement;
-using HightechAngular.Shop.Features.MyOrders;
-using Infrastructure.SwaggerSchema.Dropdowns.Providers;
+using HightechAngular.Orders;
+using HightechAngular.Orders.Entities;
+using HightechAngular.Orders.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HightechAngular.Admin
@@ -9,9 +9,9 @@ namespace HightechAngular.Admin
     {
         public static void RegisterAdmin(this IServiceCollection services)
         {
-            services.AddScoped<IDropdownProvider<PayOrder>, PayOrderDropdownProvider>();
-            services.AddScoped<IDropdownProvider<OrderListItem>, OrderListItemDropdownProvider>();
-            services.AddScoped<IDropdownProvider<AllOrdersItem>, CreateOrderDropdownProvider>();
+            services
+                .AddOrderStateTransition<ShipOrder, Order.Paid, Order.Shipped>()
+                .AddOrderStateTransition<ResolveDisputedOrder, Order.Disputed, Order.Complete>();
         }
     }
 }

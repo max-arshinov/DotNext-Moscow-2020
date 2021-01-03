@@ -2,13 +2,12 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <OutputType>Library</OutputType>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="Extensions.Hosting.AsyncInitialization" Version="1.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.0" />
-      <PackageReference Include="MimeKit" Version="2.10.0" />
-      <PackageReference Include="MailKit" Version="2.7.0" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\infrastructure\Infrastructure\Infrastructure.csproj" />
@@ -62,22 +61,13 @@
       <Compile Update="Features\Cart\CartDropdownProvider.cs">
         <DependentUpon>CartController.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\MyOrders\DisputeOrder.cs">
-        <DependentUpon>MyOrdersController.cs</DependentUpon>
-      </Compile>
       <Compile Update="Features\MyOrders\GetMyOrders.cs">
         <DependentUpon>MyOrdersController.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Features\MyOrders\OrderListItem.cs">
-        <DependentUpon>GetMyOrders.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\MyOrders\GetMyOrdersFilter.cs">
         <DependentUpon>GetMyOrders.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\MyOrders\GetMyOrdersQueryHandler.cs">
-        <DependentUpon>GetMyOrders.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Features\MyOrders\OrderListItemDropdownProvider.cs">
         <DependentUpon>GetMyOrders.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\Index\BestsellersDropdownProvider.cs">
@@ -113,29 +103,32 @@
       <Compile Update="Features\Index\SaleListItem.cs">
         <DependentUpon>GetSale.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\MyOrders\CreateOrder.cs">
-        <DependentUpon>MyOrdersController.cs</DependentUpon>
-      </Compile>
       <Compile Update="Features\Cart\UpdateCartContext.cs">
         <DependentUpon>UpdateCart.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\Cart\RemoveCartItemContext.cs">
         <DependentUpon>RemoveCartItem.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\MyOrders\CompleteOrderCommandHandler.cs">
-        <DependentUpon>CompleteOrder.cs</DependentUpon>
+      <Compile Update="Features\MyOrders\CreateOrderCommandHandler.cs">
+        <DependentUpon>CreateOrder.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\MyOrders\CompleteOrder.cs">
+      <Compile Update="Features\MyOrders\CreateOrderValidator.cs">
+        <DependentUpon>CreateOrder.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\MyOrders\CreateOrder.cs">
         <DependentUpon>MyOrdersController.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\MyOrders\DisputeOrderCommandHandler.cs">
-        <DependentUpon>DisputeOrder.cs</DependentUpon>
+      <Compile Update="Features\Index\ProductListItemBase.cs">
+        <DependentUpon>ProductListItemQueryBase.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\MyOrders\PayMyOrder.cs">
-        <DependentUpon>MyOrdersController.cs</DependentUpon>
+      <Compile Update="Features\Index\ProductListItemQueryBase.cs">
+        <DependentUpon>IndexController.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\MyOrders\PayMyOrderCommandHandler.cs">
-        <DependentUpon>PayMyOrder.cs</DependentUpon>
+      <Compile Update="Features\MyOrders\MyOrdersListItem.cs">
+        <DependentUpon>GetMyOrders.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\MyOrders\MyOrdersListItemDropdownProvider.cs">
+        <DependentUpon>GetMyOrders.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>

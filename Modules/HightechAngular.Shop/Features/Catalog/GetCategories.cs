@@ -3,7 +3,5 @@ using Force.Cqrs;
 
 namespace HightechAngular.Shop.Features.Catalog
 {
-    public class GetCategories: IQuery<IEnumerable<CategoryListItem>>
-    {
-    }
+    public class GetCategories : IQuery<IEnumerable<CategoryListItem>> { }
 }

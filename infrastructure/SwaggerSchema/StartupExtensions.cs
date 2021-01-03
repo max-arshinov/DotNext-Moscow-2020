@@ -11,7 +11,9 @@ namespace Infrastructure.SwaggerSchema
             serviceCollection.AddTransient<AbstractCustomAttributeHandler, BoolInlineEditingAttributeHandler>();
             serviceCollection.AddTransient<AbstractCustomAttributeHandler, CustomHandlerAttributeHandler>();
             serviceCollection.AddTransient<AbstractCustomAttributeHandler, DataTypeAttributeHandler>();
-            serviceCollection.AddTransient<AbstractCustomAttributeHandler, DisableFormControlIfTargetPropertyIsNotNullAttributeHandler>();
+            serviceCollection
+                .AddTransient<AbstractCustomAttributeHandler,
+                    DisableFormControlIfTargetPropertyIsNotNullAttributeHandler>();
             serviceCollection.AddTransient<AbstractCustomAttributeHandler, DisplayAttributeHandler>();
             serviceCollection.AddTransient<AbstractCustomAttributeHandler, EnumFlagAttributeHandler>();
             serviceCollection.AddTransient<AbstractCustomAttributeHandler, HiddenAttributeHandler>();
