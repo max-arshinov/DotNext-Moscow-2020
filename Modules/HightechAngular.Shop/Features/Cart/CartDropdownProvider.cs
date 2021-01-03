@@ -3,9 +3,11 @@ using System.Threading.Tasks;
 using HightechAngular.Orders.Entities;
 using Infrastructure.SwaggerSchema.Dropdowns;
 using Infrastructure.SwaggerSchema.Dropdowns.Providers;
+using JetBrains.Annotations;
 
 namespace HightechAngular.Shop.Features.Cart
 {
+    [UsedImplicitly]
     public class CartDropdownProvider : IDropdownProvider<CartItem>
     {
         private readonly IServiceProvider _serviceProvider;

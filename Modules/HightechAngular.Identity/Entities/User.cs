@@ -2,7 +2,5 @@
 
 namespace HightechAngular.Identity.Entities
 {
-    public class User : IdentityUser
-    {
-    }
+    public class User : IdentityUser { }
 }

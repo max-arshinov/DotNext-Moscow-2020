@@ -1,6 +1,6 @@
 namespace HightechAngular.Orders.Entities
 {
-    public enum OrderStatus
+    public enum OrderStatus: byte
     {
         New,
         Paid,

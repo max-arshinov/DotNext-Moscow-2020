@@ -2,9 +2,10 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <OutputType>Library</OutputType>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Force" Version="2.0.0-alpha1" />
+        <PackageReference Include="Force" Version="2.0.0-alpha3" />
         <PackageReference Include="IdentityServer4.EntityFramework.Storage" Version="3.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />

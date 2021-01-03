@@ -10,8 +10,8 @@ namespace Infrastructure.SwaggerSchema.Filters.HandleCustomAttributes.Handlers
 
         public override void FillProperties(PropertyInfo property)
         {
-            if (property.GetCustomAttribute(typeof(FlagsAttribute)) != null && property.PropertyType.IsEnum ||
-                property.PropertyType.IsArray)
+            if (property.GetCustomAttribute(typeof(FlagsAttribute)) != null && property.PropertyType.IsEnum
+                || property.PropertyType.IsArray)
             {
                 Properties.Add(
                     property.Name.ToLower(),

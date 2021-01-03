@@ -9,8 +9,6 @@ namespace Infrastructure.Cqrs.Read
         where TQuery : IQuery<TDto>, IHasId<long>
         where TDto : class, IHasId<long>
     {
-        protected GetOneByLongIdQueryHandlerBase(IQueryable<TEntity> queryable) : base(queryable)
-        {
-        }
+        protected GetOneByLongIdQueryHandlerBase(IQueryable<TEntity> queryable) : base(queryable) { }
     }
 }

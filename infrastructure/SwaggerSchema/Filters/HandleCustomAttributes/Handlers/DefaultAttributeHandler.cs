@@ -7,6 +7,7 @@ namespace Infrastructure.SwaggerSchema.Filters.HandleCustomAttributes.Handlers
     public class DefaultAttributeHandler : AbstractCustomAttributeHandler
     {
         protected override string Key { get; set; } = "isDefault";
+
         public override void FillProperties(PropertyInfo property)
         {
             if (property.GetCustomAttribute(typeof(DefaultAttribute)) is DefaultAttribute)

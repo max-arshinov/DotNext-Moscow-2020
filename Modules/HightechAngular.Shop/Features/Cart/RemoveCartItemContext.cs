@@ -7,12 +7,12 @@ namespace HightechAngular.Shop.Features.Cart
 {
     public class RemoveCartItemContext : OperationContextBase<RemoveCartItem>, ICommand<bool>
     {
-        [Required]
-        public Product Product { get; }
-        
         public RemoveCartItemContext(RemoveCartItem request, Product product) : base(request)
         {
             Product = product;
         }
+
+        [Required]
+        public Product Product { get; }
     }
 }

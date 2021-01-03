@@ -55,7 +55,7 @@ export class AdminComponent implements OnInit {
     };
 
     this.categoriesSchemaNames = {
-      "Orders": "OrderListItem",
+      "Orders": "AllOrdersListItem",
     };
 
 

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Force.Ccc;
 using Force.Cqrs;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,11 +14,18 @@ namespace Infrastructure.Workflow
             _steps = steps;
         }
 
+        public Result<TResult, FailureInfo> Process(TRequest request, IServiceProvider sp)
+        {
+            return GetWorkflow(request, sp, _steps)(request);
+        }
+
         private Func<TRequest, Result<TResult, FailureInfo>> GetWorkflowDispatch(
             object request,
             IServiceProvider sp,
-            IWorkflowStep<TRequest, TResult>[] steps) =>
-            r => FailureInfo.ConfigurationError($"Workflow for type: \"{request.GetType()}\" is not supported");
+            IWorkflowStep<TRequest, TResult>[] steps)
+        {
+            return r => FailureInfo.ConfigurationError($"Workflow for type: \"{request.GetType()}\" is not supported");
+        }
 
         private Func<TRequest, Result<TResult, FailureInfo>> GetWorkflowDispatch(
             ICommand command,
@@ -31,7 +36,7 @@ namespace Infrastructure.Workflow
             var tf = GetVoidTerminalFunc(sp, ht);
             return GetWorkflowRecursive(tf, sp, steps, 0);
         }
-        
+
         private Func<TRequest, Result<TResult, FailureInfo>> GetWorkflowDispatch<TReturn>(
             ICommand<TReturn> command,
             IServiceProvider sp,
@@ -59,7 +64,7 @@ namespace Infrastructure.Workflow
             var h = (IHandler<TRequest>) sp.GetService(ht);
             if (h == null)
             {
-                return r => FailureInfo.ConfigurationError($"Type \"{ht}\" is not registered"); 
+                return r => FailureInfo.ConfigurationError($"Type \"{ht}\" is not registered");
             }
 
             if (h is IHasServiceProvider sph)
@@ -78,7 +83,7 @@ namespace Infrastructure.Workflow
                 return new Result<TResult, FailureInfo>(default(TResult));
             };
         }
-        
+
         private static Func<TRequest, Result<TResult, FailureInfo>> GetTerminalFunc(
             IServiceProvider sp,
             Type ht)
@@ -86,14 +91,14 @@ namespace Infrastructure.Workflow
             var h = (IHandler<TRequest, TResult>) sp.GetService(ht);
             if (h == null)
             {
-                return r => FailureInfo.ConfigurationError($"Type \"{ht}\" is not registered"); 
+                return r => FailureInfo.ConfigurationError($"Type \"{ht}\" is not registered");
             }
-            
+
             if (h is IHasServiceProvider sph)
             {
                 sph.ServiceProvider = sp;
             }
-            
+
             if (h is IHasUnitOfWork uowh)
             {
                 uowh.UnitOfWork = sp.GetService<IUnitOfWork>();
@@ -101,7 +106,7 @@ namespace Infrastructure.Workflow
 
             return r =>
             {
-                TResult res = h.Handle(r);
+                var res = h.Handle(r);
                 return new Result<TResult, FailureInfo>(res);
             };
         }
@@ -122,14 +127,15 @@ namespace Infrastructure.Workflow
         {
             if (index < steps.Length - 1)
             {
-                Result<TResult, FailureInfo> NewTerminalFunc(TRequest x) => steps[index].Process(x, terminalFunc);
+                Result<TResult, FailureInfo> NewTerminalFunc(TRequest x)
+                {
+                    return steps[index].Process(x, terminalFunc);
+                }
+
                 return GetWorkflowRecursive(NewTerminalFunc, sp, steps, index + 1);
             }
 
             return terminalFunc;
         }
-
-        public Result<TResult, FailureInfo> Process(TRequest request, IServiceProvider sp) =>
-            GetWorkflow(request, sp, _steps)(request);
     }
 }
