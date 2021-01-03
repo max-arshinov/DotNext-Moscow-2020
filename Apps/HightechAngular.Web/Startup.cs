@@ -18,12 +18,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.SwaggerUI;
-
-//using Infrastructure.Extensions;
 
 namespace HightechAngular.Web
 {
@@ -113,7 +109,6 @@ namespace HightechAngular.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
             }
             else
             {

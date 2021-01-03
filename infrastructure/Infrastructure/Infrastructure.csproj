@@ -116,5 +116,20 @@
       <Compile Update="Cqrs\Create\AsyncCreateStringEntityHandlerBase.cs">
         <DependentUpon>CreateEntityHandlerBaseAsync.cs</DependentUpon>
       </Compile>
+      <Compile Update="Cqrs\Delete\DeleteEntityHandlerBase.cs">
+        <DependentUpon>DeleteEntity.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Delete\DeleteGuidEntityHandlerBase.cs">
+        <DependentUpon>DeleteEntityHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Delete\DeleteIntEntityHandlerBase.cs">
+        <DependentUpon>DeleteEntityHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Delete\DeleteLongEntityHandlerBase.cs">
+        <DependentUpon>DeleteEntityHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Delete\DeleteStringEntityHandlerBase.cs">
+        <DependentUpon>DeleteEntityHandlerBase.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

@@ -7,7 +7,7 @@ using Infrastructure.Workflow;
 
 namespace Infrastructure.Cqrs.Delete
 {
-    public class DeleteEntityHandlerBaseAsync<TKey, TEntity, TCommand> :
+    public class AsyncDeleteEntityHandlerBase<TKey, TEntity, TCommand> :
         IHasUnitOfWork,
         ICommandHandler<TCommand, Task>
         where TEntity : class, IHasId<TKey>

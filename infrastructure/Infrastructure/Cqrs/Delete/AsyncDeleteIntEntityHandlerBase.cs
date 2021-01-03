@@ -4,8 +4,8 @@ using Force.Ddd;
 
 namespace Infrastructure.Cqrs.Delete
 {
-    public class
-        DeleteIntEntityHandlerBaseAsync<TEntity, TCommand> : DeleteEntityHandlerBaseAsync<int, TEntity, TCommand>
+    public class AsyncDeleteIntEntityHandlerBase<TEntity, TCommand> : 
+        AsyncDeleteEntityHandlerBase<int, TEntity, TCommand>
         where TCommand : ICommand<Task>, IHasId<int>
         where TEntity : class, IHasId<int> { }
 }

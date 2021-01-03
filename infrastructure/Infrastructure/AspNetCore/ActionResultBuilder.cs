@@ -45,18 +45,7 @@ namespace Infrastructure.AspNetCore
             return _objectResult ??= Match(result);
         }
 
-        protected virtual Dictionary<string, IEnumerable<string>> GetErrors(FailureInfo failureInfo)
-        {
-            return GetErrorsStatic(failureInfo);
-        }
-
-        protected virtual Dictionary<string, IEnumerable<string>> ValidationFailureInfo(
-            ValidationFailureInfo failureInfo)
-        {
-            return GetValidationFailureInfo(failureInfo);
-        }
-
-        private static Dictionary<string, IEnumerable<string>> GetErrorsStatic(FailureInfo failureInfo)
+        private static Dictionary<string, IEnumerable<string>> GetErrors(FailureInfo failureInfo)
         {
             return failureInfo switch
             {
@@ -107,7 +96,7 @@ namespace Infrastructure.AspNetCore
         public static string GetErrorDetails(FailureInfo failureInfo)
         {
             return string.Join(",\n",
-                GetErrorsStatic(failureInfo)
+                GetErrors(failureInfo)
                     .Select(kv => kv.Key + ": " + kv.Value)
                     .ToArray());
         }
@@ -208,7 +197,7 @@ namespace Infrastructure.AspNetCore
                 };
             }
 
-            var descriptor = GetErrorsStatic(failureInfo)
+            var descriptor = GetErrors(failureInfo)
                 .ToDictionary(pair => pair.Key,
                     pair => pair.Value.ToArray());
 

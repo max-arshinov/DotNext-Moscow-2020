@@ -11,12 +11,17 @@ namespace Infrastructure.SwaggerSchema.TypeProvider
 
         public DefaultTypeProvider(Func<string, bool> predicate)
         {
-            var predicate1 = predicate ?? throw new ArgumentNullException(nameof(predicate));
+            if (predicate == null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
+            // Make sure that there are no type name conflicts 
             _assemblies = AppDomain.CurrentDomain
                 .GetAssemblies()
                 .Where(x => !x.IsDynamic)
                 .SelectMany(x => x.GetExportedTypes()
-                    .Where(y => y.IsClass && !y.IsAbstract && y.IsPublic && predicate1(x.FullName)))
+                    .Where(y => y.IsClass && !y.IsAbstract && y.IsPublic && predicate(x.FullName)))
                 .ToDictionary(x => x.Name, x => x);
         }
 
