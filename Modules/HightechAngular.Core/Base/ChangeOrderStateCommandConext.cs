@@ -23,6 +23,6 @@ namespace HightechAngular.Orders.Base
         public Order Order { get; }
 
         [Required]
-        public TState State => Order?.As<TState>();
+        public TState State => Order.As<TState>();
     }
 }

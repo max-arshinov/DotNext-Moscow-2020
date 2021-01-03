@@ -2,13 +2,12 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <OutputType>Library</OutputType>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="Extensions.Hosting.AsyncInitialization" Version="1.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.0" />
-      <PackageReference Include="MimeKit" Version="2.10.0" />
-      <PackageReference Include="MailKit" Version="2.7.0" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\infrastructure\Infrastructure\Infrastructure.csproj" />
@@ -65,16 +64,10 @@
       <Compile Update="Features\MyOrders\GetMyOrders.cs">
         <DependentUpon>MyOrdersController.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\MyOrders\OrderListItem.cs">
-        <DependentUpon>GetMyOrders.cs</DependentUpon>
-      </Compile>
       <Compile Update="Features\MyOrders\GetMyOrdersFilter.cs">
         <DependentUpon>GetMyOrders.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\MyOrders\GetMyOrdersQueryHandler.cs">
-        <DependentUpon>GetMyOrders.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Features\MyOrders\OrderListItemDropdownProvider.cs">
         <DependentUpon>GetMyOrders.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\Index\BestsellersDropdownProvider.cs">
@@ -130,6 +123,18 @@
       </Compile>
       <Compile Update="Features\MyOrders\PayOrderDropdownProvider.cs">
         <DependentUpon>PayOrderCommandHandler.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\Index\ProductListItemBase.cs">
+        <DependentUpon>ProductListItemQueryBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\Index\ProductListItemQueryBase.cs">
+        <DependentUpon>IndexController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\MyOrders\MyOrdersListItem.cs">
+        <DependentUpon>GetMyOrders.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\MyOrders\MyOrdersListItemDropdownProvider.cs">
+        <DependentUpon>GetMyOrders.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>

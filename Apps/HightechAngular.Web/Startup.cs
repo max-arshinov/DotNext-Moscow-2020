@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization;
+using HightechAngular.Admin;
 using HightechAngular.Data;
 using HightechAngular.Identity.Entities;
 using HightechAngular.Identity.Services;
@@ -18,6 +18,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
 //using Infrastructure.Extensions;
@@ -70,13 +73,11 @@ namespace HightechAngular.Web
                         options.Filters.Add(typeof(ExceptionsFilterAttribute));
                     }
                 })
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                })
+                .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new StringEnumConverter()))
                 .AddModulesWithDbContext<ApplicationDbContext>(
                     CoreRegistrations.RegisterCore,
-                    ShopRegistrations.RegisterShop);
+                    ShopRegistrations.RegisterShop,
+                    AdminRegistrations.RegisterAdmin);
 
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             services.RegisterSwagger();

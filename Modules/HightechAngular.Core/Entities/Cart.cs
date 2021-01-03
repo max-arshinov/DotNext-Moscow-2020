@@ -10,21 +10,21 @@ namespace HightechAngular.Orders.Entities
     {
         private readonly List<CartItem> _cartItems;
 
-        internal Cart(User user)
+        internal Cart(User? user)
         {
-            User = user;
             Id = Guid.NewGuid();
+            User = user;
             _cartItems = new List<CartItem>();
         }
 
-        internal Cart(Guid id, IEnumerable<CartItem> cartItems, User user)
+        internal Cart(Guid id, IEnumerable<CartItem> cartItems, User? user)
         {
             User = user;
             Id = id;
             _cartItems = new List<CartItem>(cartItems);
         }
 
-        public User User { get; }
+        public User? User { get; }
 
         public IEnumerable<CartItem> CartItems => _cartItems;
 
@@ -38,11 +38,8 @@ namespace HightechAngular.Orders.Entities
                 return false;
             }
 
-            if (ci.Count > 1)
-            {
-                ci.Count--;
-            }
-            else
+            
+            if (!ci.TryDecreaseCount(out var remaining))
             {
                 _cartItems.Remove(ci);
             }
@@ -57,20 +54,12 @@ namespace HightechAngular.Orders.Entities
 
             if (ci == null)
             {
-                ci = new CartItem
-                {
-                    ProductId = product.Id,
-                    Price = product.GetDiscountedPrice(),
-                    ProductName = product.Name,
-                    CategoryName = product.Category.Name,
-                    Count = 1
-                };
-
+                ci = new CartItem(product);
                 _cartItems.Add(ci);
             }
             else
             {
-                ci.Count++;
+                ci.IncreaseCount();
             }
         }
 

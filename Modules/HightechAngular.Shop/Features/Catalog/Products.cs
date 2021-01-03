@@ -12,25 +12,29 @@ namespace HightechAngular.Shop.Features.Catalog
             CategoryId = 1;
         }
 
-        public string[] Name { get; set; }
+        // ReSharper disable UnusedMember.Global
+        public string[]? Name { get; set; }
+        
+        public double[]? Price { get; set; }
+        // ReSharper restore UnusedMember.Global
 
-        public double[] Price { get; set; }
-
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
         public override IQueryable<ProductListItem> Filter(IQueryable<ProductListItem> queryable)
         {
-            return base.Filter(queryable.Where(x => x.CategoryId == CategoryId));
+            return base.Filter(CategoryId.HasValue 
+                ? queryable.Where(x => x.CategoryId == CategoryId)
+                : queryable);
         }
 
         public override IOrderedQueryable<ProductListItem> Sort(IQueryable<ProductListItem> queryable)
         {
-            if (string.Equals(Order, nameof(ProductListItem.DateCreatedString),
+            if (string.Equals(Order, nameof(ProductListItem.CreatedString),
                 StringComparison.InvariantCultureIgnoreCase))
             {
                 return Asc
-                    ? queryable.OrderByDescending(x => x.DateCreated)
-                    : queryable.OrderBy(x => x.DateCreated);
+                    ? queryable.OrderByDescending(x => x.Created)
+                    : queryable.OrderBy(x => x.Created);
             }
 
             return base.Sort(queryable);

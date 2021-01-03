@@ -15,13 +15,8 @@ namespace HightechAngular.Orders.Services
             };
         }
 
-        internal static Cart FromDto(this CartDto dto, User user)
+        internal static Cart FromDto(this CartDto dto, User? user)
         {
-            if (dto == null)
-            {
-                return null;
-            }
-
             return new Cart(dto.Id, dto.CartItems, user);
         }
     }

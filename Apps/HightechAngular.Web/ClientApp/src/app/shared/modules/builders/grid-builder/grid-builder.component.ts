@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 @Component({
   selector: 'app-grid-builder',
   templateUrl: './grid-builder.component.html',
+  styleUrls: ['./grid-builder.css']
 })
 export class GridBuilderComponent implements OnInit {
 
@@ -29,8 +30,8 @@ export class GridBuilderComponent implements OnInit {
       editable: false,
       sortable: true,
       flex: 1,
-      minWidth: 100,
-      maxWidth: 300,
+      minWidth: 50,
+      maxWidth: 400,
       filter: true,
       comparator: () => 0
     };

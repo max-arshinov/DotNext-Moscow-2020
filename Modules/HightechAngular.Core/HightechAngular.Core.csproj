@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>HightechAngular.Orders</RootNamespace>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -58,6 +59,18 @@
       </Compile>
       <Compile Update="Handlers\ShipOrderHandler.cs">
         <DependentUpon>ShipOrder.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Handlers\PayOrderHandler.cs">
+        <DependentUpon>PayOrder.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Services\CartDto.cs">
+        <DependentUpon>CartStorage.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Services\CartExtensions.cs">
+        <DependentUpon>CartStorage.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Base\HasCreatedDateExtensions.cs">
+        <DependentUpon>IHasCreated.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 

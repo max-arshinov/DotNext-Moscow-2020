@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using Infrastructure.Ddd.Domain;
 using JetBrains.Annotations;
@@ -21,17 +20,14 @@ namespace HightechAngular.Orders.Entities
         }
 
         [Required]
-        public string Name { get; set; }
+        public string Name { get; protected set; } = default!;
 
-        public virtual Order Order { get; set; }
+        public virtual Order Order { get; protected set; } = default!;
 
-        public double Price { get; set; }
+        public double Price { get; protected set; }
 
-        [Obsolete]
-        public int DiscountPercent { get; set; }
+        public int Count { get; protected set; }
 
-        public int Count { get; set; }
-
-        public int ProductId { get; set; }
+        public int ProductId { get; protected set; }
     }
 }

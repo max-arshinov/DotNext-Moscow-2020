@@ -1,6 +1,4 @@
-﻿using Force.Cqrs;
-
-namespace HightechAngular.Shop.Features.Index
+﻿namespace HightechAngular.Shop.Features.Index
 {
-    public class GetBestsellers : FilterQuery<BestsellersListItem> { }
+    public class GetBestsellers : ProductListItemQueryBase<BestsellersListItem> { }
 }

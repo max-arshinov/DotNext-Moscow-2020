@@ -27,16 +27,16 @@ export class AdminOrderToNextStateButtonsComponent implements ICellRendererAngul
     this.currentState = this.params.data.status;
     this.noActionMessage = "No action";
     this.nextStatesDict = {
-      "New" : "Paid",
-      "Paid" : "Shipped",
-      "Dispute": "Complete",
+      "New" : "Pay",
+      "Paid" : "Ship",
+      "Dispute": "Resolve",
       "Shipped":this.noActionMessage,
       "Complete":this.noActionMessage
     };
 
     this.changeStageFuncDict = {
       "New" : this.paid.bind(this),
-      "Dispute": this.complete.bind(this),
+      "Dispute": this.resolve.bind(this),
       "Paid":this.shipped.bind(this),
       "Shipped":this.noActionStub,
       "Complete": this.noActionStub
@@ -50,17 +50,17 @@ export class AdminOrderToNextStateButtonsComponent implements ICellRendererAngul
   }
 
   paid() {
-    this.httpClient.put(environment.domain + this.controllerName + "/PayOrder", {orderId: this.params.data.id})
+    this.httpClient.put(environment.domain + this.controllerName + "/Pay", {orderId: this.params.data.id})
       .subscribe(x => this.params.update());
   }
 
   shipped() {
-    this.httpClient.put(environment.domain + this.controllerName + "/Shipped", {orderId: this.params.data.id})
+    this.httpClient.put(environment.domain + this.controllerName + "/Ship", {orderId: this.params.data.id})
       .subscribe(x => this.params.update());
   }
 
-  complete() {
-    this.httpClient.put(environment.domain + this.controllerName + "/Complete", {orderId: this.params.data.id})
+  resolve() {
+    this.httpClient.put(environment.domain + this.controllerName + "/Resolve", {orderId: this.params.data.id})
       .subscribe(x => this.params.update());
   }
 

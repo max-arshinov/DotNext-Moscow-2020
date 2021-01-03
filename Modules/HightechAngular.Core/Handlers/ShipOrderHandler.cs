@@ -1,3 +1,4 @@
+using System;
 using System.Data.Common;
 using System.Threading.Tasks;
 using Force.Ccc;
@@ -18,7 +19,7 @@ namespace HightechAngular.Orders.Handlers
 
         protected override Order.Shipped ChangeState(ChangeOrderStateConext<ShipOrder, Order.Paid> input)
         {
-            return input.State.BecomeShipped();
+            return input.State.BecomeShipped(Guid.NewGuid()); // New Tracking Code
         }
 
         protected override async Task ChangeStateInRemoteSystem(ChangeOrderStateConext<ShipOrder, Order.Paid> input)

@@ -12,12 +12,6 @@ namespace HightechAngular.Shop
         {
             services.AddScoped<ICartStorage, CartStorage>();
 
-            // services.AddScoped<IDropdownProvider<ProductListItem>, ProductsDropdownProvider>();
-            // services.AddScoped<IDropdownProvider<BestsellersListItem>, BestsellersDropdownProvider>();
-            // services.AddScoped<IDropdownProvider<NewArrivalsListItem>, NewArrivalsDropdownProvider>();
-            // services.AddScoped<IDropdownProvider<SaleListItem>, SaleListDropdownProvider>();
-            // services.AddScoped<IDropdownProvider<CartItem>, CartDropdownProvider>();
-
             services
                 .AddOrderStateTransition<PayOrder, Order.New, Order.Paid>()
                 .AddOrderStateTransition<DisputeOrder, Order.Shipped, Order.Disputed>()

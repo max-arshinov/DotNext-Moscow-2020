@@ -4,8 +4,8 @@ using Force.Ddd;
 
 namespace Infrastructure.Cqrs.Create
 {
-    public abstract class CreateStringEntityHandlerBaseAsync<TCommand, TEntity> :
-        CreateEntityHandlerBaseAsync<string, TCommand, TEntity>
+    public abstract class AsyncCreateStringEntityHandlerBase<TCommand, TEntity> :
+        AsyncCreateEntityHandlerBase<string, TCommand, TEntity>
         where TEntity : class, IHasId<string>
         where TCommand : ICommand<Task<string>> { }
 }

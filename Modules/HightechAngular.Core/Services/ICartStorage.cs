@@ -7,6 +7,7 @@ namespace HightechAngular.Orders.Services
         Cart Cart { get; }
 
         void SaveChanges();
+        
         void EmptyCart();
     }
 }

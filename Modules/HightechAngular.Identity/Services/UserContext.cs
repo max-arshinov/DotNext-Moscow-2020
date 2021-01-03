@@ -7,7 +7,7 @@ namespace HightechAngular.Identity.Services
 {
     public class UserContext : IUserContext
     {
-        private User _user;
+        private User? _user;
 
         public UserContext(IHttpContextAccessor httpContextAccessor, DbContext context)
         {
@@ -19,12 +19,12 @@ namespace HightechAngular.Identity.Services
 
         private DbContext DbContext { get; }
 
-        public User User => _user ??= GetUser();
+        public User? User => _user ??= GetUser();
 
-        private User GetUser()
+        private User? GetUser()
         {
             var id = HttpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return DbContext.Set<User>().Find(id);
+            return id == null ? null : DbContext.Set<User>().Find(id);
         }
     }
 }

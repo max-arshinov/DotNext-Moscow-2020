@@ -7,7 +7,7 @@ using Infrastructure.Workflow;
 
 namespace Infrastructure.Cqrs.Create
 {
-    public abstract class CreateEntityHandlerBaseAsync<TKey, TCommand, TEntity> :
+    public abstract class AsyncCreateEntityHandlerBase<TKey, TCommand, TEntity> :
         IHasUnitOfWork,
         ICommandHandler<TCommand, Task<TKey>>
         where TEntity : class, IHasId<TKey>

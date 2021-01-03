@@ -7,7 +7,11 @@ namespace HightechAngular.Admin.Entities
 {
     public class AuditLog : IntEntityBase
     {
-        protected AuditLog() { }
+        protected AuditLog()
+        {
+            EventName = default!;
+            UserName = default!;
+        }
 
         public AuditLog(string eventName, IIdentity identity, int? entityId = null)
         {

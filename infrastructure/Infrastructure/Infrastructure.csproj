@@ -92,5 +92,29 @@
       <Compile Update="Cqrs\Read\GetOneByIdMapBase.cs">
         <DependentUpon>GetOneByIdQuery.cs</DependentUpon>
       </Compile>
+      <Compile Update="Cqrs\Create\CreateGuidEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\AsyncCreateGuidEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\CreateIntEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\AsyncCreateIntEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\CreateLongEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\AsyncCreateLongEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\CreateStringEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\AsyncCreateStringEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

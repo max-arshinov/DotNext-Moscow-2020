@@ -35,8 +35,9 @@ namespace HightechAngular.Orders.Entities
 
             public override OrderStatus EligibleStatus => OrderStatus.Paid;
 
-            internal Shipped BecomeShipped()
+            internal Shipped BecomeShipped(Guid trackingCode)
             {
+                Entity.TrackingCode = trackingCode;
                 return Entity.To<Shipped>(OrderStatus.Shipped);
             }
         }
@@ -47,14 +48,14 @@ namespace HightechAngular.Orders.Entities
 
             public override OrderStatus EligibleStatus => OrderStatus.Shipped;
 
-            internal Disputed BecomeDisputed([NotNull] string complain)
+            internal Disputed BecomeDisputed(string complaint)
             {
-                if (string.IsNullOrEmpty(complain))
+                if (string.IsNullOrEmpty(complaint))
                 {
-                    throw new ArgumentNullException(nameof(complain));
+                    throw new ArgumentNullException(nameof(complaint));
                 }
 
-                Entity.Complaint = complain;
+                Entity.Complaint = complaint;
                 return Entity.To<Disputed>(OrderStatus.Dispute);
             }
 
@@ -84,6 +85,7 @@ namespace HightechAngular.Orders.Entities
                     throw new ArgumentNullException(nameof(resolutionComment));
                 }
 
+                Entity.AdminComment = resolutionComment;
                 return Entity.To<Complete>(OrderStatus.Complete);
             }
         }

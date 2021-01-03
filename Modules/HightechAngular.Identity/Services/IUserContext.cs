@@ -6,7 +6,7 @@ namespace HightechAngular.Identity.Services
     public interface IUserContext
     {
         [CanBeNull]
-        public User User { get; }
+        public User? User { get; }
 
         public bool IsAuthenticated => User != null;
     }

@@ -5,14 +5,16 @@ using System.Threading.Tasks;
 using HightechAngular.Orders.Entities;
 using Infrastructure.SwaggerSchema.Dropdowns;
 using Infrastructure.SwaggerSchema.Dropdowns.Providers;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 
 namespace HightechAngular.Shop.Features.Catalog
 {
+    [UsedImplicitly]
     public class ProductsDropdownProvider : IDropdownProvider<ProductListItem>
     {
-        private static IHttpContextAccessor _httpContextAccessor;
         private readonly int _currentCategoryId;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IServiceProvider _serviceProvider;
 
         public ProductsDropdownProvider(IServiceProvider serviceProvider,

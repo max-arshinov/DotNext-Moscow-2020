@@ -14,19 +14,25 @@ namespace HightechAngular.Orders.Entities
 
         public static readonly ProductSpecs Specs = new ProductSpecs();
 
-        protected Product() { }
-
-        public Product(Category category, string name, double price, int discountPercent)
+        // ReSharper disable VirtualMemberCallInConstructor
+        protected Product()
         {
-            // ReSharper disable once VirtualMemberCallInConstructor
+            Name = default!;
+            Category = default!;
+        }
+
+        public Product(Category category, string name, double price, int discountPercent, 
+            DateTime? created = default)
+        {
             Category = category ?? throw new ArgumentNullException(nameof(category));
             Name = name;
             Price = price;
             DiscountPercent = discountPercent;
-            DateCreated = DateTime.UtcNow;
+            Created = created ?? DateTime.UtcNow;
             this.EnsureInvariant();
         }
 
+        // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
         [Required]
         public string Name { get; protected set; }
 
@@ -34,11 +40,12 @@ namespace HightechAngular.Orders.Entities
 
         public int DiscountPercent { get; protected set; }
 
-        public DateTime DateCreated { get; protected set; }
+        public DateTime Created { get; protected set; }
 
         public virtual Category Category { get; protected set; }
 
         public int PurchaseCount { get; set; }
+        // ReSharper restore AutoPropertyCanBeMadeGetOnly.Global
 
         public static Expression<Func<Product, Product>> UpdatePurchaseCountExpression(int count)
         {

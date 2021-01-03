@@ -11,7 +11,7 @@ namespace HightechAngular.Orders.Entities
     // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
     // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
     public partial class Order :
-        HasStateBase<OrderStatus, Order.OrderStateBase>,
+        IntHasStateBase<OrderStatus, Order.OrderStateBase>,
         IHasDomainEvents
     {
         public static readonly OrderSpecs Specs = new OrderSpecs();
@@ -23,17 +23,12 @@ namespace HightechAngular.Orders.Entities
 
         public Order(Cart cart)
         {
+            // ReSharper disable once VirtualMemberCallInConstructor
             User = cart.User ?? throw new InvalidOperationException("User must be authenticated");
 
             _orderItems = cart
                 .CartItems
-                .Select(x => new OrderItem(this, x)
-                {
-                    Order = this,
-                    Count = x.Count,
-                    Name = x.ProductName,
-                    Price = x.Price
-                })
+                .Select(x => new OrderItem(this, x))
                 .ToList();
 
             Total = _orderItems.Select(x => x.Price).Sum();
@@ -41,12 +36,11 @@ namespace HightechAngular.Orders.Entities
         }
 
         [Required]
-        public virtual User User { get; protected set; }
+        public virtual User User { get; protected set; } = default!;
 
         public DateTime Created { get; protected set; } = DateTime.UtcNow;
-
-
-        public DateTime Updated { get; protected set; }
+        
+        public DateTime? Updated { get; protected set; }
 
         public virtual IEnumerable<OrderItem> OrderItems => _orderItems;
 
@@ -54,7 +48,9 @@ namespace HightechAngular.Orders.Entities
 
         public Guid? TrackingCode { get; protected set; }
 
-        public string Complaint { get; protected set; }
+        public string? Complaint { get; protected set; } 
+
+        public string? AdminComment { get; protected set; } 
 
         public IEnumerable<IDomainEvent> GetDomainEvents()
         {

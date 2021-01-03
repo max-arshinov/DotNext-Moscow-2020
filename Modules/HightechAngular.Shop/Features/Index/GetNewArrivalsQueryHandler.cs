@@ -16,7 +16,7 @@ namespace HightechAngular.Shop.Features.Index
         {
             return queryable
                 .ProjectToType<NewArrivalsListItem>()
-                .OrderByDescending(x => x.DateCreated)
+                .OrderByDescending(x => x.Created)
                 .Take(4);
         }
     }
