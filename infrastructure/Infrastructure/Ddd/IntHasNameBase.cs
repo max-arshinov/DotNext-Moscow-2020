@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Infrastructure.Ddd.Domain
+namespace Infrastructure.Ddd
 {
     public class IntHasNameBase : IntHasIdBase
     {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Force.Ccc;
 using Infrastructure.Extensions;
 
-namespace Infrastructure.Workflow
+namespace Infrastructure.Workflow.Steps
 {
     public class HandlerWorkflowFactory<TRequest, TResult> : IWorkflow<TRequest, TResult>
     {

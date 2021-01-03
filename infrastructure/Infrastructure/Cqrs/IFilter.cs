@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Infrastructure.Ddd
+namespace Infrastructure.Cqrs
 {
     public interface IFilter<TQueryable, TPredicate>
     {

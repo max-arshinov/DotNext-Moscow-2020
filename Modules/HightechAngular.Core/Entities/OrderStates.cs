@@ -1,6 +1,5 @@
 using System;
-using Infrastructure.Ddd.Domain.State;
-using JetBrains.Annotations;
+using Infrastructure.Ddd.State;
 
 namespace HightechAngular.Orders.Entities
 {
@@ -80,11 +79,6 @@ namespace HightechAngular.Orders.Entities
 
             internal Complete Resolve(string resolutionComment)
             {
-                if (string.IsNullOrEmpty(resolutionComment))
-                {
-                    throw new ArgumentNullException(nameof(resolutionComment));
-                }
-
                 Entity.AdminComment = resolutionComment;
                 return Entity.To<Complete>(OrderStatus.Complete);
             }

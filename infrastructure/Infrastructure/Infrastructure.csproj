@@ -116,20 +116,26 @@
       <Compile Update="Cqrs\Create\AsyncCreateStringEntityHandlerBase.cs">
         <DependentUpon>CreateEntityHandlerBaseAsync.cs</DependentUpon>
       </Compile>
-      <Compile Update="Cqrs\Delete\DeleteEntityHandlerBase.cs">
-        <DependentUpon>DeleteEntity.cs</DependentUpon>
+      <Compile Update="Ddd\EfCoreUnitOfWorkTransaction.cs">
+        <DependentUpon>EfCoreUnitOfWork.cs</DependentUpon>
       </Compile>
-      <Compile Update="Cqrs\Delete\DeleteGuidEntityHandlerBase.cs">
-        <DependentUpon>DeleteEntityHandlerBase.cs</DependentUpon>
+      <Compile Update="Ddd\DomainEventDispatcher.cs">
+        <DependentUpon>EfCoreUnitOfWork.cs</DependentUpon>
       </Compile>
-      <Compile Update="Cqrs\Delete\DeleteIntEntityHandlerBase.cs">
-        <DependentUpon>DeleteEntityHandlerBase.cs</DependentUpon>
+      <Compile Update="Workflow\IWorkflowStep.cs">
+        <DependentUpon>IWorkflow.cs</DependentUpon>
       </Compile>
-      <Compile Update="Cqrs\Delete\DeleteLongEntityHandlerBase.cs">
-        <DependentUpon>DeleteEntityHandlerBase.cs</DependentUpon>
+      <Compile Update="Workflow\IAsyncWorkflowStep.cs">
+        <DependentUpon>IAsyncWorkflow.cs</DependentUpon>
       </Compile>
-      <Compile Update="Cqrs\Delete\DeleteStringEntityHandlerBase.cs">
-        <DependentUpon>DeleteEntityHandlerBase.cs</DependentUpon>
+      <Compile Update="Workflow\AsyncHandlerWorkflow.cs">
+        <DependentUpon>IAsyncWorkflow.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Workflow\HandlerWorkflow.cs">
+        <DependentUpon>IWorkflow.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Workflow\FailureType.cs">
+        <DependentUpon>FailureInfo.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>

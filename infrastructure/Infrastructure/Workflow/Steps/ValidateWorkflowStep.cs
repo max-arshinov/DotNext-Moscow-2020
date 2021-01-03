@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Force.Ccc;
 using Infrastructure.Validation;
 
-namespace Infrastructure.Workflow
+namespace Infrastructure.Workflow.Steps
 {
     public class ValidateWorkflowStep<TRequest, TReturn> : IWorkflowStep<TRequest, TReturn>
     {

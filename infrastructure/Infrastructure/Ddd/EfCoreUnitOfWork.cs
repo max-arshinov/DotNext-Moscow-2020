@@ -42,15 +42,7 @@ namespace Infrastructure.Ddd
 
         protected override void DoCommit()
         {
-            try
-            {
-                _dbContext.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            _dbContext.SaveChanges();
         }
 
         protected override IEnumerable<IDomainEvent> GetDomainEvents()

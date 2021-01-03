@@ -1,7 +1,10 @@
+using JetBrains.Annotations;
+
 namespace HightechAngular.Orders.Base
 {
     public interface IHasOrderId
     {
-        int OrderId { get; set; }
+        [UsedImplicitly]
+        int OrderId { get; }
     }
 }

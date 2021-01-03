@@ -25,6 +25,8 @@ namespace HightechAngular.Orders.Entities
         }
 
         [Display(Name = "Product Id")]
+        // ReSharper disable MemberCanBePrivate.Global
+        // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
         public int ProductId { get; protected set; }
 
         [Display(Name = "Name")]
@@ -38,6 +40,8 @@ namespace HightechAngular.Orders.Entities
 
         [Display(Name = "Count")]
         public int Count { get; protected set; }
+        // ReSharper restore AutoPropertyCanBeMadeGetOnly.Global
+        // ReSharper restore MemberCanBePrivate.Global
 
         public void IncreaseCount(int count = 1)
         {

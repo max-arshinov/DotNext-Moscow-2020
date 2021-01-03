@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infrastructure.Ddd.Domain.State
+namespace Infrastructure.Ddd.State
 {
     public abstract class StateBase<TEntity, TStatus>
         where TEntity : class, IHasStatus<TStatus>

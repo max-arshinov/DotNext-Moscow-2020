@@ -5,9 +5,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Force.Ccc;
 using Force.Reflection;
-using Infrastructure.Validation;
 
-namespace Infrastructure.Ddd
+namespace Infrastructure.Validation
 {
     public class DataAnnotationValidator<T> : IValidator<T>, IAsyncValidator<T>
     {

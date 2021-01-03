@@ -11,8 +11,7 @@ namespace HightechAngular.Orders.Handlers
     {
         public CompletedOrderHandler(IUnitOfWork unitOfWork, ILogger<CompleteOrder> logger) :
             base(unitOfWork, logger) { }
-
-
+        
         protected override Order.Complete ChangeState(ChangeOrderStateConext<CompleteOrder, Order.Shipped> input)
         {
             return input.State.BecomeComplete();

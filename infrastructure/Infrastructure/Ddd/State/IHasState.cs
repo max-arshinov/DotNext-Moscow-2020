@@ -1,4 +1,4 @@
-namespace Infrastructure.Ddd.Domain.State
+namespace Infrastructure.Ddd.State
 {
     public interface IHasState<out T>
     {

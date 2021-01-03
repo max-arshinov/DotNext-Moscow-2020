@@ -19,7 +19,7 @@ namespace HightechAngular.Orders.Handlers
 
         protected override Order.Shipped ChangeState(ChangeOrderStateConext<ShipOrder, Order.Paid> input)
         {
-            return input.State.BecomeShipped(Guid.NewGuid()); // New Tracking Code
+            return input.State.BecomeShipped(Guid.NewGuid()); // Tracking Code
         }
 
         protected override async Task ChangeStateInRemoteSystem(ChangeOrderStateConext<ShipOrder, Order.Paid> input)

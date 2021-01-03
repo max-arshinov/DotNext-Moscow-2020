@@ -1,5 +1,4 @@
-﻿using Force.Cqrs;
-using HightechAngular.Orders.Base;
+﻿using HightechAngular.Orders.Base;
 
 namespace HightechAngular.Shop.Features.MyOrders
 {

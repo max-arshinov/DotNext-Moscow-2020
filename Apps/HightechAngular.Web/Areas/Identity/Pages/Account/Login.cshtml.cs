@@ -73,24 +73,22 @@ namespace HightechAngular.Web.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
+                    _logger.LogInformation("User logged in");
                     return LocalRedirect(returnUrl);
                 }
             }
 
-            ModelState.AddModelError(string.Empty, "Неверный логин или пароль");
+            ModelState.AddModelError(string.Empty, "Wrong login or password");
             return Page();
         }
 
         public class InputModel
         {
-            [Required(ErrorMessage = "Введите никнейм или электронную почту")]
-            [Display(Name = "Никнейм/электронная почта")]
+            [Required]
             public string Login { get; set; }
 
-            [Required(ErrorMessage = "Введите пароль")]
+            [Required]
             [DataType(DataType.Password)]
-            [Display(Name = "Пароль")]
             public string Password { get; set; }
         }
     }

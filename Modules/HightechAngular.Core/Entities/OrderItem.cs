@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Infrastructure.Ddd.Domain;
+using Infrastructure.Ddd;
 using JetBrains.Annotations;
 
 namespace HightechAngular.Orders.Entities

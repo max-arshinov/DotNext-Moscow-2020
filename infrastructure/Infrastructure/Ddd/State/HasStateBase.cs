@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infrastructure.Ddd.Domain.State
+namespace Infrastructure.Ddd.State
 {
     public abstract class HasStateBase<TKey, TStatus, TState> :
         EntityBase<TKey>,

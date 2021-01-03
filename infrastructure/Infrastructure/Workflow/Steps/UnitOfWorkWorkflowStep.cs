@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Force.Ccc;
 using Force.Cqrs;
 
-namespace Infrastructure.Workflow
+namespace Infrastructure.Workflow.Steps
 {
     public class UnitOfWorkWorkflowStep<TRequest, TReturn> :
         IWorkflowStep<TRequest, TReturn>,
@@ -22,6 +22,7 @@ namespace Infrastructure.Workflow
             var res = await next(request);
             if (!res.IsFaulted)
             {
+                // https://habr.com/ru/post/283522/
                 Dispatch((dynamic) request);
             }
 

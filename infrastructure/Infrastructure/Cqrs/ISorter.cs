@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace Infrastructure.Ddd
+namespace Infrastructure.Cqrs
 {
     public interface ISorter<TQueryable, in TPredicate>
     {

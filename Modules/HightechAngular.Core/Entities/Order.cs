@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Force.Ddd.DomainEvents;
 using HightechAngular.Identity.Entities;
-using Infrastructure.Ddd.Domain.State;
+using Infrastructure.Ddd.State;
 
 namespace HightechAngular.Orders.Entities
 {
