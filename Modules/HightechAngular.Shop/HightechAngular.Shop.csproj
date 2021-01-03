@@ -109,9 +109,6 @@
       <Compile Update="Features\Cart\RemoveCartItemContext.cs">
         <DependentUpon>RemoveCartItem.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\MyOrders\PayOrderCommandHandler.cs">
-        <DependentUpon>MyOrdersController.cs</DependentUpon>
-      </Compile>
       <Compile Update="Features\MyOrders\CreateOrderCommandHandler.cs">
         <DependentUpon>CreateOrder.cs</DependentUpon>
       </Compile>
@@ -120,9 +117,6 @@
       </Compile>
       <Compile Update="Features\MyOrders\CreateOrder.cs">
         <DependentUpon>MyOrdersController.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Features\MyOrders\PayOrderDropdownProvider.cs">
-        <DependentUpon>PayOrderCommandHandler.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\Index\ProductListItemBase.cs">
         <DependentUpon>ProductListItemQueryBase.cs</DependentUpon>
