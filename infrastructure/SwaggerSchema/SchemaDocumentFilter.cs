@@ -11,15 +11,15 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Infrastructure.SwaggerSchema
 {
-    public class SchemaDocumentFilter: IDocumentFilter
+    public class SchemaDocumentFilter : IDocumentFilter
     {
-        private IDictionary<string, Type> _types;
+        private readonly IDictionary<string, Type> _types;
 
         public SchemaDocumentFilter(ITypeProvider typeProvider)
         {
             _types = typeProvider.GetTypes(AppDomain.CurrentDomain.GetAssemblies());
         }
-        
+
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             AddAdditionalAttributesToSchemas(context.SchemaRepository.Schemas);
@@ -90,13 +90,15 @@ namespace Infrastructure.SwaggerSchema
             return propertiesDisplayAttributeDictionary;
         }
 
-        private Dictionary<string, OpenApiBoolean> GetPropertiesHiddenInputAttributeDictionary(PropertyInfo[] properties)
+        private Dictionary<string, OpenApiBoolean> GetPropertiesHiddenInputAttributeDictionary(
+            PropertyInfo[] properties)
         {
             var propertiesHiddenInputAttributeDictionary = new Dictionary<string, OpenApiBoolean>();
 
             foreach (var property in properties)
             {
-                if (property.GetCustomAttribute(typeof(HiddenInputAttribute)) is HiddenInputAttribute hiddenInputAttribute)
+                if (property.GetCustomAttribute(typeof(HiddenInputAttribute)) is HiddenInputAttribute
+                    hiddenInputAttribute)
                 {
                     propertiesHiddenInputAttributeDictionary.Add(
                         property.Name.ToLower(),

@@ -5,7 +5,7 @@
         <OutputType>Library</OutputType>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Force" Version="2.0.0-alpha1" />
+        <PackageReference Include="Force" Version="2.0.0-alpha3" />
         <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
         <PackageReference Include="Mapster" Version="7.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
@@ -28,6 +28,114 @@
       </Compile>
       <Compile Update="OperationContext\ByIntIdOperationContextBase.cs">
         <DependentUpon>ByIdOperationContextBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Workflow\ValidationFailureInfo.cs">
+        <DependentUpon>FailureInfo.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Workflow\ExceptionFailureInfo.cs">
+        <DependentUpon>FailureInfo.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetGuidEnumerableQueryHandlerBase.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetGuidEnumerableQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetIntEnumerableQueryHandlerBase.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetIntEnumerableQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetLongEnumerableQueryHandlerBase.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetLongEnumerableQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByGuidIdQueryHandlerBase .cs">
+        <DependentUpon>GetEnumerableQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByGuidIdQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetEnumerableQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByIntIdQueryHandlerBase.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByIntIdQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByLongIdQueryHandlerBase.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByLongIdQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByStringIdQueryHandlerBase.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByStringIdQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetStringEnumerableQueryHandlerBase.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetStringEnumerableQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetOneByIdQueryHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByIdQueryHandlerBase.cs">
+        <DependentUpon>GetOneByIdQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByIdQueryHandlerBaseAsync.cs">
+        <DependentUpon>GetOneByIdQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Read\GetOneByIdMapBase.cs">
+        <DependentUpon>GetOneByIdQuery.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\CreateGuidEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\AsyncCreateGuidEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\CreateIntEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\AsyncCreateIntEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\CreateLongEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\AsyncCreateLongEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\CreateStringEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBase.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Cqrs\Create\AsyncCreateStringEntityHandlerBase.cs">
+        <DependentUpon>CreateEntityHandlerBaseAsync.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Ddd\EfCoreUnitOfWorkTransaction.cs">
+        <DependentUpon>EfCoreUnitOfWork.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Ddd\DomainEventDispatcher.cs">
+        <DependentUpon>EfCoreUnitOfWork.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Workflow\IWorkflowStep.cs">
+        <DependentUpon>IWorkflow.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Workflow\IAsyncWorkflowStep.cs">
+        <DependentUpon>IAsyncWorkflow.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Workflow\AsyncHandlerWorkflow.cs">
+        <DependentUpon>IAsyncWorkflow.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Workflow\HandlerWorkflow.cs">
+        <DependentUpon>IWorkflow.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Workflow\FailureType.cs">
+        <DependentUpon>FailureInfo.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>

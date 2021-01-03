@@ -13,10 +13,13 @@ namespace Infrastructure.SwaggerSchema.Filters
                 .Cast<FileStreamContentTypeAttribute>()
                 .FirstOrDefault();
 
-            if (requestAttribute == null) return;
+            if (requestAttribute == null)
+            {
+                return;
+            }
 
             var content = requestAttribute.ContentTypes
-                .ToDictionary(contentType => contentType, contentType => 
+                .ToDictionary(contentType => contentType, contentType =>
                     new OpenApiMediaType {Schema = new OpenApiSchema {Type = "string", Format = "binary"}});
 
             operation.Responses.Add("200", new OpenApiResponse

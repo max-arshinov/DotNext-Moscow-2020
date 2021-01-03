@@ -8,10 +8,12 @@ namespace Infrastructure.SwaggerSchema.Dropdowns
     public static class Extensions
     {
         public static ParallelDropdownsBuilder<T> DropdownsFor<T>(
-            this IServiceProvider sp) 
-            where T : class =>
-            Dropdowns.Create<T>(sp);
-        
+            this IServiceProvider sp)
+            where T : class
+        {
+            return Dropdowns.Create<T>(sp);
+        }
+
         public static async Task<TResult> InScopeAsync<TService, TResult>(this IServiceProvider serviceProvider,
             Func<TService, IServiceProvider, Task<TResult>> func)
         {

@@ -1,6 +1,4 @@
 ﻿namespace Infrastructure.Ddd
 {
-    public abstract class IntEntityBase: EntityBase<int>
-    {
-    }
+    public abstract class IntEntityBase : EntityBase<int> { }
 }

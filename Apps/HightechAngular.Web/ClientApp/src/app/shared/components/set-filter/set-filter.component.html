@@ -7,7 +7,10 @@
       <mat-label>Поиск</mat-label>
       <input matInput type="text" [formControl]="filter" (input)="filterDropdowns()">
     </mat-form-field>
-    <mat-checkbox class="example-margin" [(ngModel)]="selectedAll" (change)="selectAll();" [(indeterminate)]="indeterminate" [disabled]="filtered.length == 0">Выбрать всё</mat-checkbox>
+    <mat-checkbox class="example-margin"
+                  [(ngModel)]="selectedAll"
+                  (change)="selectAll();"
+                  [(indeterminate)]="indeterminate" [disabled]="filtered.length == 0">Выбрать всё</mat-checkbox>
   </div>
   <div class="filter-list-container">
     <div class="filter-list" >

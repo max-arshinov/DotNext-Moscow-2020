@@ -13,7 +13,10 @@ namespace Infrastructure.OperationContext
         where T : class
         where TContext : OperationContextBase<T>
     {
-        public Func<T, TContext> BuildFunc(IServiceProvider sp) => x => Build(sp, x);
+        public Func<T, TContext> BuildFunc(IServiceProvider sp)
+        {
+            return x => Build(sp, x);
+        }
 
         public TContext Build(IServiceProvider sp, T request)
         {
@@ -34,8 +37,9 @@ namespace Infrastructure.OperationContext
             {
                 d[p] = p.ParameterType == request.GetType()
                     ? request
-                    : dbContextCache != null && dbContextCache.Contains(p.ParameterType)
-                                             && requestPropsCache.Contains(p.ParameterType)
+                    : dbContextCache != null
+                      && dbContextCache.Contains(p.ParameterType)
+                      && requestPropsCache.Contains(p.ParameterType)
                         ? requestPropsCache.GetPropInstance(p.ParameterType, request, dbContext)
                         : sp.GetService(p.ParameterType);
             }
@@ -46,13 +50,29 @@ namespace Infrastructure.OperationContext
             return context;
         }
 
+        private static ConstructorInfo GetConstructorInfo()
+        {
+            var ctype = typeof(TContext);
+            var ctor = ctype
+                .GetConstructors()
+                .OrderByDescending(x => x.GetGenericArguments().Length)
+                .First();
+
+            return ctor;
+        }
+
+        private TContext CreateInstance(params object[] args)
+        {
+            return Type<TContext>.CreateInstance();
+        }
+
         #region RequestPropsCache
 
         private class RequestPropsCache
         {
-            private readonly Dictionary<string, PropertyInfo> _requestProps;
             private static RequestPropsCache _instance;
-            private static readonly object _locker = new object();
+            private static readonly object _locker = new();
+            private readonly Dictionary<string, PropertyInfo> _requestProps;
 
             private RequestPropsCache(T request)
             {
@@ -61,7 +81,11 @@ namespace Infrastructure.OperationContext
 
             public static RequestPropsCache GetInstance(T request)
             {
-                if (_instance != null) return _instance;
+                if (_instance != null)
+                {
+                    return _instance;
+                }
+
                 lock (_locker)
                 {
                     _instance ??= new RequestPropsCache(request);
@@ -70,16 +94,23 @@ namespace Infrastructure.OperationContext
                 return _instance;
             }
 
-            public object GetPropInstance(Type type, T request, DbContext dbContext) =>
-                dbContext?.Find(type, GetValue(type, request));
+            public object GetPropInstance(Type type, T request, DbContext dbContext)
+            {
+                return dbContext?.Find(type, GetValue(type, request));
+            }
 
-            public bool Contains(MemberInfo member) =>
-                _requestProps.ContainsKey(member.Name + "Id") || _requestProps.Count == 1 && _requestProps.ContainsKey("Id");
+            public bool Contains(MemberInfo member)
+            {
+                return _requestProps.ContainsKey(member.Name + "Id")
+                       || _requestProps.Count == 1 && _requestProps.ContainsKey("Id");
+            }
 
-            private object GetValue(MemberInfo member, T request) =>
-                _requestProps.FirstOrDefault(x => x.Key == member.Name + "Id"
-                                                  || _requestProps.Count == 1 && x.Key == "Id")
+            private object GetValue(MemberInfo member, T request)
+            {
+                return _requestProps.FirstOrDefault(x => x.Key == member.Name + "Id"
+                                                         || _requestProps.Count == 1 && x.Key == "Id")
                     .Value.GetValue(request);
+            }
 
             private static Dictionary<string, PropertyInfo> GetRequestProps(T request)
             {
@@ -92,15 +123,26 @@ namespace Infrastructure.OperationContext
 
         #endregion
 
+        private static class Cache
+        {
+            public static readonly ConstructorInfo ConstructorInfo =
+                typeof(TContext)
+                    .GetConstructors()
+                    .OrderByDescending(x => x.GetParameters().Length)
+                    .First();
+        }
+
         #region DbContextCache
 
-        private static DbContextCache GetDbContextCache(DbContext dbContext) =>
-            dbContext == null ? null : DbContextCache.GetInstance((dynamic) dbContext);
+        private static DbContextCache GetDbContextCache(DbContext dbContext)
+        {
+            return dbContext == null ? null : DbContextCache.GetInstance((dynamic) dbContext);
+        }
 
         [UsedImplicitly]
         private class DbContextCache<TDbContext>
         {
-            public static readonly DbContextCache Instance = new DbContextCache(typeof(TDbContext));
+            public static readonly DbContextCache Instance = new(typeof(TDbContext));
         }
 
         private class DbContextCache
@@ -116,18 +158,29 @@ namespace Infrastructure.OperationContext
             }
 
             public static DbContextCache GetInstance<TDbContext>(TDbContext dbContext)
-                where TDbContext : DbContext => DbContextCache<TDbContext>.Instance;
+                where TDbContext : DbContext
+            {
+                return DbContextCache<TDbContext>.Instance;
+            }
 
-            public bool Contains(Type type) => _contextTypes.Keys.Contains(type);
+            public bool Contains(Type type)
+            {
+                return _contextTypes.Keys.Contains(type);
+            }
 
             private Dictionary<Type, PropertyInfo> GetContextTypes()
             {
-                if (_contextTypes != null && _contextTypes.Any()) return _contextTypes;
+                if (_contextTypes != null && _contextTypes.Any())
+                {
+                    return _contextTypes;
+                }
 
                 var dbTypes = _type
                     .GetProperties()
-                    .Where(x => x.PropertyType.IsGenericType && x.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
-                    .Select(x => x.PropertyType.GetGenericArguments()[0]).ToList();
+                    .Where(x => x.PropertyType.IsGenericType
+                                && x.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
+                    .Select(x => x.PropertyType.GetGenericArguments()[0])
+                    .ToList();
 
                 _contextTypes = Type<TContext>
                     .PublicProperties
@@ -140,30 +193,5 @@ namespace Infrastructure.OperationContext
         }
 
         #endregion
-
-        private static ConstructorInfo GetConstructorInfo()
-        {
-            var ctype = typeof(TContext);
-            var ctor = ctype
-                .GetConstructors()
-                .OrderByDescending(x => x.GetGenericArguments().Length)
-                .First();
-
-            return ctor;
-        }
-
-        private static class Cache
-        {
-            public static readonly ConstructorInfo ConstructorInfo =
-                typeof(TContext)
-                    .GetConstructors()
-                    .OrderByDescending(x => x.GetParameters().Length)
-                    .First();
-        }
-
-        private TContext CreateInstance(params object[] args)
-        {
-            return Type<TContext>.CreateInstance();
-        }
     }
 }

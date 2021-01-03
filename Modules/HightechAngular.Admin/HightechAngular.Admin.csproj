@@ -2,6 +2,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <OutputType>Library</OutputType>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\infrastructure\Infrastructure\Infrastructure.csproj" />
@@ -10,7 +11,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="EFCore.BulkExtensions" Version="3.2.5" />
-        <PackageReference Include="Force" Version="2.0.0-alpha1" />
+        <PackageReference Include="Force" Version="2.0.0-alpha3" />
     </ItemGroup>
     <ItemGroup>
       <Compile Update="Features\OrderManagement\GetOrdersDropdownProvider.cs">
@@ -19,50 +20,41 @@
       <Compile Update="Features\OrderManagement\ChangeOrderStateBase.cs">
         <DependentUpon>OrderController.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\OrderManagement\PayOrder.cs">
-        <DependentUpon>AllOrderController.cs</DependentUpon>
-      </Compile>
       <Compile Update="Features\OrderManagement\GetOrder.cs">
         <DependentUpon>OrderController.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\OrderManagement\GetOrderCommandHandler.cs">
         <DependentUpon>CreateOrder.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\OrderManagement\CreateOrderDropdownProvider.cs">
-        <DependentUpon>AllOrderController.cs</DependentUpon>
+      <Compile Update="Features\OrderManagement\AllOrdersListItemDropdownProvider.cs">
+        <DependentUpon>AllOrderListItem.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\OrderManagement\PayOrderContext.cs">
-        <DependentUpon>PayOrder.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Features\OrderManagement\PayOrderCommandHandler.cs">
-        <DependentUpon>PayOrder.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Features\OrderManagement\PayOrderDropdownProvider.cs">
-        <DependentUpon>PayOrder.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Features\OrderManagement\ShipOrderHandler.cs">
-        <DependentUpon>ShipOrder.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Features\OrderManagement\ShipOrder.cs">
-        <DependentUpon>AllOrderController.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Features\OrderManagement\GetAllOrders.cs">
-        <DependentUpon>AllOrderController.cs</DependentUpon>
-      </Compile>
-      <Compile Update="Features\OrderManagement\AllOrdersItem.cs">
+      <Compile Update="Features\OrderManagement\AllOrderListItem.cs">
         <DependentUpon>GetAllOrders.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\OrderManagement\GetAllOrdersHandler.cs">
         <DependentUpon>GetAllOrders.cs</DependentUpon>
       </Compile>
+      <Compile Update="Features\OrderManagement\GetAllOrders.cs">
+        <DependentUpon>OrderController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\OrderManagement\PayOrderCommandHandler.cs">
+        <DependentUpon>PayOrder.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\OrderManagement\PayOrder.cs">
+        <DependentUpon>OrderController.cs</DependentUpon>
+      </Compile>
       <Compile Update="Features\OrderManagement\ShipOrderCommandHandler.cs">
         <DependentUpon>ShipOrder.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\OrderManagement\CompleteOrderAdmin.cs">
-        <DependentUpon>AllOrderController.cs</DependentUpon>
+      <Compile Update="Features\OrderManagement\ShipOrder.cs">
+        <DependentUpon>OrderController.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\OrderManagement\CompleteOrderAdminCommandHandler.cs">
-        <DependentUpon>CompleteOrderAdmin.cs</DependentUpon>
+      <Compile Update="Features\OrderManagement\ShipOrderContext.cs">
+        <DependentUpon>ShipOrder.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\OrderManagement\PayOrderContext.cs">
+        <DependentUpon>PayOrder.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>

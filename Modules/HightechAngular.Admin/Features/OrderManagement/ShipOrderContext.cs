@@ -7,14 +7,14 @@ using Infrastructure.OperationContext;
 
 namespace HightechAngular.Admin.Features.OrderManagement
 {
-    public class PayOrderContext: 
-        ByIntIdOperationContextBase<PayOrder>, 
+    public class ShipOrderContext: 
+        ByIntIdOperationContextBase<ShipOrder>, 
         ICommand<Task<CommandResult<OrderStatus>>>
     {
         [Required]
         public Order Order { get; set; }
         
-        public PayOrderContext(PayOrder request, Order order) : base(request)
+        public ShipOrderContext(ShipOrder request, Order order) : base(request)
         {
             Order = order;
         }

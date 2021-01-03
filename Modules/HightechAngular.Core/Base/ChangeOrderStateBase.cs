@@ -8,7 +8,7 @@ namespace HightechAngular.Orders.Base
 {
     public abstract class ChangeOrderStateBase: 
         HasIdBase,
-        ICommand<Task<HandlerResult<OrderStatus>>>
+        ICommand<Task<CommandResult<OrderStatus>>>
     {
     }
 }

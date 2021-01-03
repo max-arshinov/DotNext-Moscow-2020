@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using HightechAngular.Orders.Entities;
+using Infrastructure.Cqrs;
 using Infrastructure.Ddd;
 using JetBrains.Annotations;
 

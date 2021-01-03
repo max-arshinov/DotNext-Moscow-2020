@@ -4,29 +4,29 @@ using Force.Ccc;
 using Force.Cqrs;
 using HightechAngular.Orders.Entities;
 using Infrastructure.Cqrs;
+using Infrastructure.Workflow;
+using JetBrains.Annotations;
 
 namespace HightechAngular.Shop.Features.MyOrders
 {
-    public class PayMyOrderCommandHandler : ICommandHandler<PayMyOrder, Task<HandlerResult<OrderStatus>>>
+    [UsedImplicitly]
+    public class PayMyOrderCommandHandler : ICommandHandler<PayMyOrder, Task<CommandResult<OrderStatus>>>
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IQueryable<Order> _orders;
 
-        public PayMyOrderCommandHandler(
-            IUnitOfWork unitOfWork,
-            IQueryable<Order> orders)
+        public PayMyOrderCommandHandler(IQueryable<Order> orders)
         {
-            _unitOfWork = unitOfWork;
             _orders = orders;
         }
 
-        public async Task<HandlerResult<OrderStatus>> Handle(PayMyOrder input)
+        public async Task<CommandResult<OrderStatus>> Handle(PayMyOrder input)
         {
             var order = _orders.First(x => x.Id == input.OrderId);
             await Task.Delay(1000);
             var result = order.With((Order.New newOrder) => newOrder.BecomePaid());
-            _unitOfWork.Commit();
-            return new HandlerResult<OrderStatus>(result.EligibleStatus);
+            return result != null
+                ? new CommandResult<OrderStatus>(result.EligibleStatus)
+                : new CommandResult<OrderStatus>(FailureInfo.Invalid("Order is in invalid state"));
         }
     }
 }

@@ -3,10 +3,13 @@ using System.Threading.Tasks;
 using Force.Cqrs;
 using HightechAngular.Orders.Entities;
 using Infrastructure.Cqrs;
+using Infrastructure.Workflow;
+using JetBrains.Annotations;
 
 namespace HightechAngular.Shop.Features.MyOrders
 {
-    public class CompleteOrderCommandHandler : ICommandHandler<CompleteOrder, Task<HandlerResult<OrderStatus>>>
+    [UsedImplicitly]
+    public class CompleteOrderCommandHandler : ICommandHandler<CompleteOrder, Task<CommandResult<OrderStatus>>>
     {
         private readonly IQueryable<Order> _orders;
 
@@ -15,12 +18,14 @@ namespace HightechAngular.Shop.Features.MyOrders
             _orders = orders;
         }
 
-        public async Task<HandlerResult<OrderStatus>> Handle(CompleteOrder input)
+        public async Task<CommandResult<OrderStatus>> Handle(CompleteOrder input)
         {
             var order = _orders.First(x => x.Id == input.OrderId);
             await Task.Delay(1000);
             var result = order.With((Order.Shipped shippedOrder) => shippedOrder.BecomeComplete());
-            return new HandlerResult<OrderStatus>(result.EligibleStatus);
+            return result != null
+                ? new CommandResult<OrderStatus>(result.EligibleStatus)
+                : new CommandResult<OrderStatus>(FailureInfo.Invalid("Order is in invalid state"));
         }
     }
 }
