@@ -21,5 +21,9 @@ code {
   border-color: #1861ac;
 }
 
+.ag-cell-focus {
+  border: none !important;
+}
+
 html, body { height: 100%; background-color: #fafafa}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
