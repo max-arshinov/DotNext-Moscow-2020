@@ -9,23 +9,18 @@ using JetBrains.Annotations;
 namespace HightechAngular.Shop.Features.MyOrders
 {
     [UsedImplicitly]
-    public class DisputeOrderCommandHandler: ICommandHandler<DisputeOrder, Task<CommandResult<OrderStatus>>>
+    public class DisputeOrderCommandHandler : ICommandHandler<DisputeOrderContext, Task<CommandResult<OrderStatus>>>
     {
-        private readonly IQueryable<Order> _orders;
-
-        public DisputeOrderCommandHandler(IQueryable<Order> orders)
+        public async Task<CommandResult<OrderStatus>> Handle(DisputeOrderContext input)
         {
-            _orders = orders;
-        }
+            var result = input.Entity.With((Order.Shipped newOrder) => newOrder.BecomeDisputed());
+            if (result == null)
+            {
+                return FailureInfo.Invalid("Order is in invalid state");
+            }
 
-        public async Task<CommandResult<OrderStatus>> Handle(DisputeOrder input)
-        {
-            var order = _orders.First(x => x.Id == input.OrderId);
-            await Task.Delay(1000);
-            var result =  order.With((Order.Shipped shippedOrder) => shippedOrder.BecomeDispute());
-            return result != null
-                ? new CommandResult<OrderStatus>(result.EligibleStatus)
-                : new CommandResult<OrderStatus>(FailureInfo.Invalid("Order is in invalid state"));
+            await Task.Delay(500); // Third-party API call
+            return result.EligibleStatus;
         }
     }
 }

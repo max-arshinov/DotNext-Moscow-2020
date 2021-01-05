@@ -147,5 +147,20 @@
       <Compile Update="Features\MyOrders\CreateOrderValidator.cs">
         <DependentUpon>CreateOrder.cs</DependentUpon>
       </Compile>
+      <Compile Update="Features\MyOrders\PayMyOrderContext.cs">
+        <DependentUpon>PayMyOrder.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\MyOrders\DisputeOrderContext.cs">
+        <DependentUpon>DisputeOrder.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\MyOrders\CompleteOrderContext.cs">
+        <DependentUpon>CompleteOrder.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\MyOrders\MyOrdersListItemDropdownProvider.cs">
+        <DependentUpon>MyOrdersListItem.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\MyOrders\MyOrdersListItem.cs">
+        <DependentUpon>GetMyOrders.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

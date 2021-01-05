@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HightechAngular.Orders.Entities;
 using Infrastructure.AspNetCore;
+using Infrastructure.OperationContext;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,9 +21,11 @@ namespace HightechAngular.Shop.Features.MyOrders
         
         [HttpPut("PayOrder")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> PayOrder([FromBody] PayMyOrder command)
+        public async Task<IActionResult> PayOrder(
+            [FromBody] PayMyOrder command,
+            [FromServices] Func<PayMyOrder, PayMyOrderContext> factory)
         {
-            return await this.ProcessAsync(command);
+            return await this.ProcessAsync(factory(command));
         }
 
         [HttpGet]
@@ -30,15 +35,19 @@ namespace HightechAngular.Shop.Features.MyOrders
         }
 
         [HttpPut("Dispute")]
-        public async Task<IActionResult> Dispute([FromBody] DisputeOrder command)
+        public async Task<IActionResult> Dispute(
+            [FromBody] DisputeOrder command,
+            [FromServices] Func<DisputeOrder, DisputeOrderContext> factory)
         {
-            return await this.ProcessAsync(command);
+            return await this.ProcessAsync(factory(command));
         }
 
         [HttpPut("Complete")]
-        public async Task<IActionResult> Complete([FromBody] CompleteOrder command)
+        public async Task<IActionResult> Complete(
+            [FromBody] CompleteOrder command,
+            [FromServices] Func<CompleteOrder, CompleteOrderContext> factory)
         {
-            return await this.ProcessAsync(command);
+            return await this.ProcessAsync(factory(command));
         }
     }
 }

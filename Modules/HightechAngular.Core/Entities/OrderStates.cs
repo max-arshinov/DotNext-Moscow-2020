@@ -46,7 +46,7 @@ namespace HightechAngular.Orders.Entities
             {
             }
 
-            public Disputed BecomeDispute()
+            public Disputed BecomeDisputed()
             {
                 return Entity.To<Disputed>(OrderStatus.Dispute);
             }

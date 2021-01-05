@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Force.Cqrs;
 using Force.Ddd;
@@ -7,8 +8,14 @@ using Infrastructure.Cqrs;
 namespace HightechAngular.Orders.Base
 {
     public abstract class ChangeOrderStateBase: 
-        HasIdBase,
-        ICommand<Task<CommandResult<OrderStatus>>>
+        ICommand<Task<CommandResult<OrderStatus>>>, 
+        IHasId<int>
     {
+        [Required]
+        public int OrderId { get; set; }
+
+        object IHasId.Id => Id;
+
+        public int Id => OrderId;
     }
 }
