@@ -11,7 +11,7 @@ namespace HightechAngular.Shop.Features.Index
     {
         public IQueryable<Product> Filter(IQueryable<Product> queryable, GetBestsellers predicate)
         {
-            return queryable.Where(Product.Specs.IsBestseller);
+            return queryable.Where(x => x.Price > 0 && x.PurchaseCount > 10);
         }
     }
 }
