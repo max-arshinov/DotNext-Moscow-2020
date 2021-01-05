@@ -10,7 +10,6 @@ namespace Infrastructure.SwaggerSchema.Dropdowns.Builders
 {
     internal class EnumDropdownBuilder<T> : DropdownBuilder
     {
-
         private readonly Func<IEnumerable<DropdownOption>, IEnumerable<DropdownOption>> _filter;
         private readonly string _name;
 
@@ -24,19 +23,24 @@ namespace Infrastructure.SwaggerSchema.Dropdowns.Builders
         {
             var type = typeof(T);
             if (type.IsArray)
+            {
                 type = typeof(T).GetElementType();
+            }
+
             // ReSharper disable once PossibleNullReferenceException
             var res = type
                 .GetFields(BindingFlags.Public | BindingFlags.Static)
                 .Select((x, i) => new DropdownOption(x.IsDefined(typeof(DisplayAttribute), false)
                     ? x.GetCustomAttribute<DisplayAttribute>().Name
                     : SplitMySpaces(x.Name), x.GetValue(null)));
-            
-            var array = (_filter == null? res : _filter(res)).ToArray();
+
+            var array = (_filter == null ? res : _filter(res)).ToArray();
             return Task.FromResult(new Dropdown(array, _name));
         }
 
-        private string SplitMySpaces(string str) =>
-            Regex.Replace(str, "([A-Z]|[0-9])", " $1", RegexOptions.Compiled);
+        private string SplitMySpaces(string str)
+        {
+            return Regex.Replace(str, "([A-Z]|[0-9])", " $1", RegexOptions.Compiled);
+        }
     }
 }

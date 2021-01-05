@@ -1,10 +1,8 @@
-﻿using Force.Cqrs;
-using HightechAngular.Shop.Features.MyOrders;
+﻿using HightechAngular.Orders.Base;
 
 namespace HightechAngular.Admin.Features.OrderManagement
 {
-    public class GetAllOrders : FilterQuery<OrderListItem>
+    public class GetAllOrders : HasCreatedFilterQuery<AllOrdersListItem>
     {
-        
     }
 }

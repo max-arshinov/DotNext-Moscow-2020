@@ -5,17 +5,19 @@ using System.Threading.Tasks;
 using HightechAngular.Orders.Entities;
 using Infrastructure.SwaggerSchema.Dropdowns;
 using Infrastructure.SwaggerSchema.Dropdowns.Providers;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 
 namespace HightechAngular.Shop.Features.Catalog
 {
+    [UsedImplicitly]
     public class ProductsDropdownProvider : IDropdownProvider<ProductListItem>
     {
-        private readonly IServiceProvider _serviceProvider;
-        private static IHttpContextAccessor _httpContextAccessor;
         private readonly int _currentCategoryId;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IServiceProvider _serviceProvider;
 
-        public ProductsDropdownProvider(IServiceProvider serviceProvider, 
+        public ProductsDropdownProvider(IServiceProvider serviceProvider,
             IHttpContextAccessor httpContextAccessor)
         {
             _serviceProvider = serviceProvider;
@@ -40,7 +42,7 @@ namespace HightechAngular.Shop.Features.Catalog
         private int GetCurrentCategory()
         {
             _httpContextAccessor.HttpContext.Request.Query.TryGetValue("categoryId", out var categoryStr);
-            return int.TryParse(categoryStr, out int category)? category : 1;
+            return int.TryParse(categoryStr, out var category) ? category : 1;
         }
     }
 }

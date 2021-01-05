@@ -6,17 +6,17 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.SwaggerSchema.Dropdowns.Builders
 {
-    internal class ServiceProviderDropdownBuilder<T>:
+    internal class ServiceProviderDropdownBuilder<T> :
         IDropdownBuilder
         where T : class
     {
-        private readonly IServiceProvider _serviceProvider;
         private readonly Func<IQueryable<T>, IServiceProvider, IQueryable<DropdownOption>> _map;
         private readonly string _name;
+        private readonly IServiceProvider _serviceProvider;
 
         internal ServiceProviderDropdownBuilder(
-            IServiceProvider serviceProvider, 
-            Func<IQueryable<T>, IServiceProvider, IQueryable<DropdownOption>> map, 
+            IServiceProvider serviceProvider,
+            Func<IQueryable<T>, IServiceProvider, IQueryable<DropdownOption>> map,
             string name)
         {
             _serviceProvider = serviceProvider;

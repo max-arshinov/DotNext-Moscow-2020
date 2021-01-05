@@ -10,20 +10,22 @@ namespace Infrastructure.SwaggerSchema.Dropdowns.Builders
 {
     public class DropdownsBuilder<T>
     {
-        protected readonly Dictionary<string, Dropdown> Options = 
+        protected readonly Dictionary<string, Dropdown> Options =
             new Dictionary<string, Dropdown>();
-        
-        public static implicit operator Task<Dropdowns>(DropdownsBuilder<T> builder) => 
-            builder.BuildAsync();
 
-        internal DropdownsBuilder()
+        internal DropdownsBuilder() { }
+
+        public static implicit operator Task<Dropdowns>(DropdownsBuilder<T> builder)
         {
+            return builder.BuildAsync();
         }
-        
-        public virtual Task<Dropdowns> BuildAsync() =>
-            Task.FromResult(new Dropdowns(Options));
 
-        public DropdownsBuilder<T> With<TProperty>(Expression<Func<T, TProperty>> expression, 
+        public virtual Task<Dropdowns> BuildAsync()
+        {
+            return Task.FromResult(new Dropdowns(Options));
+        }
+
+        public DropdownsBuilder<T> With<TProperty>(Expression<Func<T, TProperty>> expression,
             IEnumerable<DropdownOption<TProperty>> options)
         {
             var memberName = GetMemberParams(expression);
@@ -33,36 +35,46 @@ namespace Infrastructure.SwaggerSchema.Dropdowns.Builders
 
         protected static string GetMemberName<TProperty>(Expression<Func<T, TProperty>> expression)
         {
-            if (expression == null) throw new ArgumentNullException(nameof(expression));
+            if (expression == null)
+            {
+                throw new ArgumentNullException(nameof(expression));
+            }
+
             var me = expression.Body as MemberExpression;
             if (me == null)
             {
                 throw new ArgumentException("Expression is not a member expression", nameof(expression));
             }
-            
-            var memberName = me.Member.IsDefined(typeof(DisplayAttribute), false) ?
-                me.Member.GetCustomAttribute<DisplayAttribute>().Name :
-                me.Member.Name;
-            return  me.Member.Name;
+
+            var memberName = me.Member.IsDefined(typeof(DisplayAttribute), false)
+                ? me.Member.GetCustomAttribute<DisplayAttribute>().Name
+                : me.Member.Name;
+            return me.Member.Name;
         }
 
         protected static MemberParams GetMemberParams<TProperty>(Expression<Func<T, TProperty>> expression)
         {
-            if (expression == null) throw new ArgumentNullException(nameof(expression));
+            if (expression == null)
+            {
+                throw new ArgumentNullException(nameof(expression));
+            }
+
             var me = expression.Body as MemberExpression;
             if (me == null)
             {
                 throw new ArgumentException("Expression is not a member expression", nameof(expression));
             }
-            
-            var memberName = me.Member.IsDefined(typeof(DisplayAttribute), false) ?
-                me.Member.GetCustomAttribute<DisplayAttribute>().Name :
-                me.Member.Name;
-            return  new MemberParams() {Name = memberName, Key = me.Member.Name};
+
+            var memberName = me.Member.IsDefined(typeof(DisplayAttribute), false)
+                ? me.Member.GetCustomAttribute<DisplayAttribute>().Name
+                : me.Member.Name;
+            return new MemberParams {Name = memberName, Key = me.Member.Name};
         }
+
         protected class MemberParams
         {
             public string Name { get; set; }
+
             public string Key { get; set; }
         }
     }

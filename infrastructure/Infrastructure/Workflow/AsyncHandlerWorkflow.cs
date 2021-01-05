@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Workflow
 {
-    public class AsyncHandlerWorkflow<TRequest, TResult>: IAsyncWorkflow<TRequest, TResult>
+    public class AsyncHandlerWorkflow<TRequest, TResult> : IAsyncWorkflow<TRequest, TResult>
     {
         private readonly IAsyncWorkflowStep<TRequest, TResult>[] _steps;
 
@@ -14,13 +14,22 @@ namespace Infrastructure.Workflow
         {
             _steps = steps;
         }
-        
+
+
+        public async Task<Result<TResult, FailureInfo>> ProcessAsync(TRequest request, IServiceProvider sp)
+        {
+            var res = await GetAsyncWorkflow(request, sp, _steps)(request);
+            return res;
+        }
+
         private Func<TRequest, Task<Result<TResult, FailureInfo>>> GetAsyncWorkflowDispatch(
-            object request, 
-            IServiceProvider sp, 
-            IAsyncWorkflow<TRequest, TResult>[] steps) => 
-            r => Task.FromResult(new Result<TResult, FailureInfo>(FailureInfo.ConfigurationError(
+            object request,
+            IServiceProvider sp,
+            IAsyncWorkflow<TRequest, TResult>[] steps)
+        {
+            return r => Task.FromResult(new Result<TResult, FailureInfo>(FailureInfo.ConfigurationError(
                 $"Workflow for type: \"{request.GetType()}\" is not supported")));
+        }
 
         private Func<TRequest, Task<Result<TReturn, FailureInfo>>> GetAsyncWorkflowDispatch<TReturn>(
             ICommand<Task> command,
@@ -29,9 +38,9 @@ namespace Infrastructure.Workflow
         {
             var ht = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), typeof(Task));
             var tf = GetAsyncVoidTerminalFunc<TReturn>(sp, ht);
-            return GetWorkflowRecursive<TReturn>(tf, steps, 0);
+            return GetWorkflowRecursive(tf, steps, 0);
         }
-        
+
         private Func<TRequest, Task<Result<TReturn, FailureInfo>>> GetAsyncWorkflowDispatch<TReturn>(
             ICommand<Task<TReturn>> command,
             IServiceProvider sp,
@@ -39,9 +48,9 @@ namespace Infrastructure.Workflow
         {
             var ht = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), typeof(Task<TResult>));
             var tf = GetAsyncTerminalFunc<TReturn>(sp, ht);
-            return GetWorkflowRecursive<TReturn>(tf, steps, 0);
+            return GetWorkflowRecursive(tf, steps, 0);
         }
-        
+
         private Func<TRequest, Task<Result<TReturn, FailureInfo>>> GetAsyncWorkflowDispatch<TReturn>(
             IQuery<Task<TReturn>> query,
             IServiceProvider sp,
@@ -49,9 +58,9 @@ namespace Infrastructure.Workflow
         {
             var ht = typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(Task<TReturn>));
             var tf = GetAsyncTerminalFunc<TReturn>(sp, ht);
-            return GetWorkflowRecursive<TReturn>(tf, steps, 0);
+            return GetWorkflowRecursive(tf, steps, 0);
         }
-        
+
         private static Func<TRequest, Task<Result<TReturn, FailureInfo>>> GetAsyncTerminalFunc<TReturn>(
             IServiceProvider sp,
             Type ht)
@@ -60,14 +69,14 @@ namespace Infrastructure.Workflow
             if (h == null)
             {
                 var failure = FailureInfo.ConfigurationError($"Type \"{ht}\" is not registered");
-                return r =>  Task.FromResult(new Result<TReturn, FailureInfo>(failure));
+                return r => Task.FromResult(new Result<TReturn, FailureInfo>(failure));
             }
-            
+
             if (h is IHasServiceProvider sph)
             {
                 sph.ServiceProvider = sp;
             }
-            
+
             if (h is IHasUnitOfWork uowh)
             {
                 uowh.UnitOfWork = sp.GetService<IUnitOfWork>();
@@ -79,7 +88,7 @@ namespace Infrastructure.Workflow
                 return new Result<TReturn, FailureInfo>(res);
             };
         }
-        
+
         private static Func<TRequest, Task<Result<TReturn, FailureInfo>>> GetAsyncVoidTerminalFunc<TReturn>(
             IServiceProvider sp,
             Type ht)
@@ -88,14 +97,14 @@ namespace Infrastructure.Workflow
             if (h == null)
             {
                 var failure = FailureInfo.ConfigurationError($"Type \"{ht}\" is not registered");
-                return r =>  Task.FromResult(new Result<TReturn, FailureInfo>(failure));
+                return r => Task.FromResult(new Result<TReturn, FailureInfo>(failure));
             }
-            
+
             if (h is IHasServiceProvider sph)
             {
                 sph.ServiceProvider = sp;
             }
-            
+
             if (h is IHasUnitOfWork uowh)
             {
                 uowh.UnitOfWork = sp.GetService<IUnitOfWork>();
@@ -107,7 +116,7 @@ namespace Infrastructure.Workflow
                 return new Result<TReturn, FailureInfo>(default(TReturn));
             };
         }
-        
+
         private Func<TRequest, Task<Result<TResult, FailureInfo>>> GetAsyncWorkflow(
             object request,
             IServiceProvider sp,
@@ -115,7 +124,7 @@ namespace Infrastructure.Workflow
         {
             return GetAsyncWorkflowDispatch<TResult>((dynamic) request, sp, steps);
         }
-        
+
         private Func<TRequest, Task<Result<TReturn, FailureInfo>>> GetWorkflowRecursive<TReturn>(
             Func<TRequest, Task<Result<TReturn, FailureInfo>>> terminalFunc,
             IAsyncWorkflowStep<TRequest, TReturn>[] steps,
@@ -123,8 +132,10 @@ namespace Infrastructure.Workflow
         {
             if (index < steps.Length - 1)
             {
-                async Task<Result<TReturn, FailureInfo>> NewTerminalFunc(TRequest x) => 
-                    await steps[index].ProcessAsync(x, terminalFunc);
+                async Task<Result<TReturn, FailureInfo>> NewTerminalFunc(TRequest x)
+                {
+                    return await steps[index].ProcessAsync(x, terminalFunc);
+                }
 
 
                 return GetWorkflowRecursive(NewTerminalFunc, steps, index + 1);
@@ -141,13 +152,5 @@ namespace Infrastructure.Workflow
 
             return terminalFunc;
         }
-
-
-        public async Task<Result<TResult, FailureInfo>> ProcessAsync(TRequest request, IServiceProvider sp)
-        {
-            var res = await GetAsyncWorkflow(request, sp, _steps)(request);
-            return res;
-        }
-
     }
 }

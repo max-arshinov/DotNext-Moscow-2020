@@ -4,9 +4,10 @@ using Microsoft.OpenApi.Any;
 
 namespace Infrastructure.SwaggerSchema.Filters.HandleCustomAttributes.Handlers
 {
-    public class HtmlEditorAttributeHandler: AbstractCustomAttributeHandler
+    public class HtmlEditorAttributeHandler : AbstractCustomAttributeHandler
     {
         protected override string Key { get; set; } = "htmlEditor";
+
         public override void FillProperties(PropertyInfo property)
         {
             if (property.GetCustomAttribute(typeof(HtmlEditorAttribute)) is HtmlEditorAttribute)

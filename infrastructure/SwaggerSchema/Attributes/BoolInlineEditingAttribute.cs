@@ -6,7 +6,9 @@ namespace Infrastructure.SwaggerSchema.Attributes
     public class BoolInlineEditingAttribute : Attribute
     {
         public string BoolInlineEditingChangePath { get; set; }
+
         public string BoolInlineDeletingIdQueryParamName { get; set; }
+
         public string BoolInlineDeletingIdPropertyName { get; set; }
     }
 }

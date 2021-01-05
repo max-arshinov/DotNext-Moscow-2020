@@ -7,19 +7,17 @@ using Mapster;
 namespace HightechAngular.Shop.Features.Index
 {
     [UsedImplicitly]
-    public class GetNewArrivalsQueryHandler: GetIntEnumerableQueryHandlerBase<GetNewArrivals, Product, NewArrivalsListItem>
+    public class
+        GetNewArrivalsQueryHandler : GetIntEnumerableQueryHandlerBase<GetNewArrivals, Product, NewArrivalsListItem>
     {
-        public GetNewArrivalsQueryHandler(IQueryable<Product> queryable) : base(queryable)
-        {
-        }
+        public GetNewArrivalsQueryHandler(IQueryable<Product> queryable) : base(queryable) { }
 
         protected override IQueryable<NewArrivalsListItem> Map(IQueryable<Product> queryable, GetNewArrivals query)
         {
             return queryable
                 .ProjectToType<NewArrivalsListItem>()
-                .OrderByDescending(x => x.DateCreated)
+                .OrderByDescending(x => x.Created)
                 .Take(4);
         }
-
     }
 }
