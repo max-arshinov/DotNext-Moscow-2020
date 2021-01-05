@@ -28,7 +28,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   order(){
-    this.httpClient.put(environment.domain + "/Order/PayOrder", {orderId: this.data.orderId})
+    this.httpClient.put(environment.domain + "/Order/Pay", {orderId: this.data.orderId})
       .subscribe(x => {
         this.dialog.closeAll();
         this.messageService.show('Order paid')

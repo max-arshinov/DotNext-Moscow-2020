@@ -4,13 +4,12 @@ using Force.Ddd;
 
 namespace Infrastructure.OperationContext
 {
-    public abstract class QueryByIdOperationContextBase<TKey, TQuery, TRequest> : 
-        ByIdOperationContextBase<TKey, TRequest>, IQuery<TQuery>
+    public abstract class QueryByIdOperationContextBase<TKey, TQuery, TRequest> :
+        ByIdOperationContextBase<TKey, TRequest>,
+        IQuery<TQuery>
         where TRequest : class, IHasId<TKey>
         where TKey : IEquatable<TKey>
     {
-        protected QueryByIdOperationContextBase(TRequest request) : base(request)
-        {
-        }
+        protected QueryByIdOperationContextBase(TRequest request) : base(request) { }
     }
 }

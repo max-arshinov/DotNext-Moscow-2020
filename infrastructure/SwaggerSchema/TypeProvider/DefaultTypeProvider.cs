@@ -7,30 +7,33 @@ namespace Infrastructure.SwaggerSchema.TypeProvider
 {
     public class DefaultTypeProvider : ITypeProvider
     {
-        private readonly Func<string, bool> _predicate;
+        private readonly IDictionary<string, Type> _assemblies;
 
         public DefaultTypeProvider(Func<string, bool> predicate)
         {
-            _predicate = predicate ?? throw new ArgumentNullException(nameof(predicate));
-            Assemblies = AppDomain.CurrentDomain
+            if (predicate == null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
+            // Make sure that there are no type name conflicts 
+            _assemblies = AppDomain.CurrentDomain
                 .GetAssemblies()
                 .Where(x => !x.IsDynamic)
                 .SelectMany(x => x.GetExportedTypes()
-                    .Where(y => y.IsClass && !y.IsAbstract && y.IsPublic && _predicate(x.FullName)))
+                    .Where(y => y.IsClass && !y.IsAbstract && y.IsPublic && predicate(x.FullName)))
                 .ToDictionary(x => x.Name, x => x);
         }
-        
+
         public Type GetType(string type)
         {
-            Assemblies.TryGetValue(type, out var t);
+            _assemblies.TryGetValue(type, out var t);
             return t;
         }
 
-        private readonly IDictionary<string, Type> Assemblies;
-        
         public IDictionary<string, Type> GetTypes(IEnumerable<Assembly> assemblies)
         {
-            return Assemblies;
+            return _assemblies;
         }
     }
 }

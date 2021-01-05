@@ -15,10 +15,13 @@ namespace Infrastructure.SwaggerSchema.Dropdowns
             IsMulti = isMulti;
             Name = name;
         }
-        
+
         public bool IsMulti { get; }
+
         public string Name { get; }
+
         public bool Selected { get; internal set; }
+
         public int Order { get; set; }
 
         public IEnumerable<DropdownOption> Options { get; internal set; }

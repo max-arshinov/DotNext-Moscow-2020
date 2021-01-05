@@ -6,13 +6,8 @@ using JetBrains.Annotations;
 namespace HightechAngular.Shop.Features.MyOrders
 {
     [UsedImplicitly]
-    public class GetMyOrdersQueryHandler : GetIntEnumerableQueryHandlerBase<GetMyOrders, Order, OrderListItem>
+    public class GetMyOrdersQueryHandler : GetIntEnumerableQueryHandlerBase<GetMyOrders, Order, MyOrdersListItem>
     {
-        public GetMyOrdersQueryHandler(IQueryable<Order> queryable) : base(queryable)
-        {
-        }
-        
-        protected override IQueryable<OrderListItem> Map(IQueryable<Order> queryable, GetMyOrders query) =>
-            queryable.Select(OrderListItem.Map);
+        public GetMyOrdersQueryHandler(IQueryable<Order> queryable) : base(queryable) { }
     }
 }

@@ -14,36 +14,31 @@ namespace HightechAngular.Orders.Entities
         public static readonly Expression<Func<Product, double>> DiscountedPriceExpression =
             x => x.Price - x.Price / 100 * x.DiscountPercent;
 
-        public static Expression<Func<Product, Product>> UpdatePurchaseCountExpression(int count) =>
-            product => new Product()
-            {
-                PurchaseCount = product.PurchaseCount + count
-            };
-
         public static readonly ProductSpecs Specs = new ProductSpecs();
 
         public Product()
         {
         }
 
-        public Product(Category category, string name, double price, int discountPercent)
+        public Product(Category category, string name, double price, int discountPercent, DateTime? created = null)
         {
             // ReSharper disable once VirtualMemberCallInConstructor
             Category = category ?? throw new ArgumentNullException(nameof(category));
             Name = name;
             Price = price;
             DiscountPercent = discountPercent;
-            DateCreated = DateTime.UtcNow;
+            Created = created ?? DateTime.UtcNow;
             this.EnsureInvariant();
         }
 
-        [Required] public string Name { get; set; }
+        [Required] 
+        public string Name { get; set; }
 
         public double Price { get; set; }
 
         public int DiscountPercent { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime Created { get; set; }
 
         public virtual Category Category { get; set; }
 

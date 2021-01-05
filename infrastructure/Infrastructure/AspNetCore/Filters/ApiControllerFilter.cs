@@ -35,10 +35,10 @@ namespace Infrastructure.AspNetCore.Filters
                             : x.Value.Errors.Aggregate("", (a, c) => $"{c.ErrorMessage}.{a}"),
                         new List<string> {x.Key}))
                     .ToList();
-                
+
                 context.Result = new JsonResult(attributesErrors)
                 {
-                    StatusCode = 422,
+                    StatusCode = 422
                 };
                 return;
             }
@@ -68,14 +68,15 @@ namespace Infrastructure.AspNetCore.Filters
                 .Select(x => ((dynamic) x.validator).Validate((dynamic) x.entity))
                 .Where(x => x != null)
                 .Cast<IEnumerable<ValidationResult>>()
-                .SelectMany(x => x).ToList();
-            
+                .SelectMany(x => x)
+                .ToList();
+
 
             if (errors.Any())
             {
                 context.Result = new JsonResult(errors)
                 {
-                    StatusCode = 422,
+                    StatusCode = 422
                 };
                 return;
             }

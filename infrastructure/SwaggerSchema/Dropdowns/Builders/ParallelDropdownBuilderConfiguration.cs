@@ -8,17 +8,17 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.SwaggerSchema.Dropdowns.Builders
 {
-    public class ParallelDropdownBuilderConfiguration<T>: IDropdownBuilder 
+    public class ParallelDropdownBuilderConfiguration<T> : IDropdownBuilder
         where T : class
     {
         private readonly ParallelDropdownsBuilder<T> _builder;
-        private readonly IServiceProvider _serviceProvider;
-        Func<Task<Dropdown>> _map;
         private readonly string _name;
+        private readonly IServiceProvider _serviceProvider;
+        private Func<Task<Dropdown>> _map;
         private Func<Func<Task<Dropdown>>, Task<Dropdown>> _profiler;
 
-        internal ParallelDropdownBuilderConfiguration(ParallelDropdownsBuilder<T> builder, 
-            IServiceProvider serviceProvider, 
+        internal ParallelDropdownBuilderConfiguration(ParallelDropdownsBuilder<T> builder,
+            IServiceProvider serviceProvider,
             string name)
         {
             _builder = builder;
@@ -26,11 +26,23 @@ namespace Infrastructure.SwaggerSchema.Dropdowns.Builders
             _name = name;
         }
 
+        Task<Dropdown> IDropdownBuilder.BuildAsync()
+        {
+            if (_map == null)
+            {
+                throw new InvalidOperationException("Call \"As\" method first");
+            }
+
+            return _profiler == null
+                ? _map()
+                : _profiler(_map);
+        }
+
         public ParallelDropdownBuilderConfiguration<T> As<TEntity, TValue>(
             bool condition,
             Func<IQueryable<TEntity>, IQueryable<DropdownOption<TValue>>> map,
             IEnumerable<DropdownOption<TValue>> falseValue
-            )
+        )
             where TEntity : class
         {
             if (condition)
@@ -41,25 +53,31 @@ namespace Infrastructure.SwaggerSchema.Dropdowns.Builders
             _map = () => Task.FromResult(new Dropdown(falseValue, _name));
             return this;
         }
-        
+
         public ParallelDropdownBuilderConfiguration<T> As<TEntity, TValue>(
             Func<IQueryable<TEntity>, IEnumerable<DropdownOption<TValue>>> map
         )
             where TEntity : class
         {
-            if (map == null) throw new ArgumentNullException(nameof(map));
+            if (map == null)
+            {
+                throw new ArgumentNullException(nameof(map));
+            }
 
             var query = _serviceProvider.GetService<IQueryable<TEntity>>();
-            
+
             _map = () => Task.FromResult(new Dropdown(map(query), _name));
             return this;
         }
-        
+
         public ParallelDropdownBuilderConfiguration<T> As<TEntity, TValue>(
-            Func<IQueryable<TEntity>, IQueryable<DropdownOption<TValue>>> map) 
+            Func<IQueryable<TEntity>, IQueryable<DropdownOption<TValue>>> map)
             where TEntity : class
         {
-            if (map == null) throw new ArgumentNullException(nameof(map));
+            if (map == null)
+            {
+                throw new ArgumentNullException(nameof(map));
+            }
 
             async Task<Dropdown> Func()
             {
@@ -68,7 +86,7 @@ namespace Infrastructure.SwaggerSchema.Dropdowns.Builders
                     {
                         var q = map(queryable).Distinct();
                         return ProtectedToListAsync(q);
-                });
+                    });
 
                 await Task.WhenAll(mainData);
                 var options = mainData.Result;
@@ -81,10 +99,13 @@ namespace Infrastructure.SwaggerSchema.Dropdowns.Builders
         }
 
         public ParallelDropdownBuilderConfiguration<T> As<TEntity, TValue>(
-            Func<IQueryable<TEntity>, IServiceProvider, IQueryable<DropdownOption<TValue>>> map) 
+            Func<IQueryable<TEntity>, IServiceProvider, IQueryable<DropdownOption<TValue>>> map)
             where TEntity : class
         {
-            if (map == null) throw new ArgumentNullException(nameof(map));
+            if (map == null)
+            {
+                throw new ArgumentNullException(nameof(map));
+            }
 
             async Task<Dropdown> Func()
             {
@@ -105,8 +126,10 @@ namespace Infrastructure.SwaggerSchema.Dropdowns.Builders
             return this;
         }
 
-        public static implicit operator Task<Dropdowns>(ParallelDropdownBuilderConfiguration<T> builder) =>
-            builder._builder;
+        public static implicit operator Task<Dropdowns>(ParallelDropdownBuilderConfiguration<T> builder)
+        {
+            return builder._builder;
+        }
 
         public ParallelDropdownBuilderConfiguration<T> With<TProperty>(Expression<Func<T, TProperty>> expression)
         {
@@ -118,23 +141,11 @@ namespace Infrastructure.SwaggerSchema.Dropdowns.Builders
             _builder.Prepend(option);
             return this;
         }
-        
+
         private static Task<List<TValue>> ProtectedToListAsync<TValue>(IQueryable<TValue> q)
         {
             // Some people will call AsQueryable no matter what :(
             return q.ToListAsync();
-        }
-
-        Task<Dropdown> IDropdownBuilder.BuildAsync()
-        {
-            if (_map == null)
-            {
-                throw new InvalidOperationException("Call \"As\" method first");
-            }
-            
-            return _profiler == null
-                ? _map()
-                : _profiler(_map);
         }
 
         public ParallelDropdownBuilderConfiguration<T> Profile(

@@ -8,6 +8,6 @@ namespace HightechAngular.Orders.Services
     {
         public Guid Id { get; set; }
 
-        public List<CartItem> CartItems { get; set; }
+        public List<CartItem> CartItems { get; set; } = new List<CartItem>();
     }
 }

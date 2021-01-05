@@ -14,8 +14,11 @@ namespace Infrastructure.AspNetCore
 
         public static ActionResultBuilder<object> Process(this ControllerBase controller, ICommand command)
         {
-            if (command == null) return NullRequest<object>(controller.HttpContext);
-            
+            if (command == null)
+            {
+                return NullRequest<object>(controller.HttpContext);
+            }
+
             var w = MakeGenericServiceType(
                 controller,
                 command,
@@ -24,14 +27,17 @@ namespace Infrastructure.AspNetCore
 
             return RunWorkflow(controller, w, (dynamic) command, default(object));
         }
-        
+
         public static ActionResultBuilder<T> Process<T>(this ControllerBase controller, ICommand<T> command)
         {
-            if (command == null) return NullRequest<T>(controller.HttpContext);
+            if (command == null)
+            {
+                return NullRequest<T>(controller.HttpContext);
+            }
 
             var w = MakeGenericServiceType(
-                controller, 
-                command, 
+                controller,
+                command,
                 typeof(IWorkflow<,>),
                 typeof(T));
 
@@ -42,60 +48,72 @@ namespace Infrastructure.AspNetCore
             this ControllerBase controller,
             IQuery<T> query)
         {
-            if (query == null) return NullRequest<T>(controller.HttpContext);
+            if (query == null)
+            {
+                return NullRequest<T>(controller.HttpContext);
+            }
 
             var w = MakeGenericServiceType(
-                controller, 
-                query, 
+                controller,
+                query,
                 typeof(IWorkflow<,>),
                 typeof(T));
 
             return RunWorkflow(controller, w, (dynamic) query, default(T));
         }
-        
+
         #endregion
-        
+
         #region ProcessAsync
 
         public static Task<ActionResultBuilder<T>> ProcessAsync<T>(
-            this ControllerBase controller, 
+            this ControllerBase controller,
             ICommand<Task<T>> command)
         {
-            if (command == null) return Task.FromResult(NullRequest<T>(controller.HttpContext));
+            if (command == null)
+            {
+                return Task.FromResult(NullRequest<T>(controller.HttpContext));
+            }
 
             var w = MakeGenericServiceType(
-                controller, 
-                command, 
+                controller,
+                command,
                 typeof(IAsyncWorkflow<,>),
                 typeof(T));
-            
+
             return RunWorkflowAsync(controller, w, (dynamic) command, default(T));
         }
-        
+
         public static async Task<ActionResultBuilder<object>> ProcessAsync(
-            this ControllerBase controller, 
+            this ControllerBase controller,
             ICommand<Task> command)
         {
-            if (command == null) return NullRequest<object>(controller.HttpContext);
+            if (command == null)
+            {
+                return NullRequest<object>(controller.HttpContext);
+            }
 
             var w = MakeGenericServiceType(
-                controller, 
-                command, 
+                controller,
+                command,
                 typeof(IAsyncWorkflow<,>),
                 typeof(object));
 
             return await RunWorkflowAsync(controller, w, (dynamic) command, default(object));
         }
-        
+
         public static Task<ActionResultBuilder<T>> ProcessAsync<T>(
             this ControllerBase controller,
             IQuery<Task<T>> query)
         {
-            if (query == null) return Task.FromResult(NullRequest<T>(controller.HttpContext));
+            if (query == null)
+            {
+                return Task.FromResult(NullRequest<T>(controller.HttpContext));
+            }
 
             var w = MakeGenericServiceType(
-                controller, 
-                query, 
+                controller,
+                query,
                 typeof(IAsyncWorkflow<,>),
                 typeof(T));
 
@@ -103,49 +121,54 @@ namespace Infrastructure.AspNetCore
         }
 
         #endregion
-        
+
         #region Private
-        
+
         private static object MakeGenericServiceType(
-            ControllerBase controller, 
+            ControllerBase controller,
             object command,
             Type serviceType,
-            Type genericType) =>
-            controller
+            Type genericType)
+        {
+            return controller
                 .HttpContext
                 .RequestServices
                 .GetService(serviceType.MakeGenericType(
-                    command.GetType(), 
+                    command.GetType(),
                     genericType));
-        
-        private static IActionResult NoWorkflowResult(this ControllerBase controller) => 
-            controller.StatusCode(501, new
+        }
+
+        private static IActionResult NoWorkflowResult(this ControllerBase controller)
+        {
+            return controller.StatusCode(501, new
             {
                 Message = "Workflow for this method is not registered"
             });
-        
+        }
+
         internal static ActionResultBuilder<T> WorkflowNotFound<T>(HttpContext httpContext)
         {
-            return new ActionResultBuilder<T>(
+            return new(
                 new Result<T, FailureInfo>(new FailureInfo(
-                FailureType.NotImplemented,
-                "Workflow for this method is not registered")), 
+                    FailureType.NotImplemented,
+                    "Workflow for this method is not registered")),
                 httpContext);
         }
-        
+
         internal static ActionResultBuilder<T> NullRequest<T>(HttpContext httpContext)
         {
-            return new ActionResultBuilder<T>(
+            return new(
                 new Result<T, FailureInfo>(new FailureInfo(
                     FailureType.ConfigurationError,
-                    "Workflows for null values are not supported")), 
+                    "Workflows for null values are not supported")),
                 httpContext);
         }
 
         private static ActionResultBuilder<TResponse> RunWorkflow<TRequest, TResponse>(
-            ControllerBase controller, 
+            ControllerBase controller,
             dynamic workflow,
             TRequest request,
+
             // for type inference only
             TResponse response)
         {
@@ -153,18 +176,20 @@ namespace Infrastructure.AspNetCore
             {
                 throw new InvalidOperationException("Use ProcessAsync instead");
             }
+
             // MUST BE OBJECT!
             object result = workflow.Process(request, controller.HttpContext.RequestServices);
-            
+
             // DON'T REMOVE IT! Removing this line will result in absolutely cryptic behavior
             var res = GetResult<TResponse>(result);
             return new ActionResultBuilder<TResponse>(res, controller.HttpContext);
         }
-        
+
         private static async Task<ActionResultBuilder<TResponse>> RunWorkflowAsync<TRequest, TResponse>(
-            ControllerBase controller, 
+            ControllerBase controller,
             dynamic workflow,
-            TRequest request, 
+            TRequest request,
+
             // for type inference only
             TResponse response)
         {
@@ -172,7 +197,7 @@ namespace Infrastructure.AspNetCore
             object result = await workflow.ProcessAsync(
                 request,
                 controller.HttpContext.RequestServices);
-            
+
             // DON'T REMOVE IT! Removing this line will result in absolutely cryptic behavior
             var res = GetResult<TResponse>(result);
 
@@ -185,7 +210,7 @@ namespace Infrastructure.AspNetCore
             if (result is Result<object, FailureInfo> ores)
             {
                 res = ores.Match(
-                    x => new Result<T, FailureInfo>(default(T)), 
+                    x => new Result<T, FailureInfo>(default(T)),
                     x => x);
             }
             else

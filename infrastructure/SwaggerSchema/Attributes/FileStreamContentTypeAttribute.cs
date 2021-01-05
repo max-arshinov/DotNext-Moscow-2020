@@ -3,7 +3,7 @@ using System;
 namespace Infrastructure.SwaggerSchema.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class FileStreamContentTypeAttribute: Attribute
+    public class FileStreamContentTypeAttribute : Attribute
     {
         public FileStreamContentTypeAttribute(string[] contentTypes)
         {

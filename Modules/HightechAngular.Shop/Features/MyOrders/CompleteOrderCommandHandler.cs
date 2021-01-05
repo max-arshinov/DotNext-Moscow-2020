@@ -1,26 +1,36 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Force.Ccc;
 using Force.Cqrs;
 using HightechAngular.Orders.Entities;
 using Infrastructure.Cqrs;
+using Infrastructure.Workflow;
+using JetBrains.Annotations;
 
 namespace HightechAngular.Shop.Features.MyOrders
 {
-    public class CompleteOrderCommandHandler : ICommandHandler<CompleteOrder, Task<HandlerResult<OrderStatus>>>
+    [UsedImplicitly]
+    public class CompleteOrderCommandHandler : ICommandHandler<CompleteOrder, Task<CommandResult<OrderStatus>>>
     {
-        private readonly IQueryable<Order> _orders;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CompleteOrderCommandHandler(IQueryable<Order> orders)
+        public CompleteOrderCommandHandler(IUnitOfWork unitOfWork)
         {
-            _orders = orders;
+            _unitOfWork = unitOfWork;
         }
-
-        public async Task<HandlerResult<OrderStatus>> Handle(CompleteOrder input)
+        
+        public async Task<CommandResult<OrderStatus>> Handle(CompleteOrder input)
         {
-            var order = _orders.First(x => x.Id == input.OrderId);
-            await Task.Delay(1000);
-            var result = order.BecomeComplete();
-            return new HandlerResult<OrderStatus>(result);
+            var order = _unitOfWork.Find<Order>(input.OrderId);
+            
+            if (order?.Status != OrderStatus.Shipped)
+            {
+                return FailureInfo.Invalid("Order is in invalid state");
+            }
+
+            order.Status = OrderStatus.Complete;
+            await Task.Delay(500); // Third-party API call
+            return order.Status;
         }
     }
 }

@@ -6,16 +6,18 @@ using Infrastructure.Ddd;
 
 namespace HightechAngular.Orders.Entities
 {
-    public class Cart: EntityBase<Guid>
+    public sealed class Cart : EntityBase<Guid>
     {
-        public Cart(User user)
+        private readonly List<CartItem> _cartItems;
+
+        internal Cart(User user)
         {
-            User = user;
             Id = Guid.NewGuid();
+            User = user;
             _cartItems = new List<CartItem>();
         }
 
-        public Cart(Guid id, IEnumerable<CartItem> cartItems, User user)
+        internal Cart(Guid id, IEnumerable<CartItem> cartItems, User user)
         {
             User = user;
             Id = id;
@@ -23,8 +25,6 @@ namespace HightechAngular.Orders.Entities
         }
 
         public User User { get; }
-
-        private readonly List<CartItem> _cartItems;
 
         public IEnumerable<CartItem> CartItems => _cartItems;
 
@@ -37,19 +37,16 @@ namespace HightechAngular.Orders.Entities
             {
                 return false;
             }
+
             
-            if (ci.Count > 1)
-            {
-                ci.Count--;
-            }
-            else
+            if (!ci.TryDecreaseCount(out var remaining))
             {
                 _cartItems.Remove(ci);
             }
 
             return true;
         }
-        
+
         public void AddProduct(Product product)
         {
             var ci = _cartItems
@@ -57,23 +54,18 @@ namespace HightechAngular.Orders.Entities
 
             if (ci == null)
             {
-                ci = new CartItem
-                {
-                    ProductId = product.Id,
-                    Price = product.GetDiscountedPrice(),
-                    ProductName = product.Name,
-                    CategoryName = product.Category.Name,
-                    Count = 1
-                };
-                
+                ci = new CartItem(product);
                 _cartItems.Add(ci);
             }
             else
             {
-                ci.Count++;
+                ci.IncreaseCount();
             }
         }
 
-        public bool IsEmpty() => !_cartItems.Any();
+        public bool IsEmpty()
+        {
+            return !_cartItems.Any();
+        }
     }
 }

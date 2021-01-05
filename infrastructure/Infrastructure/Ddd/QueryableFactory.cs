@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Ddd
 {
-    internal class QueryableFactory<T>: IQueryable<T>
+    internal class QueryableFactory<T> : IQueryable<T>
         where T : class
     {
         private readonly DbContext _dbContext;
@@ -19,14 +19,20 @@ namespace Infrastructure.Ddd
 
         public IQueryable<T> Queryable => _dbContext.Set<T>();
 
-        public IEnumerator<T> GetEnumerator() => Queryable.GetEnumerator();
+        public IEnumerator<T> GetEnumerator()
+        {
+            return Queryable.GetEnumerator();
+        }
 
-        IEnumerator IEnumerable.GetEnumerator()  => Queryable.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return Queryable.GetEnumerator();
+        }
 
         public Type ElementType => Queryable.ElementType;
-        
+
         public Expression Expression => Queryable.Expression;
-        
+
         public IQueryProvider Provider => Queryable.Provider;
     }
 }

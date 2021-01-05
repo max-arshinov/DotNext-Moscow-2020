@@ -1,26 +1,37 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Force.Ccc;
 using Force.Cqrs;
 using HightechAngular.Orders.Entities;
 using Infrastructure.Cqrs;
+using Infrastructure.Workflow;
+using JetBrains.Annotations;
 
 namespace HightechAngular.Shop.Features.MyOrders
 {
-    public class DisputeOrderCommandHandler: ICommandHandler<DisputeOrder, Task<HandlerResult<OrderStatus>>>
+    [UsedImplicitly]
+    public class DisputeOrderCommandHandler : ICommandHandler<DisputeOrder, Task<CommandResult<OrderStatus>>>
     {
-        private readonly IQueryable<Order> _orders;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DisputeOrderCommandHandler(IQueryable<Order> orders)
+        public DisputeOrderCommandHandler(IUnitOfWork unitOfWork)
         {
-            _orders = orders;
+            _unitOfWork = unitOfWork;
         }
-
-        public async Task<HandlerResult<OrderStatus>> Handle(DisputeOrder input)
+        
+        public async Task<CommandResult<OrderStatus>> Handle(DisputeOrder input)
         {
-            var order = _orders.First(x => x.Id == input.OrderId);
-            await Task.Delay(1000);
-            var result = order.BecomeDispute();
-            return new HandlerResult<OrderStatus>(result);
+            var order = _unitOfWork.Find<Order>(input.OrderId);
+            
+            if (order?.Status != OrderStatus.Shipped)
+            {
+                return FailureInfo.Invalid("Order is in invalid state");
+            }
+
+            order.Complaint = input.Complaint;
+            order.Status = OrderStatus.Disputed;
+            await Task.Delay(500); // Third-party API call
+            return order.Status;
         }
     }
 }

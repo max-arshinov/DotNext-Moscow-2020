@@ -6,21 +6,17 @@ namespace HightechAngular.Web.Controllers
 {
     public class OidcConfigurationController : Controller
     {
-        private readonly ILogger<OidcConfigurationController> logger;
+        private readonly IClientRequestParametersProvider _clientRequestParametersProvider;
 
-        public OidcConfigurationController(IClientRequestParametersProvider clientRequestParametersProvider,
-            ILogger<OidcConfigurationController> _logger)
+        public OidcConfigurationController(IClientRequestParametersProvider clientRequestParametersProvider)
         {
-            ClientRequestParametersProvider = clientRequestParametersProvider;
-            logger = _logger;
+            _clientRequestParametersProvider = clientRequestParametersProvider;
         }
-
-        public IClientRequestParametersProvider ClientRequestParametersProvider { get; }
 
         [HttpGet("_configuration/{clientId}")]
         public IActionResult GetClientRequestParameters([FromRoute] string clientId)
         {
-            var parameters = ClientRequestParametersProvider.GetClientParameters(HttpContext, clientId);
+            var parameters = _clientRequestParametersProvider.GetClientParameters(HttpContext, clientId);
             return Ok(parameters);
         }
     }

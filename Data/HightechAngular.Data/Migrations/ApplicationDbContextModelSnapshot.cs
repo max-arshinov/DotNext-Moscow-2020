@@ -102,10 +102,16 @@ namespace HightechAngular.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("AdminComment")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Complaint")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Status")
+                    b.Property<byte>("Status")
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("Total")
@@ -114,7 +120,7 @@ namespace HightechAngular.Data.Migrations
                     b.Property<Guid?>("TrackingCode")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Updated")
+                    b.Property<DateTime?>("Updated")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
@@ -137,14 +143,11 @@ namespace HightechAngular.Data.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("DiscountPercent")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("Price")
@@ -166,10 +169,10 @@ namespace HightechAngular.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("DiscountPercent")
@@ -415,14 +418,18 @@ namespace HightechAngular.Data.Migrations
                 {
                     b.HasOne("HightechAngular.Orders.Entities.Order", "Order")
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HightechAngular.Orders.Entities.Product", b =>
                 {
                     b.HasOne("HightechAngular.Orders.Entities.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
