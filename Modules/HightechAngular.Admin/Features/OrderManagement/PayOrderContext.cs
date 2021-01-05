@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Force.Cqrs;
 using HightechAngular.Orders.Entities;
@@ -8,10 +7,9 @@ using Infrastructure.OperationContext;
 
 namespace HightechAngular.Admin.Features.OrderManagement
 {
-    public class 
-        PayOrderContext: 
+    public class PayOrderContext: 
         ByIntIdOperationContextBase<PayOrder>, 
-        ICommand<Task<HandlerResult<OrderStatus>>>
+        ICommand<Task<CommandResult<OrderStatus>>>
     {
         [Required]
         public Order Order { get; set; }

@@ -6,10 +6,9 @@ using JetBrains.Annotations;
 namespace HightechAngular.Shop.Features.Index
 {
     [UsedImplicitly]
-    public class GetBestsellersQueryHandler: GetIntEnumerableQueryHandlerBase<GetBestsellers, Product, BestsellersListItem>
+    public class
+        GetBestsellersQueryHandler : GetIntEnumerableQueryHandlerBase<GetBestsellers, Product, BestsellersListItem>
     {
-        public GetBestsellersQueryHandler(IQueryable<Product> queryable) : base(queryable)
-        {
-        }
+        public GetBestsellersQueryHandler(IQueryable<Product> queryable) : base(queryable) { }
     }
 }

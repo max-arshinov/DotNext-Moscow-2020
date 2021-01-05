@@ -4,28 +4,24 @@ using Force.Ccc;
 using Force.Cqrs;
 using HightechAngular.Orders.Entities;
 using Infrastructure.Cqrs;
+using Infrastructure.Workflow;
+using JetBrains.Annotations;
 
 namespace HightechAngular.Admin.Features.OrderManagement
 {
-    public class PayOrderCommandHandler : ICommandHandler<PayOrderContext, Task<HandlerResult<OrderStatus>>>
+    [UsedImplicitly]
+    public class PayOrderCommandHandler : ICommandHandler<PayOrderContext, Task<CommandResult<OrderStatus>>>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IQueryable<Order> _orders;
-
-        public PayOrderCommandHandler(
-            IUnitOfWork unitOfWork,
-            IQueryable<Order> orders)
+        public async Task<CommandResult<OrderStatus>> Handle(PayOrderContext input)
         {
-            _unitOfWork = unitOfWork;
-            _orders = orders;
-        }
-
-        public async Task<HandlerResult<OrderStatus>> Handle(PayOrderContext input)
-        {
-            await Task.Delay(1000);
-            var result = input.Order.BecomePaid();
-            _unitOfWork.Commit();
-            return new HandlerResult<OrderStatus>(result);
+            if (input.Order.Status != OrderStatus.New)
+            {
+                return FailureInfo.Invalid("Order is in invalid state");
+            }
+            
+            input.Order.BecomePaid();
+            await Task.Delay(500); // Third-party API call
+            return input.Order.Status;
         }
     }
 }

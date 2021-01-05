@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.Cqrs.Read
 {
     /// <summary>
-    /// Base handler for async get entity by Id
+    ///     Base handler for async get entity by Id
     /// </summary>
     /// <typeparam name="TKey">Id type</typeparam>
     /// <typeparam name="TQuery">Input query</typeparam>
@@ -27,8 +27,10 @@ namespace Infrastructure.Cqrs.Read
         {
             _queryable = queryable;
         }
-        
-        public async Task<TDto> Handle(TQuery input) =>
-            await Map(_queryable, input).FirstOrDefaultAsync(x => x.Id.Equals(input.Id));
+
+        public async Task<TDto> Handle(TQuery input)
+        {
+            return await Map(_queryable, input).FirstOrDefaultAsync(x => x.Id.Equals(input.Id));
+        }
     }
 }

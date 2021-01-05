@@ -5,7 +5,7 @@ using Infrastructure.SwaggerSchema.Dropdowns.Providers;
 
 namespace HightechAngular.Shop.Features.Index
 {
-    public class SaleListDropdownProvider: IDropdownProvider<SaleListItem>
+    public class SaleListDropdownProvider : IDropdownProvider<SaleListItem>
     {
         private readonly IServiceProvider _serviceProvider;
 

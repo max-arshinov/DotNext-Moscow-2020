@@ -11,8 +11,6 @@ namespace Infrastructure.Cqrs.Read
         where TQuery : class, IQuery<Task<IEnumerable<TListItem>>>
         where TListItem : IHasId<string>
     {
-        protected GetStringEnumerableQueryHandlerBaseAsync(IQueryable<TEntity> queryable) : base(queryable)
-        {
-        }
+        protected GetStringEnumerableQueryHandlerBaseAsync(IQueryable<TEntity> queryable) : base(queryable) { }
     }
 }

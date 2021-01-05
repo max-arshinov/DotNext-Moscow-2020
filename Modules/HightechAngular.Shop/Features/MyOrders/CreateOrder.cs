@@ -2,7 +2,5 @@
 
 namespace HightechAngular.Shop.Features.MyOrders
 {
-    public class CreateOrder : ICommand<int>
-    {
-    }
+    public class CreateOrder : ICommand<int> { }
 }

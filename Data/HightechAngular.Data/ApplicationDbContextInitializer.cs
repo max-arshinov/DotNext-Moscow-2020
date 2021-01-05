@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Extensions.Hosting.AsyncInitialization;
 using HightechAngular.Identity.Entities;
@@ -19,38 +20,40 @@ namespace HightechAngular.Data
             _context = context;
         }
 
+        public async Task InitializeAsync()
+        {
+            await _context.Database.MigrateAsync();
+            await SeedEverything();
+        }
+
         private async Task SeedEverything()
         {
-            var categories = new []
+            var categories = new[]
             {
                 new Category("C1"),
                 new Category("C2"),
                 new Category("C3")
             };
-            
+
             if (!_context.Categories.Any())
             {
                 _context.Categories.AddRange(categories);
             }
-            
-            
+
+
             if (!_context.Products.Any())
             {
-                _context.Products.Add(new Product(categories[1], "Product1", 100, 0));
-                _context.Products.Add(new Product(categories[1], "Product2", 500, 0));
-                _context.Products.Add(new Product(categories[2], "Product3", 100500, 0));
-                _context.Products.Add(new Product(categories[2], "Bestseller1", 200, 0) {PurchaseCount = 11});
-                _context.Products.Add(new Product(categories[1], "Bestseller2", 300, 0) {PurchaseCount = 11});
-                _context.Products.Add(new Product(categories[1], "Sale1", 400, 10));
-                _context.Products.Add(new Product(categories[1], "Sale2", 500, 20));
+                _context.Products.Add(new Product(categories[0], "Product1", 100, 0, new DateTime(2020, 12, 1)));
+                _context.Products.Add(new Product(categories[0], "Product2", 500, 0, new DateTime(2020, 12, 2)));
+                _context.Products.Add(new Product(categories[1], "Product3", 100500, 0, new DateTime(2020, 12, 3)));
+                _context.Products.Add(new Product(categories[1], "Bestseller1", 200, 0, new DateTime(2020, 12, 4)) 
+                    {PurchaseCount = 11});
+                _context.Products.Add(new Product(categories[1], "Bestseller2", 300, 0, new DateTime(2020, 12, 5)) 
+                    {PurchaseCount = 11});
+                _context.Products.Add(new Product(categories[2], "Sale1", 400, 10, new DateTime(2020, 12, 6)));
+                _context.Products.Add(new Product(categories[2], "Sale2", 500, 20, new DateTime(2020, 12, 7)));
                 await _context.SaveChangesAsync();
             }
-        }
-
-        public async Task InitializeAsync()
-        {
-            await _context.Database.MigrateAsync();
-            await SeedEverything();
         }
     }
 }
