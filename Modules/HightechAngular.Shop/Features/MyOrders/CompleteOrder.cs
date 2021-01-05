@@ -4,6 +4,7 @@ namespace HightechAngular.Shop.Features.MyOrders
 {
     public class CompleteOrder : ChangeOrderStateBase
     {
-        public int   OrderId { get; set; }
+        public int OrderId { get; set; }
+
     }
 }

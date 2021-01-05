@@ -4,7 +4,7 @@ using Force.Ddd;
 
 namespace HightechAngular.Shop.Features.Cart
 {
-    public class RemoveCartItem : HasIdBase, ICommand<bool>
+    public class RemoveCartItem : ICommand<bool>
     {
         public RemoveCartItem(int productId)
         {

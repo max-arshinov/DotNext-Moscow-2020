@@ -21,14 +21,11 @@
       <Compile Update="Features\Catalog\Products.cs">
         <DependentUpon>GetCatalogController.cs</DependentUpon>
       </Compile>
-      <Compile Update="Features\Catalog\ProductsQueryHandler.cs">
-        <DependentUpon>Products.cs</DependentUpon>
-      </Compile>
       <Compile Update="Features\Catalog\ProductListItem.cs">
-        <DependentUpon>Products.cs</DependentUpon>
+        <DependentUpon>GetProducts.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\Catalog\ProductsDropdownProvider.cs">
-        <DependentUpon>Products.cs</DependentUpon>
+        <DependentUpon>GetProducts.cs</DependentUpon>
       </Compile>
       <Compile Update="Features\Cart\UpdateCart.cs">
         <DependentUpon>CartController.cs</DependentUpon>
@@ -137,6 +134,18 @@
       </Compile>
       <Compile Update="Features\MyOrders\PayMyOrderCommandHandler.cs">
         <DependentUpon>PayMyOrder.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\Catalog\GetProducts.cs">
+        <DependentUpon>GetCatalogController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\Catalog\GetProductsQueryHandler.cs">
+        <DependentUpon>GetProducts.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\MyOrders\CreateOrderCommandHandler.cs">
+        <DependentUpon>CompleteOrder.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\MyOrders\CreateOrderValidator.cs">
+        <DependentUpon>CreateOrder.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>
