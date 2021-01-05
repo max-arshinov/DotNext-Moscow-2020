@@ -41,5 +41,11 @@
       <Compile Update="Features\OrderManagement\AllOrderListItem.cs">
         <DependentUpon>GetAllOrders.cs</DependentUpon>
       </Compile>
+      <Compile Update="Features\OrderManagement\CompleteOrderByAdmin.cs">
+        <DependentUpon>OrderController.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Features\OrderManagement\CompleteOrderByAdminCommandHandler.cs">
+        <DependentUpon>CompleteOrderByAdmin.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

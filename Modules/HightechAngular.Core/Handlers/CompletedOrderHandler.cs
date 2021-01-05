@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace HightechAngular.Orders.Handlers
 {
     [UsedImplicitly]
-    public class CompletedOrderHandler : CompleteOrderHandlerBase<CompleteOrder, Order.Shipped, Order.Complete>
+    public class CompletedOrderHandler : CompleteOrderHandlerBase<CompleteOrder, Order.Shipped>
     {
         public CompletedOrderHandler(IUnitOfWork unitOfWork, ILogger<CompleteOrder> logger) :
             base(unitOfWork, logger) { }

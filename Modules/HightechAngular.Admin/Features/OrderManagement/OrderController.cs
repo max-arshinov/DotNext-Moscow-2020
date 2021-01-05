@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using HightechAngular.Orders.Base;
 using HightechAngular.Orders.Entities;
 using HightechAngular.Orders.Handlers;
-using HightechAngular.Shop.Features.MyOrders;
 using Infrastructure.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

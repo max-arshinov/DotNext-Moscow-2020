@@ -8,7 +8,7 @@ namespace HightechAngular.Orders.Handlers
 {
     [UsedImplicitly]
     public class ResolveDisputedOrderHandler :
-        CompleteOrderHandlerBase<ResolveDisputedOrder, Order.Disputed, Order.Complete>
+        CompleteOrderHandlerBase<ResolveDisputedOrder, Order.Disputed>
     {
         public ResolveDisputedOrderHandler(IUnitOfWork unitOfWork, ILogger<ResolveDisputedOrder> logger) :
             base(unitOfWork, logger) { }

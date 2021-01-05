@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
@@ -11,7 +13,10 @@ namespace HightechAngular.Orders.Services
             session.SetString(key,  JsonConvert.SerializeObject(value));
         }
 
-        public static T? Get<T>(this ISession session, string key)
+        // https://stackoverflow.com/questions/54593923/nullable-reference-types-with-generic-return-type
+        [CanBeNull]
+        [return: MaybeNull]
+        public static T Get<T>(this ISession session, string key)
             where T: class
         {
             var value = session.GetString(key);

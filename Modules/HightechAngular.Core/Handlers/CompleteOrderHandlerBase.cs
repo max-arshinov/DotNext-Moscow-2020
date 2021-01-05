@@ -7,12 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace HightechAngular.Orders.Handlers
 {
-    public abstract class CompleteOrderHandlerBase<TCommand, TFrom, TTo> : ChangeOrderStateHandlerBase<
+    public abstract class CompleteOrderHandlerBase<TCommand, TFrom> : ChangeOrderStateHandlerBase<
         TCommand,
         TFrom,
-        TTo>
+        Order.Complete>
         where TFrom : Order.OrderStateBase
-        where TTo : Order.OrderStateBase
         where TCommand : class, IHasOrderId
     {
         public CompleteOrderHandlerBase(IUnitOfWork unitOfWork, ILogger<TCommand> logger) : base(unitOfWork, logger) { }
