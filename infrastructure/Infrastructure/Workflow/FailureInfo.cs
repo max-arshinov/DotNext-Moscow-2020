@@ -23,7 +23,7 @@ namespace Infrastructure.Workflow
 
         public static FailureInfo Invalid(string message)
         {
-            return new(FailureType.Invalid, message);
+            return new FailureInfo(FailureType.Invalid, message);
         }
 
         public static FailureInfo Invalid(IEnumerable<ValidationResult> errors)
@@ -33,17 +33,17 @@ namespace Infrastructure.Workflow
 
         public static FailureInfo Unauthorized(string message)
         {
-            return new(FailureType.Unauthorized, message);
+            return new FailureInfo(FailureType.Unauthorized, message);
         }
 
         public static FailureInfo ConfigurationError(string message)
         {
-            return new(FailureType.ConfigurationError, message);
+            return new FailureInfo(FailureType.ConfigurationError, message);
         }
 
         public static FailureInfo Other(string message)
         {
-            return new(FailureType.Other, message);
+            return new FailureInfo(FailureType.Other, message);
         }
     }
 }

@@ -13,17 +13,17 @@ namespace Infrastructure.Cqrs
 
         public static implicit operator CommandResult<T>(Exception e)
         {
-            return new(new ExceptionFailureInfo(e));
+            return new CommandResult<T>(new ExceptionFailureInfo(e));
         }
 
         public static implicit operator CommandResult<T>(FailureInfo failure)
         {
-            return new(failure);
+            return new CommandResult<T>(failure);
         }
 
         public static implicit operator CommandResult<T>(T success)
         {
-            return new(success);
+            return new CommandResult<T>(success);
         }
 
         public CommandResult<TMap> Map<TMap>(Func<T, TMap> map)

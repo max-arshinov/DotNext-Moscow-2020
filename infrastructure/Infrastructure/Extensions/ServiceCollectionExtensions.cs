@@ -22,7 +22,7 @@ namespace Infrastructure.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        private static readonly HashSet<Type> TargetInterfaces = new()
+        private static readonly HashSet<Type> TargetInterfaces = new HashSet<Type>()
         {
             typeof(IHandler<>),
             typeof(IHandler<,>),

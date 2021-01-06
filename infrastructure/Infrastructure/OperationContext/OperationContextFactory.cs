@@ -71,7 +71,7 @@ namespace Infrastructure.OperationContext
         private class RequestPropsCache
         {
             private static RequestPropsCache _instance;
-            private static readonly object _locker = new();
+            private static readonly object _locker = new object();
             private readonly Dictionary<string, PropertyInfo> _requestProps;
 
             private RequestPropsCache(T request)
@@ -142,7 +142,7 @@ namespace Infrastructure.OperationContext
         [UsedImplicitly]
         private class DbContextCache<TDbContext>
         {
-            public static readonly DbContextCache Instance = new(typeof(TDbContext));
+            public static readonly DbContextCache Instance = new DbContextCache(typeof(TDbContext));
         }
 
         private class DbContextCache
