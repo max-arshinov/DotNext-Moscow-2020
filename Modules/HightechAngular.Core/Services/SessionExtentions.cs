@@ -11,7 +11,7 @@ namespace HightechAngular.Orders.Services
             session.SetString(key,  JsonConvert.SerializeObject(value));
         }
 
-        public static T? Get<T>(this ISession session, string key)
+        public static T Get<T>(this ISession session, string key)
             where T: class
         {
             var value = session.GetString(key);
