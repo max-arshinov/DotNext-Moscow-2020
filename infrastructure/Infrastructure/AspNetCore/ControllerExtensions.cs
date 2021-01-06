@@ -148,7 +148,7 @@ namespace Infrastructure.AspNetCore
 
         internal static ActionResultBuilder<T> WorkflowNotFound<T>(HttpContext httpContext)
         {
-            return new(
+            return new ActionResultBuilder<T>(
                 new Result<T, FailureInfo>(new FailureInfo(
                     FailureType.NotImplemented,
                     "Workflow for this method is not registered")),
@@ -157,7 +157,7 @@ namespace Infrastructure.AspNetCore
 
         internal static ActionResultBuilder<T> NullRequest<T>(HttpContext httpContext)
         {
-            return new(
+            return new ActionResultBuilder<T>(
                 new Result<T, FailureInfo>(new FailureInfo(
                     FailureType.ConfigurationError,
                     "Workflows for null values are not supported")),
