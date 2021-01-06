@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infrastructure.AspNetCore;
@@ -22,5 +21,11 @@ namespace HightechAngular.Admin.Features.OrderManagement
         [HttpPut("Ship")]
         public async Task<IActionResult> Ship([FromBody] ShipOrder command) =>
             await this.ProcessAsync(command);
+        
+        [HttpPut("Resolve")]
+        public async Task<IActionResult> Resolve([FromBody] ResolveDisputedOrder command)
+        {
+            return await this.ProcessAsync(command);
+        }
     }
 }
