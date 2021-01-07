@@ -10,7 +10,7 @@ namespace HightechAngular.Admin.Features.OrderManagement
 {
     public class CompleteOrderByAdminCommandHandler: ICommandHandler<
         ChangeOrderStateConext<CompleteOrderByAdmin, Order.Shipped>,
-        Task<CommandResult<OrderStatus>>
+        Task<CommandResult<OrderStatus>>>
     {
         private readonly IHandler<ChangeOrderStateConext<
                 CompleteOrderByAdmin, Order.Shipped>, 
@@ -33,7 +33,7 @@ namespace HightechAngular.Admin.Features.OrderManagement
         {
             // TODO: error handling
             var res = await _handler.Handle(input).MapAsync(x => x.EligibleStatus);
-            await UpdateOrderInfoInExternalSystem(_userContext.User);
+            await UpdateOrderInfoInExternalSystem(_userContext.User!);
             return res;
         }
 
