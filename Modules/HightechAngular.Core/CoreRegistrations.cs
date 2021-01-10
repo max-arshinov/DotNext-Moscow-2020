@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Force.Cqrs;
 using HightechAngular.Orders.Base;
+using HightechAngular.Orders.DomainEventHandlers;
 using HightechAngular.Orders.Entities;
 using Infrastructure.Cqrs;
 using Infrastructure.OperationContext;
@@ -29,6 +31,7 @@ namespace HightechAngular.Orders
             services.AddScoped(factoryType);
             services.AddScoped(funcType, sp => ((dynamic) sp.GetService(factoryType)).BuildFunc(sp) );
 
+            services.AddScoped<IHandler<IEnumerable<ProductPurchased>>, OrderDomainEventHandler>();
             return services;
         }
     }

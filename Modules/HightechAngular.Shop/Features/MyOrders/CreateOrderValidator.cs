@@ -18,7 +18,7 @@ namespace HightechAngular.Shop.Features.MyOrders
             _cartStorage = cartStorage;
         }
 
-        public IEnumerable<ValidationResult> Validate(CreateOrder obj)
+        public IEnumerable<ValidationResult?> Validate(CreateOrder obj)
         {
             yield return _cartStorage.Cart.CartItems.Any()
                 ? ValidationResult.Success
