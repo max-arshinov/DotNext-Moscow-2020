@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Force.Ccc;
 using Force.Extensions;
 using HightechAngular.Orders.Entities;
+using HightechAngular.Web.Dto.OrderManagement;
 using HightechAngular.Web.Features.MyOrders;
 using Infrastructure.AspNetCore;
 using Infrastructure.Cqrs;

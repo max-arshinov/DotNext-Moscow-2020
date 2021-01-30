@@ -5,7 +5,7 @@ using Force.Ddd;
 using HightechAngular.Orders.Entities;
 using Infrastructure.Cqrs;
 
-namespace HightechAngular.Admin.Features.OrderManagement
+namespace HightechAngular.Web.Dto.OrderManagement
 {
     public class PayOrder : HasIdBase, ICommand<Task<HandlerResult<OrderStatus>>>
     {

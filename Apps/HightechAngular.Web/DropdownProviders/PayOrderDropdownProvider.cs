@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HightechAngular.Web.Dto.OrderManagement;
 using Infrastructure.SwaggerSchema.Dropdowns;
 using Infrastructure.SwaggerSchema.Dropdowns.Providers;
 
-namespace HightechAngular.Admin.Features.OrderManagement
+namespace HightechAngular.Web.Features.OrderManagement
 {
     public class PayOrderDropdownProvider : IDropdownProvider<PayOrder>
     {
