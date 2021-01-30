@@ -1,12 +1,13 @@
 using HightechAngular.Orders.Entities;
 using HightechAngular.Orders.Services;
-using HightechAngular.Shop.Features.Cart;
-using HightechAngular.Shop.Features.Catalog;
-using HightechAngular.Shop.Features.Index;
+using HightechAngular.Web.Dto;
+using HightechAngular.Web.Features.Cart;
+using HightechAngular.Web.Features.Catalog;
+using HightechAngular.Web.Features.Index;
 using Infrastructure.SwaggerSchema.Dropdowns.Providers;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HightechAngular.Shop
+namespace HightechAngular.Web
 {
     public static class ShopRegistrations
     {
@@ -14,7 +15,7 @@ namespace HightechAngular.Shop
         {
             services.AddScoped<ICartStorage, CartStorage>();
             services.AddScoped<IDropdownProvider<ProductListItem>, ProductsDropdownProvider>();
-            services.AddScoped<IDropdownProvider<BestsellersListItem>, BestsellersDropdownProvider>();
+            services.AddScoped<IDropdownProvider<GetBestsellersListItem>, BestsellersDropdownProvider>();
             services.AddScoped<IDropdownProvider<NewArrivalsListItem>, NewArrivalsDropdownProvider>();
             services.AddScoped<IDropdownProvider<SaleListItem>, SaleListDropdownProvider>();
             services.AddScoped<IDropdownProvider<CartItem>, CartDropdownProvider>();

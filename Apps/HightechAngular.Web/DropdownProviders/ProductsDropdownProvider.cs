@@ -7,7 +7,7 @@ using Infrastructure.SwaggerSchema.Dropdowns;
 using Infrastructure.SwaggerSchema.Dropdowns.Providers;
 using Microsoft.AspNetCore.Http;
 
-namespace HightechAngular.Shop.Features.Catalog
+namespace HightechAngular.Web.Features.Catalog
 {
     public class ProductsDropdownProvider : IDropdownProvider<ProductListItem>
     {

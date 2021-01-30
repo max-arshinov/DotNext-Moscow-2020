@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HightechAngular.Web.Features.Index;
 using Infrastructure.SwaggerSchema.Dropdowns;
 using Infrastructure.SwaggerSchema.Dropdowns.Providers;
 
-namespace HightechAngular.Shop.Features.Index
+namespace HightechAngular.Web.Features.Index
 {
-    public class BestsellersDropdownProvider : IDropdownProvider<BestsellersListItem>
+    public class BestsellersDropdownProvider : IDropdownProvider<GetBestsellersListItem>
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -16,7 +17,7 @@ namespace HightechAngular.Shop.Features.Index
 
         public Task<Dropdowns> GetDropdownOptionsAsync()
         {
-            return _serviceProvider.DropdownsFor<BestsellersListItem>();
+            return _serviceProvider.DropdownsFor<GetBestsellersListItem>();
         }
     }
 }

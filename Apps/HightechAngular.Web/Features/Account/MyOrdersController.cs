@@ -10,7 +10,7 @@ using Infrastructure.Cqrs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HightechAngular.Shop.Features.MyOrders
+namespace HightechAngular.Web.Features.MyOrders
 {
     public class MyOrdersController : ApiControllerBase
     {

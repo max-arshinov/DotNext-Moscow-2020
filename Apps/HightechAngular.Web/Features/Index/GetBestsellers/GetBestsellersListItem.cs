@@ -3,14 +3,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using Force.Ddd;
 using HightechAngular.Orders.Entities;
+using HightechAngular.Web.Dto;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HightechAngular.Shop.Features.Index
+namespace HightechAngular.Web.Features.Index
 {
-    public class BestsellersListItem: HasIdBase
+    public class GetBestsellersListItem: HasIdBase
     {
-        static BestsellersListItem()
+        static GetBestsellersListItem()
         {
             TypeAdapterConfig<Product, SaleListItem>
                 .NewConfig()

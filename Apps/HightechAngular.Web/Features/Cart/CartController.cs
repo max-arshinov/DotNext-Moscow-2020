@@ -8,7 +8,7 @@ using HightechAngular.Orders.Services;
 using Infrastructure.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HightechAngular.Shop.Features.Cart
+namespace HightechAngular.Web.Features.Cart
 {
     public class CartController : ApiControllerBase
     {

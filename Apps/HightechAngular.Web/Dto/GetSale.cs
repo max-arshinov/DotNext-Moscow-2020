@@ -1,9 +1,12 @@
-﻿using System.Linq;
-using Force.Cqrs;
+﻿using Force.Cqrs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace HightechAngular.Shop.Features.Index
+namespace HightechAngular.Web.Dto
 {
-    public class GetSale: FilterQuery<SaleListItem>
+    public class GetSale : FilterQuery<SaleListItem>
     {
         public override IOrderedQueryable<SaleListItem> Sort(IQueryable<SaleListItem> queryable)
         {

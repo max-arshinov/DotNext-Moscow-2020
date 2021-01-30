@@ -4,7 +4,7 @@ using HightechAngular.Orders.Entities;
 using Infrastructure.SwaggerSchema.Dropdowns;
 using Infrastructure.SwaggerSchema.Dropdowns.Providers;
 
-namespace HightechAngular.Shop.Features.Cart
+namespace HightechAngular.Web.Features.Cart
 {
     public class CartDropdownProvider : IDropdownProvider<CartItem>
     {

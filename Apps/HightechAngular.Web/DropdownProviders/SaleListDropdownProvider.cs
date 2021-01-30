@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using HightechAngular.Web.Dto;
 using Infrastructure.SwaggerSchema.Dropdowns;
 using Infrastructure.SwaggerSchema.Dropdowns.Providers;
 
-namespace HightechAngular.Shop.Features.Index
+namespace HightechAngular.Web.Features.Index
 {
     public class SaleListDropdownProvider: IDropdownProvider<SaleListItem>
     {

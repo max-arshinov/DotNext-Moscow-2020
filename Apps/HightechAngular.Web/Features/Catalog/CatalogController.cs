@@ -5,7 +5,7 @@ using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HightechAngular.Shop.Features.Catalog
+namespace HightechAngular.Web.Features.Catalog
 {
     public class CatalogController: ApiControllerBase
     {

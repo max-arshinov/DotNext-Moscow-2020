@@ -1,18 +1,13 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Force.Ccc;
 using Force.Extensions;
 using HightechAngular.Orders.Entities;
-using HightechAngular.Shop.Features.Cart;
-using HightechAngular.Shop.Features.MyOrders;
+using HightechAngular.Web.Features.MyOrders;
 using Infrastructure.AspNetCore;
 using Infrastructure.Cqrs;
-using Mapster;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace HightechAngular.Admin.Features.OrderManagement
 {

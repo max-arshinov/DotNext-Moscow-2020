@@ -3,7 +3,7 @@ using Force.Cqrs;
 using HightechAngular.Orders.Entities;
 using Infrastructure.Cqrs;
 
-namespace HightechAngular.Shop.Features.MyOrders
+namespace HightechAngular.Web.Features.MyOrders
 {
     public class PayMyOrder: ICommand<Task<HandlerResult<OrderStatus>>>
     {

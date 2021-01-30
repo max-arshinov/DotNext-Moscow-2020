@@ -1,7 +1,7 @@
 using System.Linq;
 using Force.Cqrs;
 
-namespace HightechAngular.Shop.Features.Catalog
+namespace HightechAngular.Web.Features.Catalog
 {
     public class GetProducts: FilterQuery<ProductListItem>
     {

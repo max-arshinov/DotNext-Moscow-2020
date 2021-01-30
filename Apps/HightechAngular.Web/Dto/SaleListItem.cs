@@ -1,14 +1,16 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
-using Force.Ddd;
+﻿using Force.Ddd;
 using HightechAngular.Orders.Entities;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace HightechAngular.Shop.Features.Index
+namespace HightechAngular.Web.Dto
 {
-    public class SaleListItem: HasIdBase
+    public class SaleListItem : HasIdBase
     {
         static SaleListItem()
         {
@@ -20,22 +22,22 @@ namespace HightechAngular.Shop.Features.Index
 
         [Display(Name = "Id")]
         public override int Id { get; set; }
-        
+
         [Display(Name = "Name")]
         public string Name { get; set; }
-        
+
         [Display(Name = "Category")]
         public string CategoryName { get; set; }
-        
+
         [Display(Name = "Price")]
         public double Price { get; set; }
-        
+
         [Display(Name = "Discount Percent")]
         public int DiscountPercent { get; set; }
-        
+
         [Display(Name = "Date Created")]
         public string DateCreatedName { get; set; }
-        
+
         [HiddenInput]
         public DateTime DateCreated { get; set; }
     }

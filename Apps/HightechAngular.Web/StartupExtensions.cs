@@ -1,4 +1,4 @@
-﻿using HightechAngular.Shop;
+﻿using HightechAngular.Web;
 using Infrastructure.SwaggerSchema;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using Force.Ddd;
 using HightechAngular.Orders.Entities;
 
-namespace HightechAngular.Shop.Features.MyOrders
+namespace HightechAngular.Web.Features.MyOrders
 {
     public class OrderListItem : HasIdBase
     {
