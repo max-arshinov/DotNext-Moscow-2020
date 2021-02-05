@@ -19,7 +19,7 @@ namespace HightechAngular.Orders.Services
         }
 
         private Cart _cart;
-        private static string _cartKey = "Cart";
+        private static readonly string _cartKey = "Cart";
 
         public Cart Cart =>
             _cart ??= _accessor
