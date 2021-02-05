@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using Force.Cqrs;
 
-namespace HightechAngular.Shop.Features.Index
+namespace HightechAngular.Web.Features.Index
 {
-    public class GetNewArrivals: FilterQuery<NewArrivalsListItem>
+    public class GetSale : FilterQuery<SaleListItem>
     {
-        public override IOrderedQueryable<NewArrivalsListItem> Sort(IQueryable<NewArrivalsListItem> queryable)
+        public override IOrderedQueryable<SaleListItem> Sort(IQueryable<SaleListItem> queryable)
         {
             if (Order == "dateCreated")
             {

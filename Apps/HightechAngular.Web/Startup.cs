@@ -7,6 +7,8 @@ using HightechAngular.Identity.Services;
 using HightechAngular.Orders;
 using HightechAngular.Shop;
 using HightechAngular.Shop.Features.Catalog;
+using HightechAngular.Web.Features.Admin;
+using HightechAngular.Web.Features.Catalog;
 using HightechAngular.Web.Filters;
 using Infrastructure;
 using Infrastructure.Extensions;
