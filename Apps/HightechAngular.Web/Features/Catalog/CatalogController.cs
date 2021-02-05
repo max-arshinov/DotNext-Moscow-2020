@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using HightechAngular.Orders.Entities;
+using HightechAngular.Web.Features.Shared;
 using Infrastructure.AspNetCore;
 using Mapster;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +14,8 @@ namespace HightechAngular.Web.Features.Catalog
         private readonly IQueryable<Category> _categories;
         private readonly IQueryable<Product> _products;
 
-        public CatalogController(IQueryable<Category> categories, 
+        public CatalogController(
+            IQueryable<Category> categories,
             IQueryable<Product> products)
         {
             _categories = categories;
@@ -20,12 +23,13 @@ namespace HightechAngular.Web.Features.Catalog
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ProductListItem), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ProductListItem>), StatusCodes.Status200OK)]
         public IActionResult Get([FromQuery] GetProducts query)
         {
             var products = _products
                 .Where(x => x.Category.Id == query.CategoryId)
-                .ProjectToType<ProductListItem>();
+                .ProjectToType<ProductListItem>()
+                .ToList();
             return Ok(products);
         }
         

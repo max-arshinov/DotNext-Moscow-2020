@@ -6,7 +6,7 @@ using HightechAngular.Orders.Entities;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HightechAngular.Web.Features.Catalog
+namespace HightechAngular.Web.Features.Shared
 {
     public class ProductListItem: HasIdBase
     {

@@ -4,6 +4,7 @@ using HightechAngular.Web.Dto;
 using HightechAngular.Web.Features.Cart;
 using HightechAngular.Web.Features.Catalog;
 using HightechAngular.Web.Features.Index;
+using HightechAngular.Web.Features.Shared;
 using Infrastructure.SwaggerSchema.Dropdowns.Providers;
 using Microsoft.Extensions.DependencyInjection;
 

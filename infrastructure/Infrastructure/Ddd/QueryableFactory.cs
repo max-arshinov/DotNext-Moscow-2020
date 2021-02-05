@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Ddd
 {
+    // internal, тк она нарушает soLid, хотя ошибок не может быть, но сделали для защиты, от других разработчиков
     internal class QueryableFactory<T>: IQueryable<T>
         where T : class
     {
@@ -17,7 +18,7 @@ namespace Infrastructure.Ddd
             _dbContext = dbContext;
         }
 
-        public IQueryable<T> Queryable => _dbContext.Set<T>();
+        public IQueryable<T> Queryable => _dbContext.Set<T>(); // здесь
 
         public IEnumerator<T> GetEnumerator() => Queryable.GetEnumerator();
 
