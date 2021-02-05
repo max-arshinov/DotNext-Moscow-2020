@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HightechAngular.Web.Features.Index
 {
-    public class GetBestsellers: FilterQuery<GetBestsellersListItem>
+    public class GetBestsellers: FilterQuery<BestsellersListItem>
     {
     }
 }

@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HightechAngular.Web.Features.Index
 {
-    public class GetBestsellersListItem: HasIdBase
+    public class BestsellersListItem: HasIdBase
     {
-        static GetBestsellersListItem()
+        static BestsellersListItem()
         {
             TypeAdapterConfig<Product, SaleListItem>
                 .NewConfig()

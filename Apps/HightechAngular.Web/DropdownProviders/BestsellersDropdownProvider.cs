@@ -6,7 +6,7 @@ using Infrastructure.SwaggerSchema.Dropdowns.Providers;
 
 namespace HightechAngular.Web.Features.Index
 {
-    public class BestsellersDropdownProvider : IDropdownProvider<GetBestsellersListItem>
+    public class BestsellersDropdownProvider : IDropdownProvider<BestsellersListItem>
     {
         private readonly IServiceProvider _serviceProvider;
 
@@ -17,7 +17,7 @@ namespace HightechAngular.Web.Features.Index
 
         public Task<Dropdowns> GetDropdownOptionsAsync()
         {
-            return _serviceProvider.DropdownsFor<GetBestsellersListItem>();
+            return _serviceProvider.DropdownsFor<BestsellersListItem>();
         }
     }
 }

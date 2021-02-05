@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Force.Cqrs;
 using HightechAngular.Orders.Entities;
 using HightechAngular.Web.Features.Shared;
 using Infrastructure.AspNetCore;
@@ -9,35 +10,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HightechAngular.Web.Features.Catalog
 {
-    public class CatalogController: ApiControllerBase
+    public class CatalogController : ApiControllerBase
     {
-        private readonly IQueryable<Category> _categories;
-        private readonly IQueryable<Product> _products;
-
-        public CatalogController(
-            IQueryable<Category> categories,
-            IQueryable<Product> products)
-        {
-            _categories = categories;
-            _products = products;
-        }
-
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ProductListItem>), StatusCodes.Status200OK)]
-        public IActionResult Get([FromQuery] GetProducts query)
+        public IActionResult Get(
+            [FromServices] IQueryHandler<GetProducts, IEnumerable<ProductListItem>> handler,
+            [FromQuery] GetProducts query)
         {
-            var products = _products
-                .Where(x => x.Category.Id == query.CategoryId)
-                .ProjectToType<ProductListItem>()
-                .ToList();
-            return Ok(products);
+            return Ok(handler.Handle(query));
         }
-        
+
 
         [HttpGet("GetCategories")]
-        public IActionResult GetCategories()
+        public IActionResult GetCategories([FromServices] IQueryable<Category> categories)
         {
-            return Ok(_categories);
+            return Ok(categories);
         }
     }
 }

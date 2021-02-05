@@ -16,7 +16,7 @@ namespace HightechAngular.Web
         {
             services.AddScoped<ICartStorage, CartStorage>();
             services.AddScoped<IDropdownProvider<ProductListItem>, ProductsDropdownProvider>();
-            services.AddScoped<IDropdownProvider<GetBestsellersListItem>, BestsellersDropdownProvider>();
+            services.AddScoped<IDropdownProvider<BestsellersListItem>, BestsellersDropdownProvider>();
             services.AddScoped<IDropdownProvider<NewArrivalsListItem>, NewArrivalsDropdownProvider>();
             services.AddScoped<IDropdownProvider<SaleListItem>, SaleListDropdownProvider>();
             services.AddScoped<IDropdownProvider<CartItem>, CartDropdownProvider>();

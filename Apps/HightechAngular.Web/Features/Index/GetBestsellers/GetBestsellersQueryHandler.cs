@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 namespace HightechAngular.Web.Features.Index.GetBestSellers
 {
     public class GetBestsellersQueryHandler :
-        IQueryHandler<GetBestsellersQuery, IEnumerable<GetBestsellersListItem>>
+        IQueryHandler<GetBestsellersQuery, IEnumerable<BestsellersListItem>>
     {
         private readonly IQueryable<Product> _products;
         public GetBestsellersQueryHandler(IQueryable<Product> products)
         {
             _products = products;
         }
-        public IEnumerable<GetBestsellersListItem> Handle(GetBestsellersQuery input) => 
+        public IEnumerable<BestsellersListItem> Handle(GetBestsellersQuery input) => 
             _products
                 .Where(Product.Specs.IsBestseller)
-                .ProjectToType<GetBestsellersListItem>()
+                .ProjectToType<BestsellersListItem>()
                 .ToList();
     }
 }

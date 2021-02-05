@@ -15,38 +15,28 @@ namespace HightechAngular.Web.Features.Index
     public class IndexController: ApiControllerBase
     {
         [HttpGet("Bestsellers")]
-        public ActionResult<IEnumerable<GetBestsellersListItem>> Get(
-            [FromServices] IQueryHandler<GetBestsellersQuery, IEnumerable<GetBestsellersListItem>> handler,
+        public ActionResult<IEnumerable<BestsellersListItem>> Get(
+            [FromServices] IQueryHandler<GetBestsellersQuery, IEnumerable<BestsellersListItem>> handler,
             [FromQuery] GetBestsellersQuery query)
         {
             return Ok(handler.Handle(query));
         }
 
         [HttpGet("NewArrivals")]
-        [ProducesResponseType(typeof(NewArrivalsListItem), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<NewArrivalsListItem>), StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<NewArrivalsListItem>> Get(
-            [FromServices] IQueryable<Product> _products,
+            [FromServices] IQueryHandler<GetNewArrivals, IEnumerable<NewArrivalsListItem>> handler,
             [FromQuery] GetNewArrivals query)
         {
-            var products = _products
-                .ProjectToType<NewArrivalsListItem>()
-                .OrderByDescending(x => x.DateCreated)
-                .Take(4)
-                .ToList();
-            return Ok(products);
+            return Ok(handler.Handle(query));
         }
 
         [HttpGet("Sale")]
         public ActionResult<IEnumerable<SaleListItem>> Get(
-            [FromServices] IQueryable<Product> _products,
+            [FromServices] IQueryHandler<GetSale, IEnumerable<SaleListItem>> handler,
             [FromQuery] GetSale query)
         {
-            var products = _products
-                .Where(x => x.DiscountPercent > 0)
-                .ProjectToType<SaleListItem>()
-                .ToList();
-
-            return Ok(products);
+            return Ok(handler.Handle(query));
         }
     }
 }
