@@ -1,6 +1,6 @@
 ﻿using Force.Cqrs;
 
-namespace HightechAngular.Web.Features.Account
+namespace HightechAngular.Shop.Features.MyOrders
 {
     public class GetMyOrders : FilterQuery<OrderListItem>
     {

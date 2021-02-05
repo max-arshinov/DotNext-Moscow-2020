@@ -6,9 +6,9 @@ using HightechAngular.Orders.Entities;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HightechAngular.Web.Features.Shared
+namespace HightechAngular.Shop.Features.Catalog
 {
-    public class ProductListItem : HasIdBase
+    public class ProductListItem: HasIdBase
     {
         static ProductListItem()
         {
@@ -19,22 +19,22 @@ namespace HightechAngular.Web.Features.Shared
 
         [Display(Name = "Id")]
         public override int Id { get; set; }
-
+        
         [Display(Name = "Name")]
         public string Name { get; set; }
-
+        
         [Display(Name = "Category")]
         public string CategoryName { get; set; }
-
+        
         [Display(Name = "Price")]
         public double Price { get; set; }
-
+        
         [Display(Name = "Discount Percent")]
         public int DiscountPercent { get; set; }
-
+        
         [Display(Name = "Date Created")]
         public string DateCreatedName { get; set; }
-
+        
         [HiddenInput]
         public DateTime DateCreated { get; set; }
 

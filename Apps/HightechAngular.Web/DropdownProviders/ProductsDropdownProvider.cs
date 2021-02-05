@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using HightechAngular.Orders.Entities;
-using HightechAngular.Web.Features.Shared;
 using Infrastructure.SwaggerSchema.Dropdowns;
 using Infrastructure.SwaggerSchema.Dropdowns.Providers;
 using Microsoft.AspNetCore.Http;

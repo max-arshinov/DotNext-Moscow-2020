@@ -5,13 +5,12 @@ using Force.Ccc;
 using HightechAngular.Identity.Services;
 using HightechAngular.Orders.Entities;
 using HightechAngular.Orders.Services;
-using HightechAngular.Web.Features.Card;
 using Infrastructure.AspNetCore;
 using Infrastructure.Cqrs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HightechAngular.Web.Features.Account
+namespace HightechAngular.Shop.Features.MyOrders
 {
     public class MyOrdersController : ApiControllerBase
     {
@@ -20,9 +19,9 @@ namespace HightechAngular.Web.Features.Account
         private readonly ICartStorage _cartStorage;
         private readonly IUnitOfWork _unitOfWork;
 
-        public MyOrdersController(IQueryable<Order> orders,
-            IUserContext userContext,
-            ICartStorage cartStorage,
+        public MyOrdersController(IQueryable<Order> orders, 
+            IUserContext userContext, 
+            ICartStorage cartStorage, 
             IUnitOfWork unitOfWork)
         {
             _orders = orders;

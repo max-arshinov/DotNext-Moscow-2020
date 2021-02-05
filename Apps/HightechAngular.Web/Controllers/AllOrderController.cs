@@ -3,11 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Force.Ccc;
 using Force.Extensions;
-using HightechAngular.Admin.Features.OrderManagement;
 using HightechAngular.Orders.Entities;
 using HightechAngular.Shop.Features.Cart;
 using HightechAngular.Shop.Features.MyOrders;
-using HightechAngular.Web.Features.Account;
 using Infrastructure.AspNetCore;
 using Infrastructure.Cqrs;
 using Mapster;
@@ -16,7 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace HightechAngular.Web.Features.Admin
+namespace HightechAngular.Admin.Features.OrderManagement
 {
     public class OrderController : ApiControllerBase
     {
@@ -28,7 +26,7 @@ namespace HightechAngular.Web.Features.Admin
             _orders = orders;
             _unitOfWork = unitOfWork;
         }
-
+        
         [HttpGet()]
         [ProducesResponseType(typeof(OrderListItem), StatusCodes.Status200OK)]
         public IActionResult GetAll([FromQuery] GetAllOrders query) =>

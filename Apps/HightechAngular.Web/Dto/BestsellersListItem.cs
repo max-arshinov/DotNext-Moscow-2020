@@ -6,11 +6,11 @@ using HightechAngular.Orders.Entities;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HightechAngular.Web.Features.Index.GetBestSellers
+namespace HightechAngular.Shop.Features.Index
 {
-    public class GetBestsellersListItem : HasIdBase
+    public class BestsellersListItem: HasIdBase
     {
-        static GetBestsellersListItem()
+        static BestsellersListItem()
         {
             TypeAdapterConfig<Product, SaleListItem>
                 .NewConfig()
@@ -20,22 +20,22 @@ namespace HightechAngular.Web.Features.Index.GetBestSellers
 
         [Display(Name = "Id")]
         public override int Id { get; set; }
-
+        
         [Display(Name = "Name")]
         public string Name { get; set; }
-
+        
         [Display(Name = "Category")]
         public string CategoryName { get; set; }
-
+        
         [Display(Name = "Price")]
         public double Price { get; set; }
-
+        
         [Display(Name = "Discount Percent")]
         public int DiscountPercent { get; set; }
-
+        
         [Display(Name = "Date Created")]
         public string DateCreatedName { get; set; }
-
+        
         [HiddenInput]
         public DateTime DateCreated { get; set; }
     }

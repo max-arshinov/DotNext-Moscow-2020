@@ -1,20 +1,18 @@
 using System.Linq;
 using HightechAngular.Orders.Entities;
-using HightechAngular.Shop.Features.Catalog;
-using HightechAngular.Web.Features.Shared;
 using Infrastructure.AspNetCore;
 using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HightechAngular.Web.Features.Catalog
+namespace HightechAngular.Shop.Features.Catalog
 {
-    public class CatalogController : ApiControllerBase
+    public class CatalogController: ApiControllerBase
     {
         private readonly IQueryable<Category> _categories;
         private readonly IQueryable<Product> _products;
 
-        public CatalogController(IQueryable<Category> categories,
+        public CatalogController(IQueryable<Category> categories, 
             IQueryable<Product> products)
         {
             _categories = categories;
@@ -30,7 +28,7 @@ namespace HightechAngular.Web.Features.Catalog
                 .ProjectToType<ProductListItem>();
             return Ok(products);
         }
-
+        
 
         [HttpGet("GetCategories")]
         public IActionResult GetCategories()

@@ -1,6 +1,6 @@
 ﻿using Force.Cqrs;
 
-namespace HightechAngular.Web.Features.Card
+namespace HightechAngular.Shop.Features.MyOrders
 {
     public class CreateOrder : ICommand<int>
     {

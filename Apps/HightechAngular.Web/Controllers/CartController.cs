@@ -8,14 +8,14 @@ using HightechAngular.Orders.Services;
 using Infrastructure.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HightechAngular.Web.Features.Card
+namespace HightechAngular.Shop.Features.Cart
 {
     public class CartController : ApiControllerBase
     {
         private readonly ICartStorage _cartStorage;
         private readonly IQueryable<Product> _products;
 
-        public CartController(ICartStorage cartStorage,
+        public CartController(ICartStorage cartStorage, 
             IQueryable<Product> products)
         {
             _cartStorage = cartStorage;
