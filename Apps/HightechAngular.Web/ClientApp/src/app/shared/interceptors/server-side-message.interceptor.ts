@@ -15,7 +15,12 @@ export class ServerSideMessageInterceptor implements HttpInterceptor {
       .pipe(
         catchError(err => {
           if (err.status == 422 || err.status == 500) {
-            this.showCompleteMessageService.show(err.error.title);
+            let message = err.error.title;
+            if(!message){
+              message = 'Internal Server Error';
+            }
+
+            this.showCompleteMessageService.show(message);
           }
 
           return throwError(err);
