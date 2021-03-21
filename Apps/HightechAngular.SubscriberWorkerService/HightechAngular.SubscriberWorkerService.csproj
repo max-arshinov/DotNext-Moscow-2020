@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <UserSecretsId>dotnet-HightechAngular.SubscriberWorkerService-6A635E57-A6C7-42C9-802A-7961B0537AF9</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Force" Version="2.0.0-alpha3" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+        <PackageReference Include="RabbitMQ.Client" Version="6.2.1" />
+    </ItemGroup>
+</Project>
