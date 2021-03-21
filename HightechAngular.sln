@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HightechAngular.Core", "Mod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HightechAngular.SubscriberWorkerService", "Apps\HightechAngular.SubscriberWorkerService\HightechAngular.SubscriberWorkerService.csproj", "{0465A9A5-F1D4-4BF6-85DC-59B8B0C93C90}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HightechAngular.DomainEvents", "Modules\HightechAngular.DomainEvents\HightechAngular.DomainEvents.csproj", "{D695B58A-7B53-46EF-AAF0-B749AA0E3EE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{0465A9A5-F1D4-4BF6-85DC-59B8B0C93C90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0465A9A5-F1D4-4BF6-85DC-59B8B0C93C90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0465A9A5-F1D4-4BF6-85DC-59B8B0C93C90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D695B58A-7B53-46EF-AAF0-B749AA0E3EE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D695B58A-7B53-46EF-AAF0-B749AA0E3EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D695B58A-7B53-46EF-AAF0-B749AA0E3EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D695B58A-7B53-46EF-AAF0-B749AA0E3EE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E3752432-B129-4DD3-BA40-61A7C7A8BD06} = {C83C800C-AF2F-4412-8579-D2EB13FEFF36}
@@ -79,5 +85,6 @@ Global
 		{56A79706-420B-4AEF-8D9F-AD3443906F69} = {0FF4290E-5A6D-4EED-8C3C-134A5391E2E2}
 		{6A298891-B59D-43F6-AAC3-5C21503AA3E5} = {3C082DCE-3D2C-43FC-943D-9A79326D02E3}
 		{0465A9A5-F1D4-4BF6-85DC-59B8B0C93C90} = {C83C800C-AF2F-4412-8579-D2EB13FEFF36}
+		{D695B58A-7B53-46EF-AAF0-B749AA0E3EE5} = {3C082DCE-3D2C-43FC-943D-9A79326D02E3}
 	EndGlobalSection
 EndGlobal

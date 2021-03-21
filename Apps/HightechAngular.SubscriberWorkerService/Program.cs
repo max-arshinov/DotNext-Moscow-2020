@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace HightechAngular.SubscriberWorkerService
 {
@@ -17,6 +18,11 @@ namespace HightechAngular.SubscriberWorkerService
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host
                 .CreateDefaultBuilder(args)
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                })                
                 .ConfigureServices((_, services) =>
                 {
                     // TODO: зарегистрировать обработчики DomainEvents

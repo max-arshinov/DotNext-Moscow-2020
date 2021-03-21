@@ -125,7 +125,7 @@ namespace Infrastructure.Extensions
 
         private static void AddInfrastructure(IServiceCollection services)
         {
-            services.TryAddScoped<IHandler<IEnumerable<IDomainEvent>>, DomainEventDispatcher>();
+            services.TryAddScoped<IHandler<IEnumerable<IDomainEvent>>, RabbitDomainEventDispatcher>();
             services.TryAddScoped<IUnitOfWork, EfCoreUnitOfWork>();
             services.TryAddScoped(typeof(IWorkflow<,>), typeof(HandlerWorkflowFactory<,>));
             services.TryAddScoped(typeof(IAsyncWorkflow<,>), typeof(HandlerAsyncWorkflowFactory<,>));

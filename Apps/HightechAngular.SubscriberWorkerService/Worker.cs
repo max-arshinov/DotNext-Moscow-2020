@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Force.Cqrs;
 using Force.Ddd.DomainEvents;
+using HightechAngular.DomainEvents;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -46,15 +49,8 @@ namespace HightechAngular.SubscriberWorkerService
                 
                 consumer.Received += (model, ea) =>
                 {
-                    using (var memStream = new MemoryStream())
-                    {
-                        var body = ea.Body.ToArray();
-                        var binForm = new BinaryFormatter();
-                        memStream.Write(body, 0, body.Length);
-                        memStream.Seek(0, SeekOrigin.Begin);
-                        var message = binForm.Deserialize(memStream);
-                        Dispatch(message);
-                    }
+                    var message = Deserialize(ea);
+                    Dispatch(message);
                 };
                 channel.BasicConsume(queue: queueName,
                     autoAck: true,
@@ -66,6 +62,14 @@ namespace HightechAngular.SubscriberWorkerService
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
             }
+        }
+        
+        private static DomainEventMessage[] Deserialize(BasicDeliverEventArgs input)
+        {
+            var body = input.Body.ToArray();
+            var message = Encoding.UTF8.GetString(body);
+            
+            return JsonConvert.DeserializeObject<DomainEventMessage[]>(message);
         }
 
         private void Dispatch(dynamic message)
