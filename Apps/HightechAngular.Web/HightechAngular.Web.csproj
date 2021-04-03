@@ -22,6 +22,39 @@
     </ItemGroup>
     <ItemGroup>
         <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+        <None Remove="out\wwwroot\favicon.ico" />
+        <None Remove="out\wwwroot\Identity\lib\jquery\dist\jquery.min.map" />
+        <None Remove="out\wwwroot\Identity\lib\jquery\dist\jquery.min.js" />
+        <None Remove="out\wwwroot\Identity\lib\jquery\LICENSE.txt" />
+        <None Remove="out\wwwroot\Identity\lib\jquery-validation\dist\jquery.validate.js" />
+        <None Remove="out\wwwroot\Identity\lib\jquery-validation\dist\jquery.validate.min.js" />
+        <None Remove="out\wwwroot\Identity\lib\jquery-validation\dist\additional-methods.min.js" />
+        <None Remove="out\wwwroot\Identity\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+        <None Remove="out\wwwroot\Identity\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\js\bootstrap.js" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\js\bootstrap.min.js" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\css\bootstrap-grid.css" />
+        <None Remove="out\wwwroot\Identity\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+        <None Remove="out\wwwroot\Identity\favicon.ico" />
+        <None Remove="out\SwaggerSchema.xml" />
+        <None Remove="out\ClientApp\dist\styles.15424f1dee4dff460821.css" />
+        <None Remove="out\ClientApp\dist\runtime-es5.aa341ca7c18ff0e09a8a.js" />
+        <None Remove="out\ClientApp\dist\runtime-es2015.aa341ca7c18ff0e09a8a.js" />
+        <None Remove="out\ClientApp\dist\polyfills-es5.967b418d5b5fe213917e.js" />
+        <None Remove="out\ClientApp\dist\main-es5.cbd475dbdb3225bf9545.js" />
+        <None Remove="out\ClientApp\dist\main-es2015.cbd475dbdb3225bf9545.js" />
+        <None Remove="out\ClientApp\dist\index.html" />
+        <None Remove="out\ClientApp\dist\5-es5.5f08fb56357c536fc394.js" />
     </ItemGroup>
     <ItemGroup>
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
@@ -32,6 +65,10 @@
         <None Remove="$(SpaRoot)**" />
         <None Remove="Areas\Identity\Pages\Account\Manage\**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+        <Content Remove="out\web.config" />
+        <Content Remove="out\appsettings.json" />
+        <Content Remove="out\appsettings.Development.json" />
+        <Content Remove="out\HightechAngular.Web.deps.json" />
     </ItemGroup>
     <ItemGroup>
       <Compile Remove="Areas\Identity\CustomIdentityErrorDescriber.cs" />
@@ -58,6 +95,22 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\Data\HightechAngular.Data\HightechAngular.Data.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="out\ClientApp\dist" />
+      <Folder Include="out\runtimes\alpine-x64\native" />
+      <Folder Include="out\runtimes\linux-arm64\native" />
+      <Folder Include="out\runtimes\linux-arm\native" />
+      <Folder Include="out\runtimes\linux-musl-x64\native" />
+      <Folder Include="out\runtimes\linux-x64\native" />
+      <Folder Include="out\runtimes\linux-x86\native" />
+      <Folder Include="out\runtimes\osx-x64\native" />
+      <Folder Include="out\wwwroot\Identity\css" />
+      <Folder Include="out\wwwroot\Identity\js" />
+      <Folder Include="out\wwwroot\Identity\lib\bootstrap\dist\js" />
+      <Folder Include="out\wwwroot\Identity\lib\jquery-validation-unobtrusive" />
+      <Folder Include="out\wwwroot\Identity\lib\jquery-validation\dist" />
+      <Folder Include="out\wwwroot\Identity\lib\jquery\dist" />
     </ItemGroup>
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
         <!-- Ensure Node.js is installed -->
